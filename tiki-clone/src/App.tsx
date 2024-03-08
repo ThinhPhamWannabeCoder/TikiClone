@@ -2,12 +2,14 @@ import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } 
 import RootLayout from "./components/layout/RootLayout";
 import Login from "./pages/Auth/Login";
 import {login} from "./utils/Auth"
+import User from "./pages/User/User";
 
 // Sap xep route trong nay buoc 1, buoc sau la de router ben ngoai
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout/>}>
       <Route path='login' element={<Login/>} action={login}></Route>
+      <Route path='user' element={<User/>} ></Route>
     </Route>
   )
 )

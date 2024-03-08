@@ -1,11 +1,9 @@
 import { Form, useActionData } from "react-router-dom";
 
 export default function LoginForm(){
-    // const data:{
-    //     email: string,
-    //     passwrod: string,
-    // } = useActionData()
-    // Gom 2 phan, anh va phan login
+
+    const data = useActionData();
+
     return (
         <div className="bg-slate-400">
             <h3>This is  Login Form</h3>
@@ -21,7 +19,7 @@ export default function LoginForm(){
                 <button>Submit</button>
 
             </Form>
-            {/* {data.email} */}
+            {data && data.error && (<p className="text-red-500">Login again</p>)} 
         </div>
     )
 }
