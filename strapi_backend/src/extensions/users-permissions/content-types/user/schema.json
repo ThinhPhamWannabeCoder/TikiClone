@@ -65,22 +65,23 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "birthdate": {
-      "type": "date"
+    "notification_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification-user.notification-user",
+      "mappedBy": "receiver_id"
     },
-    "mobile": {
-      "type": "string",
-      "unique": true
+    "address_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::address-user.address-user",
+      "mappedBy": "user_id"
     },
-    "Gender": {
-      "type": "enumeration",
-      "enum": [
-        "Male",
-        "Female"
-      ]
-    },
-    "bio": {
-      "type": "text"
+    "infomation_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::infomation-user.infomation-user",
+      "mappedBy": "user_id"
     }
   }
 }

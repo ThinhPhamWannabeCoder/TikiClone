@@ -1,6 +1,6 @@
 export default function Footer(){
     return (
-        <div>
+        <div className="bg-slate-500 text-white">
             Footer
         </div>
     )

@@ -362,6 +362,135 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiAddressUserAddressUser extends Schema.CollectionType {
+  collectionName: 'address_users';
+  info: {
+    singularName: 'address-user';
+    pluralName: 'address-users';
+    displayName: 'address_user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user_id: Attribute.Relation<
+      'api::address-user.address-user',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    default_address: Attribute.Boolean & Attribute.DefaultTo<false>;
+    receiver_name: Attribute.String & Attribute.Required;
+    address_detail: Attribute.Text & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
+    company_name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::address-user.address-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::address-user.address-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInfomationUserInfomationUser extends Schema.CollectionType {
+  collectionName: 'infomation_users';
+  info: {
+    singularName: 'infomation-user';
+    pluralName: 'infomation-users';
+    displayName: 'infomation_user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    avatar: Attribute.Media;
+    Nickname: Attribute.String;
+    birthdate: Attribute.Date;
+    user_id: Attribute.Relation<
+      'api::infomation-user.infomation-user',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::infomation-user.infomation-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::infomation-user.infomation-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNotificationUserNotificationUser
+  extends Schema.CollectionType {
+  collectionName: 'notification_users';
+  info: {
+    singularName: 'notification-user';
+    pluralName: 'notification-users';
+    displayName: 'notification_user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'NON-REPLY'>;
+    receiver_id: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'oneToMany',
+      'api::notification-user.notification-user'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products';
   info: {
@@ -816,10 +945,21 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    birthdate: Attribute.Date;
-    mobile: Attribute.String & Attribute.Unique;
-    Gender: Attribute.Enumeration<['Male', 'Female']>;
-    bio: Attribute.Text;
+    notification_users: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::notification-user.notification-user'
+    >;
+    address_users: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::address-user.address-user'
+    >;
+    infomation_user: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::infomation-user.infomation-user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -847,6 +987,9 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::address-user.address-user': ApiAddressUserAddressUser;
+      'api::infomation-user.infomation-user': ApiInfomationUserInfomationUser;
+      'api::notification-user.notification-user': ApiNotificationUserNotificationUser;
       'api::product.product': ApiProductProduct;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;

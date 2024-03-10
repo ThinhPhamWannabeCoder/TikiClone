@@ -13,7 +13,7 @@ export default function RootLayout(){
             <div>
                 This is root Layout
             </div>
-            <main>
+            <main className="flex flex-col items-center">
                 <Outlet/>
             </main>
             <div>
