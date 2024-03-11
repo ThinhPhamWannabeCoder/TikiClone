@@ -4,13 +4,14 @@ import Login from "./pages/Auth/Login";
 import {login} from "./utils/auth"
 import User from "./pages/User/User";
 import Register from "./pages/Auth/Register";
-import UserInfo from "./components/user/UserInfo";
+import UserInfo, { checkData } from "./components/user/UserInfo";
 import UserNoti from "./components/user/UserNoti";
 import BuyerOrder from "./components/user/BuyerOrder";
 import UserAddress from "./components/user/UserAddress";
 import NotFound from "./components/common/NotFound";
 import UserError from "./components/error/UserError";
 import Layout from "./components/layout/Layout";
+import UserLayout from "./components/layout/UserLayout";
 
 
 // Sap xep route trong nay buoc 1, buoc sau la de router ben ngoai
@@ -24,10 +25,11 @@ const router = createBrowserRouter(
         {/* Route use nay dang ra nen la phan layout */}
         
         <Route path='user' element={
-            <User/>
+            // <User/>
+            <UserLayout/>
         
         } errorElement={<UserError/>}>
-          <Route path='info' element={<UserInfo/>}></Route>
+          <Route path='info' element={<UserInfo/>} action={checkData}></Route>
           <Route path='noti' element={<UserNoti/>}></Route>
           <Route path='order' element={<BuyerOrder/>}></Route>
           <Route path='address' element={<UserAddress/>}></Route>

@@ -27,7 +27,7 @@ export default function LoginForm(){
             <Form method = "post" action="/login" className="" onSubmit={handleSubmitEvent} >
                 <label>
                     <span  className="block text-gray-700 text-sm font-bold mb-2">Email</span>
-                    <input type="email" name="email" className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin" required />
+                    <input type="email" name="email" className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
                 </label>
                 <label>
                     <span className="block text-gray-700 text-sm font-bold mb-2">Password</span>
