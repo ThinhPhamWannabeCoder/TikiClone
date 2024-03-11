@@ -7,11 +7,12 @@ import { userInfoUrl } from "../config";
 import { User } from "../types/user";
 
 
-const getUserData = async (): Promise<User> => {
+// const getUserData = 
+async function getUserData (): Promise<User>{
   try {
     const response1 = await axios.get(userUrl, {
       headers: {
-        Authorization: 'Bearer ' + Cookies.get('jwt'),
+        Authorization: `Bearer ${Cookies.get('jwt')}`,
       },
     });
 
@@ -47,6 +48,29 @@ const getUserData = async (): Promise<User> => {
     console.error(err);
     throw err; // Re-throw the error to handle it in the component
   }
-};
+}
 
-export default getUserData;
+async function updateUserData(data:any){
+  try {
+    // const response = await axios.put(userUrl, {
+    //   headers: {
+    //     Authorization: `Bearer ${Cookies.get('jwt')}`,
+    //   },
+    //   data: data
+    // });
+    const response = await axios({
+      method: 'put',
+      url: userUrl,
+      headers: {
+        Authorization: `Bearer ${Cookies.get('jwt')}`,
+      },
+      data: data
+    });
+    
+    return response
+  } catch (err) {
+    return err; 
+  }
+}
+
+export {getUserData, updateUserData};

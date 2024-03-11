@@ -18,7 +18,7 @@ export default function BreadCrumbs(){
             )
         })
     return (
-        <div className="flex w-2/3">
+        <div className="flex w-5/6">
             {crumbs}
         </div>
     )

@@ -4,10 +4,10 @@ import Login from "./pages/Auth/Login";
 import {login} from "./utils/auth"
 import User from "./pages/User/User";
 import Register from "./pages/Auth/Register";
-import UserInfo, { checkData } from "./components/user/UserInfo";
-import UserNoti from "./components/user/UserNoti";
-import BuyerOrder from "./components/user/BuyerOrder";
-import UserAddress from "./components/user/UserAddress";
+import UserInfo, { checkData } from "./pages/User/UserInfo";
+import UserNoti from "./pages/User/UserNoti";
+import BuyerOrder from "./pages/User/BuyerOrder";
+import UserAddress from "./pages/User/UserAddress";
 import NotFound from "./components/common/NotFound";
 import UserError from "./components/error/UserError";
 import Layout from "./components/layout/Layout";

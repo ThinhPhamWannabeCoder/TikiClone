@@ -6,19 +6,11 @@ export default function LoginForm(){
 
     const data = useActionData() as { status: number; error?: string };
     const auth = useAuth();
-    // useEffect(() => {
-    //     // Use the data and perform actions based on the result
-    //     if (data.status === 200) {
-    //       login({ id: 2 });
-    //     }
-    //   }, [data.status, login]);
+
     const handleSubmitEvent = async (e) => {
-        // e.preventDefault();
-        // if (input.username !== "" && input.password !== "") {
             auth.login({id:1});
           return;
-        // }
-        // alert("pleae provide a valid input");
+
       };
     return (
         <div className="w-full max-w-xs bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4">
