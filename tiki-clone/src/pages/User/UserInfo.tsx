@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { User } from "../../types/user";
-import getUserData, { updateUserData } from "../../utils/userData";
 import { Form, Link, useActionData } from "react-router-dom";
 import { EnvelopeIcon, PhoneArrowDownLeftIcon } from "@heroicons/react/24/outline";
 import {thinh_avatar} from '../../assets/images/image'
@@ -9,11 +8,12 @@ import NameInput from "../../components/user/Form/NameInput";
 import BirthDateInput from "../../components/user/Form/BirthDateInput";
 import GenderInput from "../../components/user/Form/GenderInput";
 import userApi from "../../services/user.services";
+import Cookies from 'js-cookie';
 
-const mockData = {
+const mockData:User = {
     name: "Phạm Tiến Thịnh",
     nickname: "",
-    birthdate: '2003-12-04',
+    birthDate: "2003-09-04",
     gender: 'male',
     // country: '',
     phone: '0971933424',
@@ -21,10 +21,16 @@ const mockData = {
 
 }
 
+interface birthdate{
+    day: string,
+    month: string,
+    year: string,
+}
 export default function UserInfo(){
     // throw Error('ehehe')
     const data = useActionData();
-    const [year, month, day] = mockData.birthdate.split('-');
+    const [year, month, day] = mockData.birthDate.split('-');
+
     // const [userData, setUserData] = useState(null)
     // useEffect(()=>{
     //     // console.log(data[0])
@@ -36,6 +42,19 @@ export default function UserInfo(){
     //     //     console?.log('Your not authenticated')
     //     // }
     // },[data])
+    const [userData, setUserData] = useState<User>(mockData)
+    useEffect(()=>{
+        getUserData()
+            .then(data=>{
+                console.log(data)
+            })
+            .catch(err=>{
+                console.log(err))
+            });
+        
+        
+        // console.log(getUserData());
+    },[])
     return(
         <div className=" p-5 bg-white w-full rounded-lg flex">
             <div className="personinfo border-r-2 pr-4" >
@@ -94,12 +113,52 @@ export const checkData = async ({request})=>{
     try {
         const data = await request.formData();
         // const response = await updateUserData(data);
-        const response = await userApi.product()
-        if(response.status === 200){
-            return {status: 200, data: response.data.data[0]}
+        // console.log(Cookies.get('jwt'))
+        const authResponse = await userApi.user()
+        console.log(authResponse.data.infomation_user.phone)
+        const result: User ={
+            name: authResponse.data.username,
+            nickname: authResponse.data.infomation_user.Nickname || '',
+            birthDate:authResponse.data.infomation_user.birthdate || '',
+            gender: authResponse.data.infomation_user.gender || '',
+            phone: authResponse.data.infomation_user.phone || '',
+            email: authResponse.data.infomation_user.email ||'',
         }
+        console.log(result);
+        // console.log(result);
+        // if(response.status === 200){
+        return(1);
+            return {status: 200, data: response.data.data[0]}
+        // }
         throw Error("Internal Server Error")
     } catch (error) {
+        console.log(error)
+        if(error.response.status===403){
+            return({status: 403, data: null})
+        }
+        return({status: 500, data:null})
+    }
+    
+}
+export const getUserData = async (): Promise< { status: number; data: User| null }>=>{
+    try {
+
+        const authResponse = await userApi.user()
+
+        const result: User ={
+            name: authResponse.data.username,
+            nickname: authResponse.data.infomation_user.Nickname || '',
+            birthDate:authResponse.data.infomation_user.birthdate,
+            gender: authResponse.data.infomation_user.gender || '',
+            phone: authResponse.data.infomation_user.phone || '',
+            email: authResponse.data.infomation_user.email ||'',
+        }
+
+        return({status: 200, data: result});
+        
+  
+    } catch (error) {
+        console.log(error)
         if(error.response.status===403){
             return({status: 403, data: null})
         }
