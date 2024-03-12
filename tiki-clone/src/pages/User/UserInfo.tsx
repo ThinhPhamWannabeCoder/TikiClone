@@ -8,6 +8,7 @@ import ImageInput from "../../components/user/Form/ImageInput";
 import NameInput from "../../components/user/Form/NameInput";
 import BirthDateInput from "../../components/user/Form/BirthDateInput";
 import GenderInput from "../../components/user/Form/GenderInput";
+import userApi from "../../services/user.services";
 
 const mockData = {
     name: "Phạm Tiến Thịnh",
@@ -92,7 +93,8 @@ export default function UserInfo(){
 export const checkData = async ({request})=>{
     try {
         const data = await request.formData();
-        const response = await updateUserData(data);
+        // const response = await updateUserData(data);
+        const response = await userApi.product()
         if(response.status === 200){
             return {status: 200, data: response.data.data[0]}
         }

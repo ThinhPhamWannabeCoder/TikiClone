@@ -3,6 +3,7 @@ import { useAuthContext } from "../../components/auth/AuthProvider";
 import LoginForm from "../../components/auth/LoginForm";
 import { sendLogin } from "../../utils/auth";
 import Cookies from 'js-cookie';
+import authApi from "../../services/auth.services";
 interface LoginProps{
     identifier: string;
     password: string
@@ -33,7 +34,7 @@ export const login = async ({request}):Promise<LoginResponse>=>{
             identifier: data.get('email'),
             password: data.get('password')
           };
-        const response = await sendLogin(submission);
+        const response = await authApi.login(submission);
 
         if(response.status===200){
             Cookies.set('jwt', response.data.jwt);

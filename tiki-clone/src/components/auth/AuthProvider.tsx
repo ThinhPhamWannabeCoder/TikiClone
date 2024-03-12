@@ -7,7 +7,7 @@ interface ContextProps{
   login: (input: User)=> void;
   logout: (input: User) => void;
   // testf : (input: number)=>void;
-  // test: number
+  test: number
 }
 
 
@@ -33,7 +33,7 @@ export default function AuthProvider({
     login: login,
     logout: logout,
     // testf: testf,
-    // test: number1
+    test: 7
   }
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }
