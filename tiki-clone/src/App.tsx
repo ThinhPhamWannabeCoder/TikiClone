@@ -1,7 +1,6 @@
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import RootLayout from "./components/layout/RootLayout";
-import Login from "./pages/Auth/Login";
-import {login} from "./utils/auth"
+import Login, { login } from "./pages/Auth/Login";
 import User from "./pages/User/User";
 import Register from "./pages/Auth/Register";
 import UserInfo, { checkData } from "./pages/User/UserInfo";
@@ -12,6 +11,7 @@ import NotFound from "./components/common/NotFound";
 import UserError from "./components/error/UserError";
 import Layout from "./components/layout/Layout";
 import UserLayout from "./components/layout/UserLayout";
+import AuthProvider from "./components/auth/AuthProvider";
 
 
 // Sap xep route trong nay buoc 1, buoc sau la de router ben ngoai
@@ -44,7 +44,9 @@ const router = createBrowserRouter(
 function App() {
 
   return (
-     <RouterProvider router={router}/>
+    <AuthProvider>
+      <RouterProvider router={router}/>
+    </AuthProvider>
 
   )
 }

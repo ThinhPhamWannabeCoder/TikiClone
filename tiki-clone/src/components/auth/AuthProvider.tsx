@@ -1,41 +1,50 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-import { User1 } from '../../types/user';
+import { User} from '../../types/user';
 
-const AuthContext = createContext<User1 | null>(null);
+interface ContextProps{
+  data: User | null;
+  login: (input: User)=> void;
+  logout: (input: User) => void;
+  // testf : (input: number)=>void;
+  // test: number
+}
 
-type AuthProviderProps = PropsWithChildren & {
-  isSignedIn?: boolean;
-};
+
+const AuthContext = createContext<ContextProps | undefined>(undefined);
 
 export default function AuthProvider({
-  children,
-  isSignedIn,
-}: AuthProviderProps) {
-  // Uses `isSignedIn` prop to determine whether or not to render a user
-  const [user, setUser] = useState(null);
+  children
+}: PropsWithChildren) {
 
-  const login = (input:User1) =>{
-    console.log(input);
-    console.log("old user", user)
+  const [user, setUser] = useState<User | null>(null);
+  // const [number1, setNumber] = useState<number>(1);
+  // const testf = (input:number) =>{
+  //   setNumber(input)
+  // }
+  const login = (input:User) =>{
     setUser(input)
-    console.log("new user", user)
-
-    
   }
   const logout = ()=>{
     setUser(null)
   }
-  const hi = 1;
-  return <AuthContext.Provider value={{user, hi, login, logout}}>{children}</AuthContext.Provider>;
+  const contextValue: ContextProps={
+    data: user,
+    login: login,
+    logout: logout,
+    // testf: testf,
+    // test: number1
+  }
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-
-  if (context === undefined) {
+  if (context?.data === null) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
-
   return context;
 };
+export const useAuthContext = () =>{
+  return useContext(AuthContext);
+}

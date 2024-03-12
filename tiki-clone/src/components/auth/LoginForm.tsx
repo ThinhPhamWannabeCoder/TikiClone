@@ -1,22 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { Form, Link, useActionData} from "react-router-dom";
-import { useAuth } from "./AuthProvider";
+import { useAuthContext } from "./AuthProvider";
 
 export default function LoginForm(){
-
+    const context = useAuthContext();
     const data = useActionData() as { status: number; error?: string };
-    const auth = useAuth();
-
-    const handleSubmitEvent = async (e) => {
-            auth.login({id:1});
-          return;
-
-      };
+    // useEffect(()=>{
+    //     // console.log(context?.test)
+    //     context?.testf(9);
+    //     console.log(context?.test)
+    // },[data])
     return (
-        <div className="w-full max-w-xs bg-white  shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h1 className="font-bold">Xin chào</h1>
-            <h3 className="mb-4">Đăng nhập hoặc tạo tài khoản mới</h3>
-            <Form method = "post" action="/login" className="" onSubmit={handleSubmitEvent} >
+            <Form method = "post" action="/login" className="" >
                 <label>
                     <span  className="block text-gray-700 text-sm font-bold mb-2">Email</span>
                     <input type="email" name="email" className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
@@ -39,14 +34,11 @@ export default function LoginForm(){
                     </button>
                     <Link to="/register">
                         <button
-                        className="mt-4 transition duration-200 bg-red-500 hover:bg-red-700 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-
-                        >Đăng ký</button>
+                            className="mt-4  bg-red-500 hover:bg-red-700 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        >Đăng ký
+                        </button>
                     </Link>
-                </div>
-                
-
+                </div>   
             </Form>
-        </div>
     )
 }

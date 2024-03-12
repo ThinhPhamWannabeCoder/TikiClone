@@ -3,7 +3,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { userUrl } from "../config";
-import { userInfoUrl } from "../config";
+import { userInfoUrl, productUrl } from "../config";
 import { User } from "../types/user";
 
 
@@ -51,26 +51,17 @@ async function getUserData (): Promise<User>{
 }
 
 async function updateUserData(data:any){
-  try {
-    // const response = await axios.put(userUrl, {
-    //   headers: {
-    //     Authorization: `Bearer ${Cookies.get('jwt')}`,
-    //   },
-    //   data: data
-    // });
+
     const response = await axios({
-      method: 'put',
-      url: userUrl,
+      method: 'get',
+      url: productUrl,
       headers: {
         Authorization: `Bearer ${Cookies.get('jwt')}`,
       },
-      data: data
+      // data: data
     });
-    
     return response
-  } catch (err) {
-    return err; 
-  }
+
 }
 
 export {getUserData, updateUserData};
