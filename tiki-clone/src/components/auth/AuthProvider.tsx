@@ -3,11 +3,11 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { User} from '../../types/user.types';
 
 interface ContextProps{
-  data: User | null;
+  data: User | undefined;
   login: (input: User)=> void;
-  logout: (input: User) => void;
+  logout: () => void;
   // testf : (input: number)=>void;
-  test: number
+  // number1: number
 }
 
 
@@ -17,7 +17,7 @@ export default function AuthProvider({
   children
 }: PropsWithChildren) {
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | undefined>(undefined);
   // const [number1, setNumber] = useState<number>(1);
   // const testf = (input:number) =>{
   //   setNumber(input)
@@ -26,14 +26,14 @@ export default function AuthProvider({
     setUser(input)
   }
   const logout = ()=>{
-    setUser(null)
+    setUser(undefined)
   }
   const contextValue: ContextProps={
     data: user,
     login: login,
     logout: logout,
     // testf: testf,
-    test: 7
+    // number1: number1
   }
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

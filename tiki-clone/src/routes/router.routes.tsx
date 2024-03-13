@@ -13,12 +13,11 @@ export default function Provider(){
     // console.log(context?.test)
     
     // Check  Buyer -> Duoc vao protected Route
+    // Su dung duoc roi xoa di
+    if(context?.data===undefined){
+        return (<RouterProvider router={publicRoutes}/>)
 
-    // Con khong thi se phai tra ve Public only
-
-    //  DAng nhap xong thi cap nhat lai
-
-    // 
-    return (<RouterProvider router={publicRoutes}/>)
+    }
+    return (<RouterProvider router={protectedRoutes}/>)
 
 }

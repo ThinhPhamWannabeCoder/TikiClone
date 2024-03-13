@@ -8,10 +8,6 @@ interface LoginProps{
     identifier: string;
     password: string
   }
-interface LoginResponse {
-    status?: number;
-    error?: string; // Make error field optional
-}
 
 export default function Login(){
     // const context = useAuthContext();
@@ -26,30 +22,3 @@ export default function Login(){
     )
 }
 
-
-export const login = async ({request}):Promise<LoginResponse>=>{
-    try{
-        const data = await request.formData();
-        const submission: LoginProps = {
-            identifier: data.get('email'),
-            password: data.get('password')
-          };
-        const response = await authApi.login(submission);
-
-        if(response.status===200){
-            await Cookies.set('jwt', response.data.jwt);
-            // console.log(Cookies.get('jwt'))
-
-            return redirect('/user')
-        }
-        // return {status:200, data: }
-        throw new Error('Inter Server Error');
-    }
-    catch(err){
-        if(err.response.status==400){
-            return {status:400, error: 'Invalid  Credentials'}
-        }
-        console.error(err);
-        return { status: 500, error: 'Internal server error' };
-    }
-}

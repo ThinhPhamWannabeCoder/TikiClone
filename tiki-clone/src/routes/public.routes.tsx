@@ -1,6 +1,6 @@
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useNavigate } from "react-router-dom";
 import RootLayout from "../components/layout/RootLayout";
-import Login, { login } from "../pages/Auth/Login";
+import Login  from "../pages/Auth/Login";
 import User from "../pages/User/User";
 import Register from "../pages/Auth/Register";
 import UserInfo, {  updateUserInfo } from "../pages/User/UserInfo";
@@ -17,7 +17,7 @@ const publicRoutes = createBrowserRouter(
       <Route  element={<Layout/>}>
         <Route path='/' element= {<RootLayout/>}>
           {/* <Route path='auth'></Route> */}
-          <Route path='login' element={<Login/>} action={login}></Route>
+          <Route path='login' element={<Login/>}></Route>
           <Route path='register' element= 
           {<Register/>}
         >
@@ -26,7 +26,9 @@ const publicRoutes = createBrowserRouter(
           
           <Route path='user' element={
               // <User/
-              <UserLayout/>
+              // <UserLayout/>
+              <Navigate to="/login" replace></Navigate>
+
           
           } errorElement={<UserError/>}>
             

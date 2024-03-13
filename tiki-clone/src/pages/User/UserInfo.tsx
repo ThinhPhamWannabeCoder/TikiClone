@@ -9,16 +9,8 @@ import BirthDateInput from "../../components/user/Form/BirthDateInput";
 import GenderInput from "../../components/user/Form/GenderInput";
 import userApi from "../../services/user.services";
 import Cookies from 'js-cookie';
+import { useAuthContext } from "../../components/auth/AuthProvider";
 
-const mockData = {
-    name: "Phạm Tiến Thịnh",
-    nickname: "",
-    birthDate: "2003-09-04",
-    gender: 'male',
-    // country: '',
-    phone: '0971933424',
-    email: 'thinhbinhthuong@gmail.com'
-}
 const dataHolder: User ={
     user_id: 1,
     name: 'Vũ Trung Tiến',
@@ -33,24 +25,24 @@ const dataHolder: User ={
 export default function UserInfo(){
     // throw Error('ehehe')
     const data = useActionData();
+    const context = useAuthContext();
 
     const [userData, setUserData] = useState<User | null>(null)
-  
+    // console.log(context?.number1)
     useEffect(()=>{
-        getUserData()
-            .then(res=>{
-                if(res.status === 200){
-                    console.log(res.data)
-                    setUserData(res.data)
-                }
-            })
-            .catch(err=>{
-                console.log(err)
-            });
+        setUserData(context?.data)
 
     },[])
     if(!userData){
         return <div>Loading...</div>;
+    }
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        try {
+            
+        } catch (error) {
+            
+        }
     }
     return(
         <div className=" p-5 bg-white w-full rounded-lg flex">
@@ -123,34 +115,3 @@ export const updateUserInfo = async ({request})=>{
     
 }
 
-// GEt and construct user Data
-export const getUserData = async (): Promise< { status: number; data: User }>=>{
-    try {
-
-        const authResponse = await userApi.user()
-        // console.log(authResponse.data.role.name)
-        const userInfo = await userApi.get_info_user(authResponse.data.id)
-        // console.log(userInfo.data.data.attributes.Nickname)
-        const result: User ={
-            user_id: authResponse.data.id,
-            name: authResponse.data.username,
-            email:authResponse.data.email,
-            information_id: userInfo.data.data.id,
-            nickname: userInfo.data.data.attributes.Nickname||'',
-            birthdate: userInfo.data.data.attributes.birthdate||'',
-            gender: userInfo.data.data.attributes.gender||'',
-            phone: userInfo.data.data.attributes.phone ||'',
-            role: authResponse.data.role.name,
-        }
-
-        return {status: 200, data: result}
-  
-    } catch (error) {
-        console.log(error)
-        if(error.response.status===403){
-            return({status: 403, data: dataHolder})
-        }
-        return({status: 500, data:dataHolder})
-    }
-    
-}
