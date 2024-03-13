@@ -9,4 +9,11 @@ const axiosProtected = axios.create({
         'Authorization': `Bearer ${Cookies.get('jwt')}`
     },
 })
-export default axiosProtected
+const axiosMultiPartProtected = axios.create({
+    baseURL: `${DOMAIN_API}`,
+    headers:{
+        'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+        'Authorization': `Bearer ${Cookies.get('jwt')}`
+    }
+})
+export {axiosProtected, axiosMultiPartProtected}

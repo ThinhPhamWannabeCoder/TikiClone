@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-import { User} from '../../types/user';
+import { User} from '../../types/user.types';
 
 interface ContextProps{
   data: User | null;

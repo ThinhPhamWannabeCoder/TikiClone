@@ -37,7 +37,9 @@ export const login = async ({request}):Promise<LoginResponse>=>{
         const response = await authApi.login(submission);
 
         if(response.status===200){
-            Cookies.set('jwt', response.data.jwt);
+            await Cookies.set('jwt', response.data.jwt);
+            // console.log(Cookies.get('jwt'))
+
             return redirect('/user')
         }
         // return {status:200, data: }

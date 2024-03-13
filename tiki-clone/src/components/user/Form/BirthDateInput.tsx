@@ -1,14 +1,16 @@
 import { useState } from "react"
 
-interface myProps{
-    day: string,
-    month: string,
-    year: string
-}
-export default function BirthDateInput(prop: myProps){
-    const [selectedDay, setDay] = useState(prop.day||'');
-    const [selectedMonth, setMonth] = useState(prop.month||'');
-    const [selectedYear, setYear] = useState(prop.year||'');
+// interface myProps{
+//     day: string,
+//     month: string,
+//     year: string
+// }
+export default function BirthDateInput({birthDate}: {birthDate: string}){
+    const [year, month, day] = birthDate.split('-');
+
+    const [selectedDay, setDay] = useState(parseInt(day, 10).toString()||'');
+    const [selectedMonth, setMonth] = useState(parseInt(month, 10).toString()||'');
+    const [selectedYear, setYear] = useState(year||'');
     
     const days = Array.from({length: 31}, (_,i)=> i+1);
     const months = Array.from({length: 12}, (_,i)=> i+1);
