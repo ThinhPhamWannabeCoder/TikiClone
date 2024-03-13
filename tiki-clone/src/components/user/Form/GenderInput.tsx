@@ -1,29 +1,16 @@
 
-// const gender = [
-//     {
-//         id: 1,
-//         value: 'male',
-//     },
-//     {
-//         id: 2,
-//         value: 'female',
-//     },
-//     {
-//         id: 3,
-//         value: 'maale'
-//     }
-// ]
 interface myProps {
-    gender: string
+    gender: string,
+    setGender: (input: string) => void
 }
 
 import { useState } from "react";
 
 export default function GenderInput(props: myProps){
-    const [gender, setGender] = useState(props.gender||'');
+    // const [gender, setGender] = useState(props.gender||'');
 
-    const handleGenderChange = (event) => {
-        setGender(event.target.value);
+    const handleGenderChange = (e) => {
+        props.setGender(e.target.value);
     };
 
     return (
@@ -34,7 +21,7 @@ export default function GenderInput(props: myProps){
                     type="radio"
                     name="gender"
                     value="male"
-                    checked={gender === 'male'}
+                    checked={props.gender === 'male'}
                     onChange={handleGenderChange}
                     className="w-5 h-5 rounded-full cursor-pointer border border-gray-300 focus:ring-1 focus:ring-primary-500 focus:outline-none"
 
@@ -44,7 +31,7 @@ export default function GenderInput(props: myProps){
                     type="radio"
                     name="gender"
                     value="female"
-                    checked={gender === 'female'}
+                    checked={props.gender === 'female'}
                     onChange={handleGenderChange}
                     
                     className="w-5 h-5 rounded-full cursor-pointer border border-gray-300 focus:ring-1 focus:ring-primary-500 focus:outline-none"
@@ -54,7 +41,7 @@ export default function GenderInput(props: myProps){
                     type="radio"
                     name="gender"
                     value="other"
-                    checked={gender === 'other'}
+                    checked={props.gender === 'other'}
                     onChange={handleGenderChange}
                     className="w-5 h-5 rounded-full cursor-pointer border border-gray-300 focus:ring-1 focus:ring-primary-500 focus:outline-none"
 

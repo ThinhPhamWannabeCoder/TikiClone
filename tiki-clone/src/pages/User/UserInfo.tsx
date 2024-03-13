@@ -26,44 +26,58 @@ export default function UserInfo(){
     // throw Error('ehehe')
     const data = useActionData();
     const context = useAuthContext();
-
+    // If null -> strapi will delete it
     const [userData, setUserData] = useState<User | null>(null)
+    const [name, setName] = useState<string>(userData?.name);
+    const [nickName, setNickname] = useState<string | null>(userData?.nickname);
+    const [phone, setPhone] = useState<string>(userData?.phone);
+
+    const [birthdate, setBirthdate] = useState<string>(userData?.birthdate);
+    const [gender, setGender] = useState<string | null>(userData?.gender);
+    const handleSubmit = async(e)=>{
+        e.preventDefault();
+        console.log(nickName)
+    }
     // console.log(context?.number1)
     useEffect(()=>{
-        setUserData(context?.data)
-
+        setName(context?.data.name);
+        setNickname(context?.data.nickname);
+        setGender(context?.data.gender);
+        setPhone(context?.data.phone);
+        setBirthdate(context?.data?.birthdate);
+        setUserData(context?.data);
+        
     },[])
     if(!userData){
         return <div>Loading...</div>;
     }
-    const handleSubmit = (e)=>{
-        e.preventDefault();
-        try {
-            
-        } catch (error) {
-            
-        }
-    }
+
     return(
         <div className=" p-5 bg-white w-full rounded-lg flex">
             <div className="personinfo border-r-2 pr-4" >
                 <h1 className="text-xl">Thông tin cá nhân</h1>
                 <div id="content ">
-                    <Form method="post" action="/user/info" className="text-sm">
+
+                    {/* <Form method="post" action="/user/info" className="text-sm ">
+                     */}
+                    <form onSubmit={handleSubmit}>
                         <div className="flex  items-center py-8">
-                            <ImageInput/>
-                            <NameInput name={userData?.name} nickname={userData?.nickname}/>
-                        </div>        
-                        <BirthDateInput birthDate={userData?.birthdate}/>
-                        <GenderInput gender={userData?.gender}/>
-                        <div className="flex justify-between items-center">
-                            <button type="submit" className="px-5 py-2 bg-blue-500 rounded-lg text-white font-semibold shadow-lg active:bg-blue-600 ">Lưu thay đổi</button>
-                                {data && (data.status === 200 ? 
-                                ( <p className="text-blue-500 font-semibold">Updated sucessfully</p>) :
-                                ( <p className="text-red-500">Unable to update</p>))
-                                }
-                        </div>
-                    </Form>
+                                <ImageInput/>
+                                <NameInput name={name} nickname={nickName} setName={setName} setNickname={setNickname}/>
+                            </div>        
+                            <BirthDateInput birthdate={birthdate} setBirthdate={setBirthdate}/>
+                            <GenderInput gender={gender} setGender={setGender}/>
+                            <div className="flex justify-between items-center">
+                                <button type="submit" className="px-5 py-2 bg-blue-500 rounded-lg text-white font-semibold shadow-lg active:bg-blue-600 ">Lưu thay đổi</button>
+                                    {data && (data.status === 200 ? 
+                                    ( <p className="text-blue-500 font-semibold">Updated sucessfully</p>) :
+                                    ( <p className="text-red-500">Unable to update</p>))
+                                    }
+                            </div>
+                    </form>
+                        
+                    {/* </Form> */}
+
                 </div>
             </div>
             <div className="w-2/5 ml-4 ">

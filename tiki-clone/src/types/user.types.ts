@@ -6,9 +6,9 @@ export  interface User {
     name: string;
     email: string;
     information_id: number;
-    nickname: string;
-    birthdate: string;
-    gender: string;
-    phone: string;
+    nickname: string | null;
+    birthdate: string | null;
+    gender: string | null;
+    phone: string ;
     role: string;
 }
