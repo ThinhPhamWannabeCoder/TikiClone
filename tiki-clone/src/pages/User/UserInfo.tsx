@@ -35,9 +35,11 @@ export default function UserInfo(){
     const [birthdate, setBirthdate] = useState<string>(userData?.birthdate);
     const [gender, setGender] = useState<string | null>(userData?.gender);
     const [email, setEmail] = useState<string>(userData?.email)
-    const [avatarChange, setAvatarChange] = useState(null)
+    const [avatarChange, setAvatarChange] = useState(false)
     const [avatarId, setAvatarId] = useState<number>(userData?.avatarId)
-    const handleSubmit = async(e)=>{
+
+
+    const handleSubmit = async (e)=>{
         e.preventDefault();
         let tempId:number = avatarId;
         try {
@@ -45,22 +47,17 @@ export default function UserInfo(){
 
                 const imageUpload = new FormData();
                 imageUpload.append('files',avatarChange)
+                
                 const uploadResponse = await userApi.uploadFile(imageUpload);
                 setAvatarUrl(uploadResponse.data[0].url);
-                console.log(avatarUrl)
-                // console.log(uploadResponse.data[0].id)
-                console.log("hello")
-                console.log(avatarId)
-                const temp: number = avatarId;
-                tempId=uploadResponse.data[0].id;
-                await userApi.deleteFie(temp) 
+                await userApi.deleteFie(avatarId) 
                 setAvatarId(uploadResponse.data[0].id);
-
+                tempId=uploadResponse.data[0].id
             } 
             await userApi.put_user(context?.data?.user_id,{
                 "username": name
             })
-            console.log(avatarId)
+            
             // console.log(context?.data?.information_id)
             await userApi.put_info_user(context?.data?.information_id,{
                 "data": {
@@ -72,6 +69,7 @@ export default function UserInfo(){
             setUpdateChecker({
                 status: 200
             })
+
         } catch (err) {
             console.log(err.message)
         }
@@ -90,13 +88,10 @@ export default function UserInfo(){
         setAvatarId(context?.data?.avatarId);
         setUserData(context?.data);
         console.log('check check ahuhu')
-        console.log(avatarUrl)
+        // console.log(avatarUrl)
 
-    },[])
-    useEffect(() => {
-        console.log(avatarId);
-      }, [avatarId]);
-      
+    },[context])
+
     if(!userData){
         return <div>Loading...</div>;
     }
