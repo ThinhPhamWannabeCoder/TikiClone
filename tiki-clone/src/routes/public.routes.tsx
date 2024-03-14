@@ -13,6 +13,7 @@ import Layout from "../components/layout/Layout";
 import UserLayout from "../components/layout/UserLayout";
 import FileUpload from "../pages/Test/File";
 import PreviewAvatar from "../pages/Test/PreviewAvatar";
+import GraphQl from "../pages/Test/GraphQl";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -27,6 +28,7 @@ const publicRoutes = createBrowserRouter(
           </Route>
           <Route path="test" element={<FileUpload/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
+          <Route path="graph" element={<GraphQl/>}></Route>
           <Route path='user' element={
               // <User/
               // <UserLayout/>
