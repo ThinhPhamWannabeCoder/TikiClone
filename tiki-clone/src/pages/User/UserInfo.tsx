@@ -24,19 +24,58 @@ const dataHolder: User ={
 
 export default function UserInfo(){
     // throw Error('ehehe')
-    const data = useActionData();
+    const [data, setUpdateChecker] = useState(null);
     const context = useAuthContext();
     // If null -> strapi will delete it
     const [userData, setUserData] = useState<User | null>(null)
     const [name, setName] = useState<string>(userData?.name);
     const [nickName, setNickname] = useState<string | null>(userData?.nickname);
     const [phone, setPhone] = useState<string>(userData?.phone);
-
+    const [avatarUrl, setAvatarUrl] = useState<string>(userData?.avatarUrl)
     const [birthdate, setBirthdate] = useState<string>(userData?.birthdate);
     const [gender, setGender] = useState<string | null>(userData?.gender);
+    const [email, setEmail] = useState<string>(userData?.email)
+    const [avatarChange, setAvatarChange] = useState(null)
+    const [avatarId, setAvatarId] = useState<number>(userData?.avatarId)
     const handleSubmit = async(e)=>{
         e.preventDefault();
-        console.log(nickName)
+        let tempId:number = avatarId;
+        try {
+            if(avatarChange){
+
+                const imageUpload = new FormData();
+                imageUpload.append('files',avatarChange)
+                const uploadResponse = await userApi.uploadFile(imageUpload);
+                setAvatarUrl(uploadResponse.data[0].url);
+                console.log(avatarUrl)
+                // console.log(uploadResponse.data[0].id)
+                console.log("hello")
+                console.log(avatarId)
+                const temp: number = avatarId;
+                tempId=uploadResponse.data[0].id;
+                await userApi.deleteFie(temp) 
+                setAvatarId(uploadResponse.data[0].id);
+
+            } 
+            await userApi.put_user(context?.data?.user_id,{
+                "username": name
+            })
+            console.log(avatarId)
+            // console.log(context?.data?.information_id)
+            await userApi.put_info_user(context?.data?.information_id,{
+                "data": {
+                    "Nickname": nickName,
+                    "birthdate": birthdate,
+                    "avatar": tempId
+                }
+            })
+            setUpdateChecker({
+                status: 200
+            })
+        } catch (err) {
+            console.log(err.message)
+        }
+        
     }
     // console.log(context?.number1)
     useEffect(()=>{
@@ -45,9 +84,19 @@ export default function UserInfo(){
         setGender(context?.data.gender);
         setPhone(context?.data.phone);
         setBirthdate(context?.data?.birthdate);
+        setAvatarUrl(context?.data?.avatarUrl)
+        // console.log(context?.data?.avatarUrl)
+        setEmail(context?.data?.email);
+        setAvatarId(context?.data?.avatarId);
         setUserData(context?.data);
-        
+        console.log('check check ahuhu')
+        console.log(avatarUrl)
+
     },[])
+    useEffect(() => {
+        console.log(avatarId);
+      }, [avatarId]);
+      
     if(!userData){
         return <div>Loading...</div>;
     }
@@ -62,7 +111,7 @@ export default function UserInfo(){
                      */}
                     <form onSubmit={handleSubmit}>
                         <div className="flex  items-center py-8">
-                                <ImageInput/>
+                                <ImageInput url={avatarUrl} setUrl={setAvatarUrl} setAvatarChange={setAvatarChange}/>
                                 <NameInput name={name} nickname={nickName} setName={setName} setNickname={setNickname}/>
                             </div>        
                             <BirthDateInput birthdate={birthdate} setBirthdate={setBirthdate}/>
@@ -88,7 +137,7 @@ export default function UserInfo(){
                             <PhoneArrowDownLeftIcon className="w-6 mr-4"/>
                             <div className="flex-shrink-0 ">
                                 <p>Số điện thoại</p>
-                                <p>{dataHolder.phone}</p>
+                                {phone ? (<p>{phone}</p>) : (<p>Please enter phone number</p>)}
                             </div>
                         </div>
                         
@@ -99,7 +148,7 @@ export default function UserInfo(){
                             <EnvelopeIcon className="w-6 mr-4"/>
                             <div className="flex-shrink-0 ">
                                 <p>Địa chỉ email</p>
-                                <p>{dataHolder.email}</p>
+                                <p>{email}</p>
                             </div>
                         </div>
 

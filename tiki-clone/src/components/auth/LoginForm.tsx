@@ -38,13 +38,11 @@ export default function LoginForm(){
             if(response.status===200){
                 // Goi tiep
                 await Cookies.set('jwt', response.data.jwt);
-                // console.log(Cookies.get('jwt'))
 
                 const authResponse = await userApi.user()
-                // console.log(authResponse.data.role.name)
 
                 const userInfo = await userApi.get_info_user(authResponse.data.id)
-                // console.log(userInfo.data.data.attributes.Nickname)
+                // console.log(userInfo.data.data.attributes.avatar.data.attributes.url)                
                 const result: User ={
                     user_id: authResponse.data.id,
                     name: authResponse.data.username,
@@ -55,6 +53,8 @@ export default function LoginForm(){
                     gender: userInfo.data.data.attributes.gender||'',
                     phone: userInfo.data.data.attributes.phone ||'',
                     role: authResponse.data.role.name,
+                    avatarUrl:userInfo.data.data.attributes.avatar.data.attributes.url,
+                    avatarId: userInfo.data.data.attributes.avatar.data.id,
                 }
                 context?.login(result);
                 // console.log(context?.data)

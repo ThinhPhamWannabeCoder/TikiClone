@@ -11,4 +11,6 @@ export  interface User {
     gender: string | null;
     phone: string ;
     role: string;
+    avatarUrl: string;
+    avatarId: number;
 }

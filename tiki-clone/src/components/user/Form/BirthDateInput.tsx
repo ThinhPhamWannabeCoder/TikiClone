@@ -29,7 +29,7 @@ export default function BirthDateInput(props: myProps){
     // const handleYearChange = (event:any) => {
     //     setYear(event.target.value)
     // }
-    const handleChange = (e) =>{
+    const handleChange = async (e) =>{
         if(e.target.name === 'day'){
             const formatedDay = e.target.value < 10 ? `0${e.target.value}` : `${e.target.value}`;
             props.setBirthdate(`${props.birthdate.substring(0, 4)}-${props.birthdate.substring(5, 7)}-${formatedDay}`)
@@ -37,7 +37,6 @@ export default function BirthDateInput(props: myProps){
         if(e.target.name === 'month'){
             const formatedMonth = e.target.value < 10 ? `0${e.target.value}` : `${e.target.value}`;
             props.setBirthdate(`${props.birthdate.substring(0, 4)}-${formatedMonth}-${props.birthdate.substring(8)}`)
-            // console.log(e.target.value)
 
         }
         if(e.target.name === 'year'){
