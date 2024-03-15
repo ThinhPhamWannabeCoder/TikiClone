@@ -17,7 +17,7 @@ export default function ImageInput(props: myProps){
     }
     return(
         <div className='flex-shrink-0 relative'>
-            {props.url && (<img src={currentAvatar} alt="" className="border-solid border-blue-500 border-4 object-cover w-24 h-24 rounded-full flex-shrink-0"/>)}
+                <img src={currentAvatar} alt="" className="border-solid border-blue-500 border-4 object-cover w-24 h-24 rounded-full flex-shrink-0" />
             <label  
                 className='absolute right-0 w-6 h-6 bottom-1 cursor-pointer bg-green-700 flex justify-center items-center rounded-full'
             >

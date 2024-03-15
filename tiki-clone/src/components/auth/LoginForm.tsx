@@ -40,21 +40,21 @@ export default function LoginForm(){
                 await Cookies.set('jwt', response.data.jwt);
 
                 const authResponse = await userApi.user()
-
-                const userInfo = await userApi.get_info_user(authResponse.data.id)
+                // console.log(authResponse.data.infomation_user.id)
+                const userInfo = await userApi.get_info_user(authResponse.data.infomation_user.id)
                 // console.log(userInfo.data.data.attributes.avatar.data.attributes.url)                
                 const result: User ={
                     user_id: authResponse.data.id,
                     name: authResponse.data.username,
                     email:authResponse.data.email,
                     information_id: userInfo.data.data.id,
-                    nickname: userInfo.data.data.attributes.Nickname||'',
-                    birthdate: userInfo.data.data.attributes.birthdate||'',
-                    gender: userInfo.data.data.attributes.gender||'',
-                    phone: userInfo.data.data.attributes.phone ||'',
+                    nickname: userInfo.data.data.attributes.Nickname,
+                    birthdate: userInfo.data.data.attributes.birthdate,
+                    gender: userInfo.data.data.attributes.gender ,
+                    phone: userInfo.data.data.attributes.phone ,
                     role: authResponse.data.role.name,
-                    avatarUrl:userInfo.data.data.attributes.avatar.data.attributes.url,
-                    avatarId: userInfo.data.data.attributes.avatar.data.id,
+                    avatarUrl: userInfo.data.data.attributes.avatar.data ? userInfo.data.data.attributes.avatar.data.attributes.url : userInfo.data.data.attributes.avatar.data,
+                    avatarId: userInfo.data.data.attributes.avatar.data ? userInfo.data.data.attributes.avatar.data.id : userInfo.data.data.attributes.avatar.data,
                 }
                 context?.login(result);
                 // console.log(context?.data)
@@ -62,6 +62,7 @@ export default function LoginForm(){
                 return
             }
         } catch (error) {
+            console.log(error.message)
             if(error.response.status===400){
                 setErrChecker({status:400, error: 'Invalid  Credentials'})
                 return

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "infomation-user",
     "pluralName": "infomation-users",
-    "displayName": "infomation_user"
+    "displayName": "infomation_user",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -12,11 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "Nickname": {
       "type": "string"
@@ -29,6 +31,14 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "infomation_user"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "male",
+        "female",
+        "other"
+      ]
     }
   }
 }

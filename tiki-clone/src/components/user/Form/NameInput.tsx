@@ -37,7 +37,7 @@ export default function NameInput(prop: myProps){
                 <input 
                     type="text" 
                     name="nickname"
-                    value={prop.nickname}
+                    value={prop.nickname ? prop.nickname : ""}
                     placeholder="Thêm Nickname"
                     onChange={nickNameHanlder}
                     className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

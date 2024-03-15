@@ -1,54 +1,62 @@
-import { useState } from "react"
+import { useEffect, useState } from "react";
 
-// interface myProps{
-//     day: string,
-//     month: string,
-//     year: string
-// }
 interface myProps {
-    birthdate: string ,
-    setBirthdate: (input: string) => void
+    birthdate: string | null,
+    setBirthdate: (input: string|null) => void
 }
+
 export default function BirthDateInput(props: myProps){
-    // console.log(props)
-    // const [year, month, day] = props.birthdate.split('-');
-    // const [selectedDay, setDay] = useState(parseInt(day, 10).toString()||'');
-    // const [selectedMonth, setMonth] = useState(parseInt(month, 10).toString()||'');
-    // const [selectedYear, setYear] = useState(year||'');
-    
+    const [selectedDay, setSelectedDay] = useState<number|undefined>(props.birthdate ? parseInt(props.birthdate.substring(8), 10) : undefined);
+    const [selectedMonth, setSelectedMonth] = useState<number|undefined>(props.birthdate ? parseInt(props.birthdate.substring(5, 7), 10): undefined);
+    const [selectedYear, setSelectedYear] = useState<number|undefined>(props.birthdate ? parseInt(props.birthdate.substring(0, 4), 10): undefined);
+
     const days = Array.from({length: 31}, (_,i)=> i+1);
     const months = Array.from({length: 12}, (_,i)=> i+1);
     const years = Array.from({length: 200}, (_,i)=>2024-i);
-    
-    // const handleDayChange = (event:any) =>{
-    //     setDay(event.target.value)
-    // }
-    // const handleMonthChange = (event:any) => {
-    //     setMonth(event.target.value);
-    // }
-    // const handleYearChange = (event:any) => {
-    //     setYear(event.target.value)
-    // }
-    const handleChange = async (e) =>{
-        if(e.target.name === 'day'){
-            const formatedDay = e.target.value < 10 ? `0${e.target.value}` : `${e.target.value}`;
-            props.setBirthdate(`${props.birthdate.substring(0, 4)}-${props.birthdate.substring(5, 7)}-${formatedDay}`)
-        }
-        if(e.target.name === 'month'){
-            const formatedMonth = e.target.value < 10 ? `0${e.target.value}` : `${e.target.value}`;
-            props.setBirthdate(`${props.birthdate.substring(0, 4)}-${formatedMonth}-${props.birthdate.substring(8)}`)
 
-        }
-        if(e.target.name === 'year'){
-            props.setBirthdate(`${e.target.value}-${props.birthdate.substring(5, 7)}-${props.birthdate.substring(8)}`)
+    const handleChange = async (e) => {
+        const { name, value } = e.target;
 
+        if (name === 'day') {
+            if(value === '') setSelectedDay(undefined) ; 
+            // props.setBirthdate(null); console.log(props.birthdate)
+            setSelectedDay(value);
         }
+        if (name === 'month') {
+            if(value === '') setSelectedMonth(undefined); 
+            // props.setBirthdate(null) ; console.log(props.birthdate)
+            setSelectedMonth(value);
+        }
+        if (name === 'year') {
+            if(value === '') setSelectedYear(undefined); 
+            // props.setBirthdate(null); console.log(props.birthdate)
+            setSelectedYear(value);
+        }
+
+        // if (selectedDay && selectedMonth && selectedYear) {
+        //     const formatedDay = selectedDay < 10 ? `0${selectedDay}` : `${selectedDay}`;
+        //     const formatedMonth = selectedMonth < 10 ? `0${selectedMonth}` : `${selectedMonth}`;
+        //     props.setBirthdate(`${selectedYear}-${formatedMonth}-${formatedDay}`);
+
+        // }
     }
+    useEffect(()=>{
+        if (selectedDay && selectedMonth && selectedYear) {
+            const formatedDay = selectedDay < 10 ? `0${selectedDay}` : `${selectedDay}`;
+            const formatedMonth = selectedMonth < 10 ? `0${selectedMonth}` : `${selectedMonth}`;
+            props.setBirthdate(`${selectedYear}-${formatedMonth}-${formatedDay}`);
+
+        } 
+        else{
+            props.setBirthdate(null)
+        }
+        console.log(props.birthdate)
+    },[selectedDay, selectedMonth, selectedYear])
     return(
         <div className="flex items-center py-8" >
             <h3 className="w-24">Ngày sinh</h3>
             <div className="flex">
-                <select name="day" value={parseInt(props.birthdate.substring(8), 10)} onChange={handleChange} 
+                <select name="day" value={selectedDay} onChange={handleChange} 
                     className="py-3 px-5 mr-4 cursor-pointer rounded-md bg-gradient-to-b from-gray-200 to-gray-400 shadow-md"
                 >
                     <option value="">Ngày</option>
@@ -56,7 +64,7 @@ export default function BirthDateInput(props: myProps){
                         <option key={day} value={day}>{day}</option>
                     ))}
                 </select>
-                <select name="month" value={parseInt(props.birthdate.substring(5, 7), 10)} onChange={handleChange} 
+                <select name="month" value={selectedMonth} onChange={handleChange} 
                     className="py-3 px-5 mr-4 cursor-pointer rounded-md bg-gradient-to-b from-gray-200 to-gray-400 shadow-md"
                 >
                     <option value="">Tháng</option>
@@ -64,7 +72,7 @@ export default function BirthDateInput(props: myProps){
                         <option key={month} value={month}>{month}</option>
                     ))}
                 </select>
-                <select name="year" value={parseInt(props.birthdate.substring(0, 4), 10)} onChange={handleChange}
+                <select name="year" value={selectedYear} onChange={handleChange}
                     className="py-3 px-5 cursor-pointer rounded-md bg-gradient-to-b from-gray-200 to-gray-400 shadow-md"
                 >
                     <option value="">Năm</option>

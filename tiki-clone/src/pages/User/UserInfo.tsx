@@ -50,7 +50,7 @@ export default function UserInfo(){
                 
                 const uploadResponse = await userApi.uploadFile(imageUpload);
                 setAvatarUrl(uploadResponse.data[0].url);
-                await userApi.deleteFie(avatarId) 
+                if(avatarId) await userApi.deleteFie(avatarId) 
                 setAvatarId(uploadResponse.data[0].id);
                 tempId=uploadResponse.data[0].id
             } 
@@ -63,7 +63,8 @@ export default function UserInfo(){
                 "data": {
                     "Nickname": nickName,
                     "birthdate": birthdate,
-                    "avatar": tempId
+                    "avatar": tempId,
+                    "gender": gender
                 }
             })
             setUpdateChecker({

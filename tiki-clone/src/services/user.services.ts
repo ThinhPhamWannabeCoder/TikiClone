@@ -3,7 +3,7 @@ import {axiosProtected, axiosMultiPartProtected} from "../config/axios.protected
 
 const userApi ={
     product: async ()=>await axiosProtected.get('/products'),
-    user: async () => await axiosProtected.get('/users/me?populate[0]=role'),
+    user: async () => await axiosProtected.get('/users/me?populate=*'),
     get_info_user: async (id:number) => await axiosProtected.get(`/infomation-users/${id}?populate=*`),
     uploadFile: async (form: FormData) => await axiosMultiPartProtected.post(`/upload`, form),
     deleteFie: async (id:number) => await axiosProtected.delete(`/upload/files/${id}`),

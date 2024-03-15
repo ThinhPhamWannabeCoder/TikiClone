@@ -10,7 +10,7 @@ export  interface User {
     birthdate: string | null;
     gender: string | null;
     phone: string ;
-    role: string;
-    avatarUrl: string;
-    avatarId: number;
+    role: string ;
+    avatarUrl: string | null;
+    avatarId: number | null;
 }
