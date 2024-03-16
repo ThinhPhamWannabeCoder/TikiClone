@@ -26,7 +26,7 @@ const publicRoutes = createBrowserRouter(
         >
 
           </Route>
-          <Route path="test" element={<FileUpload/>}></Route>
+          {/* <Route path="test" element={<FileUpload/>}></Route> */}
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
           <Route path='user' element={

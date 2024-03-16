@@ -4,7 +4,8 @@
   "info": {
     "singularName": "notification-user",
     "pluralName": "notification-users",
-    "displayName": "notification_user"
+    "displayName": "notification_user",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -29,6 +30,15 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "notification_users"
+    },
+    "message": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
     }
   }
 }

@@ -8,6 +8,7 @@ const userApi ={
     uploadFile: async (form: FormData) => await axiosMultiPartProtected.post(`/upload`, form),
     deleteFie: async (id:number) => await axiosProtected.delete(`/upload/files/${id}`),
     put_info_user: async(id:number,data:any) => await axiosProtected.put(`/infomation-users/${id}`, data),
-    put_user: async(id: number, data:any)=> await axiosProtected.put(`/users/${id}`, data)
+    put_user: async(id: number, data:any)=> await axiosProtected.put(`/users/${id}`, data),
+    // get_user_noti: async()
 }
 export default userApi

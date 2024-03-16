@@ -88,7 +88,6 @@ export default function UserInfo(){
         setEmail(context?.data?.email);
         setAvatarId(context?.data?.avatarId);
         setUserData(context?.data);
-        console.log('check check ahuhu')
         // console.log(avatarUrl)
 
     },[context])
@@ -160,7 +159,6 @@ export default function UserInfo(){
 export const updateUserInfo = async ({request})=>{
     try {
         const data = await request.formData();
-        console.log(data)
         return {status: 200, data: data}
         // }
         throw Error("Internal Server Error")

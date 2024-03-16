@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  client:
+    build: ./tiki-clone
+    container_name: tiki-c
+    # volumes:
+    #   - type: bind
+    #     source: ./tiki-clone
+    #     target: /client  # Mount tiki-clone folder to /app in container
+    #   # - ./tiki-clone/node_modules:/client/node_modules  # Separate volume for node_modules
+    ports:
+      - "5173:5173"  # Adjust port if needed

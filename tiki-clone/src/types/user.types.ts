@@ -14,3 +14,10 @@ export  interface User {
     avatarUrl: string | null;
     avatarId: number | null;
 }
+
+export interface UserNotification{
+    id: number,
+    title: string,
+    message: string,
+    date: string,
+}

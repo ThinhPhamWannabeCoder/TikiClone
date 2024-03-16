@@ -447,6 +447,7 @@ export interface ApiNotificationUserNotificationUser
     singularName: 'notification-user';
     pluralName: 'notification-users';
     displayName: 'notification_user';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -469,6 +470,13 @@ export interface ApiNotificationUserNotificationUser
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    message: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

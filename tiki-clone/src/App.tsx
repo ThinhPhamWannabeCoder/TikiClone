@@ -1,17 +1,17 @@
-import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider, useRoutes, BrowserRouter } from "react-router-dom";
-
 import AuthProvider from "./components/auth/AuthProvider";
-import router from "./routes/router.routes";
-import protectedRoutes from "./routes/protected.routes";
-// import routes from "./routes/router.routes";
+import { ApolloProvider} from "@apollo/client";
 import Provider from "./routes/router.routes";
-// const routes = router()
+import client from "./config/apolo.graphql";
+
 function App() {
 
   return (
+    // Apollo Client
       <AuthProvider>
-        {/* <RouterProvider router={routes}/> */}
+        <ApolloProvider client={client}>
           <Provider/>
+
+        </ApolloProvider>
       </AuthProvider>
     
 
