@@ -1,8 +1,9 @@
+import UserBox from "../../components/User/UserBox";
 
 export default function BuyerOrder(){
     return(
-        <div>
-            This is Buyer Order
-        </div>
+        <UserBox>
+            This is Your past order
+        </UserBox>
     )
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../../../components/Auth/AuthProvider";
+import { useAuthContext } from "../../Auth/AuthProvider";
 import { UserNotification } from "../../../types/user.types";
 import { GET_USER_NOTIFICATION } from "../../../services/graphql.queries";
 import { useQuery } from "@apollo/client";
-import PrivateNotifcation from "../../../components/User/Notification/PrivateNotification";
+import PrivateNotifcation from "./PrivateNotification";
 import Pagination from "../../../components/common/Pagination";
 
 export default function UserNotifcation(){

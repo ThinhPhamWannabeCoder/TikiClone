@@ -50,7 +50,6 @@ export default function BirthDateInput(props: myProps){
         else{
             props.setBirthdate(null)
         }
-        console.log(props.birthdate)
     },[selectedDay, selectedMonth, selectedYear])
     return(
         <div className="flex items-center py-8" >

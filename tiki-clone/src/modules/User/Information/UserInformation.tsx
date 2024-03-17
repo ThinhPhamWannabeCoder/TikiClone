@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../../../components/Auth/AuthProvider";
-import ImageInput from "../../../components/User/Form/ImageInput";
-import NameInput from "../../../components/User/Form/NameInput";
-import BirthDateInput from "../../../components/User/Form/BirthDateInput";
-import GenderInput from "../../../components/User/Form/GenderInput";
-import { EnvelopeIcon, PhoneArrowDownLeftIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { useAuthContext } from "../../Auth/AuthProvider";
+
+
 import userApi from "../../../services/user.services";
+import UserForm from "./UserForm";
+import ContactForm from "./ContactForm";
+import ImageInput from "./UserForm/ImageInput";
+import NameInput from "./UserForm/NameInput";
+import BirthDateInput from "./UserForm/BirthDateInput";
+import GenderInput from "./UserForm/GenderInput";
 
 
 export default function UserInformation(){
@@ -24,7 +26,9 @@ export default function UserInformation(){
         const [email, setEmail] = useState<string>(userData?.email)
         const [avatarChange, setAvatarChange] = useState(false)
         const [avatarId, setAvatarId] = useState<number>(userData?.avatarId)
-    
+        // Cho chung vao 1 thang -> update
+        // Update user Context la xong
+        // Hoi lau de sau
     
         const handleSubmit = async (e)=>{
             e.preventDefault();
@@ -84,61 +88,30 @@ export default function UserInformation(){
         }
         return(
             <>
-                <div className="personinfo border-r-2 pr-4" >
-                <h1 className="text-xl">Thông tin cá nhân</h1>
-                <div id="content ">
-
-                    {/* <Form method="post" action="/user/info" className="text-sm ">
-                     */}
-                    <form onSubmit={handleSubmit}>
-                        <div className="flex  items-center py-8">
-                                <ImageInput url={avatarUrl} setUrl={setAvatarUrl} setAvatarChange={setAvatarChange}/>
-                                <NameInput name={name} nickname={nickName} setName={setName} setNickname={setNickname}/>
-                            </div>        
-                            <BirthDateInput birthdate={birthdate} setBirthdate={setBirthdate}/>
-                            <GenderInput gender={gender} setGender={setGender}/>
-                            <div className="flex justify-between items-center">
-                                <button type="submit" className="px-5 py-2 bg-blue-500 rounded-lg text-white font-semibold shadow-lg active:bg-blue-600 ">Lưu thay đổi</button>
-                                    {data && (data.status === 200 ? 
-                                    ( <p className="text-blue-500 font-semibold">Updated sucessfully</p>) :
-                                    ( <p className="text-red-500">Unable to update</p>))
-                                    }
-                            </div>
-                    </form>
-                        
-                    {/* </Form> */}
-
-                </div>
-                </div>
-                <div className="w-2/5 ml-4 ">
-                    <div className="flex-shrink-0 text-sm border-b-2">
-                        <h1 className="flex-shrink-0 text-xl ">Số điện thoại và Email </h1>
-                        <div className="flex py-8 justify-between">
-                            <div className="flex">
-                                <PhoneArrowDownLeftIcon className="w-6 mr-4"/>
-                                <div className="flex-shrink-0 ">
-                                    <p>Số điện thoại</p>
-                                    {phone ? (<p>{phone}</p>) : (<p>Please enter phone number</p>)}
+                <div className="border-r-2 pr-4 w-3/5" >
+                    <h1 className="text-xl">Thông tin cá nhân</h1>
+                    <div id="content ">
+                        <form onSubmit={handleSubmit}>
+                            <div className="flex  items-center py-8">
+                                    <ImageInput url={avatarUrl} setUrl={setAvatarUrl} setAvatarChange={setAvatarChange}/>
+                                    <NameInput name={name} nickname={nickName} setName={setName} setNickname={setNickname}/>
+                                </div>        
+                                <BirthDateInput birthdate={birthdate} setBirthdate={setBirthdate}/>
+                                <GenderInput gender={gender} setGender={setGender}/>
+                                <div className="flex justify-between items-center">
+                                    <button type="submit" className="px-5 py-2 bg-blue-500 rounded-lg text-white font-semibold shadow-lg active:bg-blue-600 ">Lưu thay đổi</button>
+                                        {data && (data.status === 200 ? 
+                                        ( <p className="text-blue-500 font-semibold">Updated sucessfully</p>) :
+                                        ( <p className="text-red-500">Unable to update</p>))
+                                        }
                                 </div>
-                            </div>
+                        </form>
                             
-                            <Link to="/" className="px-3 py-2 border-blue-300 border-solid border-2 rounded-lg  flex-shrink-0 "> Cập nhật</Link>
-                        </div>
-                        <div className="flex py-8 justify-between">
-                            <div className="flex">
-                                <EnvelopeIcon className="w-6 mr-4"/>
-                                <div className="flex-shrink-0 ">
-                                    <p>Địa chỉ email</p>
-                                    <p>{email}</p>
-                                </div>
-                            </div>
 
-                            <Link to="/" className="px-3 py-2 border-blue-300 border-solid border-2 rounded-lg flex-shrink-0"> Cập nhật</Link>
-                        </div>
                     </div>
-                    
-                </div>                        
-            {/* </div> */}
+                </div>
+                <ContactForm email={email} phone={phone}/>
+
             </>
         )
     

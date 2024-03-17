@@ -1,4 +1,4 @@
-import AuthProvider from "./components/Auth/AuthProvider";
+import AuthProvider from "./modules/Auth/AuthProvider";
 import { ApolloProvider} from "@apollo/client";
 import Provider from "./routes/router.routes";
 import client from "./config/apolo.graphql";

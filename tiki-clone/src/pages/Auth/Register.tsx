@@ -1,14 +1,12 @@
-import RegisterForm from "../../components/Auth/RegisterForm"
+import AuthBox from "../../components/Auth/AuthBox"
+import Register from "../../modules/Auth/Register"
 
-export default function Register(){
+export default function RegisterPage(){
 
     return(
-        <>
-            <div>Register</div>
-
-            <RegisterForm/> 
-
-        </>
+         <AuthBox>
+            <Register/>
+         </AuthBox>
     )
     
 }

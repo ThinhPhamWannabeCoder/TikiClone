@@ -1,22 +1,17 @@
-import { useState } from "react";
 
 interface myProps{
     name: string ,
     nickname: string |null,
     setName: (input:string) => void,
-    setNickname: (input:string|null) =>void,
+    setNickname: (input:string|null) => void,
 
 }
 export default function NameInput(prop: myProps){
     const nameHandler = (e)=>{
         prop.setName(e.target.value)
-        // console.log(e.target.value)
     }
     const nickNameHanlder=(e)=>{
-        // if(e.target.value === ''){
-        //     prop.setNickname(null)
-        //     console.log(prop.nickname)
-        // }
+
         prop.setNickname(e.target.value)
     }
     return(

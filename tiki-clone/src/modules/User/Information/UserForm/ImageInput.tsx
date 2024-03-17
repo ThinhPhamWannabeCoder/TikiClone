@@ -1,5 +1,5 @@
 import { PencilIcon } from '@heroicons/react/24/outline'
-import {thinh_avatar} from '../../../assets/images/image'
+import {thinh_avatar} from '../../../../assets/images/image'
 import { useState } from 'react'
 const ASSET_API = import.meta.env.VITE_ASSETS_URL
 

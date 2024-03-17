@@ -1,7 +1,9 @@
+import UserBox from "../../components/User/UserBox";
+
 export default function UserAddress(){
     return(
-        <div>
-            This is UserAddress
-        </div>
+        <UserBox>
+            This is address
+        </UserBox>
     )
 }

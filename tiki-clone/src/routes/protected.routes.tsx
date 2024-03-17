@@ -1,8 +1,7 @@
-import { Navigate, Route, createBrowserRouter, createRoutesFromElements, useNavigate } from "react-router-dom";
+import { Navigate, Route, createBrowserRouter, createRoutesFromElements} from "react-router-dom";
 import RootLayout from "../components/layout/RootLayout";
-import Login from "../pages/Auth/Login";
-import User from "../pages/User/User";
-import Register from "../pages/Auth/Register";
+import LoginPage from "../pages/Auth/Login";
+import RegisterPage from "../pages/Auth/Register";
 import UserInfo from "../pages/User/UserInfo";
 import UserNoti from "../pages/User/UserNoti";
 import BuyerOrder from "../pages/User/BuyerOrder";
@@ -17,9 +16,9 @@ const publicRoutes = createBrowserRouter(
       <Route  element={<Layout/>}>
         <Route path='/' element= {<RootLayout/>}>
           {/* <Route path='auth'></Route> */}
-          <Route path='login' element={<Login/>} ></Route>
+          <Route path='login' element={<LoginPage/>} ></Route>
           <Route path='register' element= 
-          {<Register/>}
+          {<RegisterPage/>}
         >
 
           </Route>
@@ -32,7 +31,6 @@ const publicRoutes = createBrowserRouter(
             }></Route>
             <Route path='info' element={<UserInfo/>}></Route>
             <Route path='noti' element={<UserNoti/>}>
-              
             </Route>
             <Route path='order' element={
               <BuyerOrder/>
