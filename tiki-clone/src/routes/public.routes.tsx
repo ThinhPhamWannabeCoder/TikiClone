@@ -7,23 +7,26 @@ import UserError from "../components/error/UserError";
 import Layout from "../components/layout/Layout";
 import PreviewAvatar from "../pages/Test/PreviewAvatar";
 import GraphQl from "../pages/Test/GraphQl";
+import HomePage from "../pages/Home";
+import SubCategory from "../components/Product/Category/SubCategory/SubCategoryPage";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
-      <Route  element={<Layout/>}>
+      <Route element={<Layout/>}>
         <Route path='/' element= {<RootLayout/>}>
           {/* <Route path='auth'></Route> */}
-          <Route path='login' element={<LoginPage/>}></Route>
-          <Route path='register' element= 
-          {<RegisterPage/>}
-        >
+          <Route index element={<HomePage/>}>
+              {/* Category 
+                    SubCategory
+                      Product*/}
+              
           </Route>
-          {/* <Route path="test" element={<FileUpload/>}></Route> */}
+          <Route path=":subCategory" element={<SubCategory/>}></Route>
+          <Route path='login' element={<LoginPage/>}></Route>
+          <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
-          <Route path='user/*' element={
-              <Navigate to="/login" replace></Navigate>
-              } errorElement={<UserError/>}>
+          <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}>
           </Route>
         </Route>
         <Route path="*" element={<NotFound/>}></Route>
