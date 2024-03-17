@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import { useAuthContext } from "../components/auth/AuthProvider";
+import { useAuthContext } from "../components/Auth/AuthProvider";
 import protectedRoutes from "./protected.routes";
 import publicRoutes from "./public.routes";
 

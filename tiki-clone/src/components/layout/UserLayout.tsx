@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import UserNav from "../user/UserNav";
+import UserNav from "../User/UserNav";
 
 export default function UserLayout(){
     return(

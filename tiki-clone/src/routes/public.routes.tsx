@@ -3,7 +3,7 @@ import RootLayout from "../components/layout/RootLayout";
 import Login  from "../pages/Auth/Login";
 import User from "../pages/User/User";
 import Register from "../pages/Auth/Register";
-import UserInfo, {  updateUserInfo } from "../pages/User/UserInfo";
+import UserInfo  from "../pages/User/UserInfo";
 import UserNoti from "../pages/User/UserNoti";
 import BuyerOrder from "../pages/User/BuyerOrder";
 import UserAddress from "../pages/User/UserAddress";
@@ -37,10 +37,10 @@ const publicRoutes = createBrowserRouter(
           
           } errorElement={<UserError/>}>
             
-            <Route path='info' element={<UserInfo/>} action={updateUserInfo}></Route>
+            {/* <Route path='info' element={<UserInfo/>} action={updateUserInfo}></Route>
             <Route path='noti' element={<UserNoti/>}></Route>
             <Route path='order' element={<BuyerOrder/>}></Route>
-            <Route path='address' element={<UserAddress/>}></Route>
+            <Route path='address' element={<UserAddress/>}></Route> */}
           </Route>
         </Route>
         <Route path="*" element={<NotFound/>}></Route>

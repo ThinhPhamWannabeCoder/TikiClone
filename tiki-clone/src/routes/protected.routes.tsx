@@ -3,7 +3,7 @@ import RootLayout from "../components/layout/RootLayout";
 import Login from "../pages/Auth/Login";
 import User from "../pages/User/User";
 import Register from "../pages/Auth/Register";
-import UserInfo, {  updateUserInfo } from "../pages/User/UserInfo";
+import UserInfo from "../pages/User/UserInfo";
 import UserNoti from "../pages/User/UserNoti";
 import BuyerOrder from "../pages/User/BuyerOrder";
 import UserAddress from "../pages/User/UserAddress";
@@ -25,13 +25,15 @@ const publicRoutes = createBrowserRouter(
           </Route>
           
           <Route path='user' element={
-              // <User/
               <UserLayout/>
-            
           } errorElement={<UserError/>}>
-            
-            <Route path='info' element={<UserInfo/>} action={updateUserInfo}></Route>
-            <Route path='noti' element={<UserNoti/>}></Route>
+            <Route index element={
+              <Navigate to='info'></Navigate>
+            }></Route>
+            <Route path='info' element={<UserInfo/>}></Route>
+            <Route path='noti' element={<UserNoti/>}>
+              
+            </Route>
             <Route path='order' element={
               <BuyerOrder/>
             }></Route>

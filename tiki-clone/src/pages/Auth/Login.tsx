@@ -1,6 +1,6 @@
 import { redirect } from "react-router-dom";
-import { useAuthContext } from "../../components/auth/AuthProvider";
-import LoginForm from "../../components/auth/LoginForm";
+import { useAuthContext } from "../../components/Auth/AuthProvider";
+import LoginForm from "../../components/Auth/LoginForm";
 import { sendLogin } from "../../utils/auth";
 import Cookies from 'js-cookie';
 import authApi from "../../services/auth.services";
