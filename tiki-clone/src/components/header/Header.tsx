@@ -10,7 +10,6 @@ export default function Header(){
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
                 <img src={logo} alt="Images_Logo" className="w-28"/>
-
             </Link>
             <div className="flex flex-col w-full ">
                 <div className="flex w-full flex-grow items-center gap-5">
