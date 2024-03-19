@@ -9,6 +9,7 @@ import PreviewAvatar from "../pages/Test/PreviewAvatar";
 import GraphQl from "../pages/Test/GraphQl";
 import HomePage from "../pages/Home";
 import SubCategory from "../components/Product/Category/SubCategory/SubCategoryPage";
+import UserTest from "../pages/Test/UserTest";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -26,6 +27,7 @@ const publicRoutes = createBrowserRouter(
           <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
+          <Route path="usertest" element={<UserTest/>}></Route>
           <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}>
           </Route>
         </Route>
