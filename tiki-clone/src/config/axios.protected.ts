@@ -16,4 +16,13 @@ const axiosMultiPartProtected = axios.create({
         'Authorization': `Bearer ${Cookies.get('jwt')}`
     }
 })
+// axiosProtected.interceptors.request.use(request=>{
+//     console.log('Starting request', request)
+//     return request
+// })
+// axiosProtected.interceptors.response.use(response=>{
+//     console.log('Starting response', response)
+//     console.log(response.status)
+//     return response
+// })
 export {axiosProtected, axiosMultiPartProtected}
