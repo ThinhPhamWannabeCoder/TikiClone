@@ -7,7 +7,7 @@ const images = {
 
 export default function  ImageSelector(){
     const [selectedImage, setSelectedImage] = useState(images.primaryImage);
-    const imageHanlder = (image, index)=>{
+    const imageHanlder = (image:any)=>{
         setSelectedImage(image)
     }
     return(
@@ -20,7 +20,7 @@ export default function  ImageSelector(){
                 {
                     images.other.map((image, index)=>(
                         <img key={index} src={image} 
-                            onClick={()=>imageHanlder(image, index)}
+                            onClick={()=>imageHanlder(image)}
                             className="w-1/6 p-1 aspect-square object-cover border-solid hover:border-blue-600 border-2 rounded-lg"></img>
                     ))
                 }
