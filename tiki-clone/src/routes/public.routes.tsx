@@ -2,7 +2,7 @@ import { Navigate, Route, createBrowserRouter, createRoutesFromElements} from "r
 import RootLayout from "../components/layout/RootLayout";
 import LoginPage  from "../pages/Auth/Login";
 import RegisterPage from "../pages/Auth/Register";
-import NotFound from "../components/common/NotFound";
+import NotFound from "../components/Common/NotFound";
 import UserError from "../components/error/UserError";
 import Layout from "../components/layout/Layout";
 import PreviewAvatar from "../pages/Test/PreviewAvatar";
@@ -10,6 +10,7 @@ import GraphQl from "../pages/Test/GraphQl";
 import HomePage from "../pages/Home";
 import SubCategory from "../components/Product/Category/SubCategory/SubCategoryPage";
 import UserTest from "../pages/Test/UserTest";
+import Product from "../pages/Buyer/Product";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -28,8 +29,8 @@ const publicRoutes = createBrowserRouter(
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
           <Route path="usertest" element={<UserTest/>}></Route>
-          <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}>
-          </Route>
+          <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}></Route>
+          <Route path='product' element={<Product/>}></Route>
         </Route>
         <Route path="*" element={<NotFound/>}></Route>
       </Route>
