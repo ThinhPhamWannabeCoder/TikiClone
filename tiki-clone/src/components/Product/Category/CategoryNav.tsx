@@ -139,24 +139,21 @@ export default function CategoryNav() {
   },[])
 
   return (
-    <>
+
       <NavBox>
         <div className=" flex flex-col h-screen overflow-y-scroll no-scrollbar" id = 'content'>
-            {/* <div className="  "> */}
                 <h1 className="font-semibold px-3">Danh mục</h1>
                 {categories.map((category) => (
                     <Link
-                    key={category.id}
-                    to={`/${convertToSlug(category.title)}`} // Convert title to slug
-                    className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200"
-                    >
-                    {category.title}
+                      key={category.id}
+                      to={`/${convertToSlug(category.title)}`} // Convert title to slug
+                      className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200"
+                      >
+                      {category.title}
                     </Link>
-                ))}
-            {/* </div> */}
-          
+                ))}          
         </div>
       </NavBox>
-    </>
+
   );
 }
