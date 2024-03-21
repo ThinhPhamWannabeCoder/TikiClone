@@ -7,7 +7,7 @@ import UserNoti from "../pages/User/UserNoti";
 import BuyerOrder from "../pages/User/BuyerOrder";
 import UserAddress from "../pages/User/UserAddress";
 import NotFound from "../components/Common/NotFound";
-import UserError from "../components/error/UserError";
+import UserError from "../components/Error/UserError";
 import Layout from "../components/layout/Layout";
 import UserLayout from "../components/layout/UserLayout";
 import HomePage from "../pages/Home";
