@@ -140,7 +140,7 @@ export default function CategoryNav() {
 
   return (
 
-      <NavBox>
+      <NavBox class=" sticky top-2">
         <div className=" flex flex-col h-screen overflow-y-scroll no-scrollbar" id = 'content'>
                 <h1 className="font-semibold px-3">Danh mục</h1>
                 {categories.map((category) => (

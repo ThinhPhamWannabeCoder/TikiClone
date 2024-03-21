@@ -1,10 +1,13 @@
-import { PropsWithChildren} from "react";
+import {ReactNode } from "react";
 
-
-export default function NavBox({children}: PropsWithChildren){
+interface myProps{
+    class?: string,
+    children: ReactNode
+}
+export default function NavBox(prop: myProps){
     return(
-        <div className=" w-1/6 bg-white rounded-xl  p-3 flex-shrink-0 h-full sticky top-2">
-            {children}
+        <div className={`w-1/6 bg-white rounded-xl  p-3 flex-shrink-0 h-full ${prop.class}`} >
+            {prop.children}
         </div>
     )
 }
