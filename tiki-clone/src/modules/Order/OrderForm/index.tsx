@@ -6,7 +6,7 @@ import StoreOrderBadge from "./StoreOrderBadge";
 export default function OrderForm(){
     return(
         <>
-            <ContentBox class="w-3/12 h-full">
+            <ContentBox class="w-3/12 h-full sticky top-2">
                 <StoreOrderBadge/>
                 <OrderOption/>
                 <Form/>

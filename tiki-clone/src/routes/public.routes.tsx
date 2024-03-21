@@ -8,22 +8,22 @@ import Layout from "../components/layout/Layout";
 import PreviewAvatar from "../pages/Test/PreviewAvatar";
 import GraphQl from "../pages/Test/GraphQl";
 import HomePage from "../pages/Home";
-import SubCategory from "../components/Product/Category/SubCategory/SubCategoryPage";
 import UserTest from "../pages/Test/UserTest";
 import Product from "../pages/Buyer/Product";
+import Category from "../pages/Main/Category";
+import SubCategory from "../pages/Main/Subcategory";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
       <Route element={<Layout/>}>
         <Route path='/' element= {<RootLayout/>}>
-          {/* <Route path='auth'></Route> */}
-          <Route index element={<HomePage/>}>
-              {/* Category 
-                    SubCategory
-                      Product*/}
-              
-          </Route>
-          <Route path=":subCategory" element={<SubCategory/>}></Route>
+
+          <Route index element={<HomePage/>}></Route>
+          
+          <Route path=':category' element={<Category/>}></Route>
+          <Route path=':category/:subcategory' element={<SubCategory/>}></Route>
+          <Route path=':category/:subcategory/:product' element={<Product/>}></Route>
+
           <Route path='login' element={<LoginPage/>}></Route>
           <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
