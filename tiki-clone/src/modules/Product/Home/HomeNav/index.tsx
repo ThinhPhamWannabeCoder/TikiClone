@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import unidecode from "unidecode"; // Import unidecode library
 import ContentBox from "../../../../components/Common/ContentBox";
+import NavBox from "../../../../components/Common/NavBox";
 
 const categories = [
   {
@@ -139,9 +140,9 @@ export default function HomeNav(){
     
       return (
     
-          <ContentBox class="w-1/6 h-full flex-shrink-0  sticky top-2">
+          <NavBox class="sticky top-2">
             <div className=" flex flex-col h-screen overflow-y-scroll no-scrollbar" id = 'content'>
-                    <h1 className="font-semibold px-3">Danh mục</h1>
+                <h1 className="font-semibold px-3">Danh mục</h1>
                     {categories.map((category) => (
                         <Link
                           key={category.id}
@@ -150,9 +151,9 @@ export default function HomeNav(){
                           >
                           {category.title}
                         </Link>
-                    ))}          
+                    ))} 
             </div>
-          </ContentBox>
+          </NavBox>
     
     );
     

@@ -1,5 +1,14 @@
+import ProductListBox from "../../../../components/Common/ProductListBox";
+
 export default function RecommendedList(){
     return (
-        <div> This is Recommeded List</div>
+        <ProductListBox >
+            <h3>This is recommedn list</h3>
+            <h3>This is recommedn list</h3>
+            <h3>This is recommedn list</h3>
+            <h3>This is recommedn list</h3>
+            <h3>This is recommedn list</h3>
+            <h3>This is recommedn list</h3>
+        </ProductListBox>
     )
 }

@@ -6,7 +6,7 @@ interface myProps{
 }
 export default function MainContent(props: myProps){
     return(
-        <div className={`w-5/6 flex gap - 3 ${props.class}`}>
+        <div className={` w-5/6 flex flex-col gap-3 ${props.class}`}>
             {props.children}
         </div>
     )

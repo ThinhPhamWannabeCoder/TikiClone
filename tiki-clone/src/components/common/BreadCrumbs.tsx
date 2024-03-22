@@ -23,12 +23,11 @@ export default function BreadCrumbs(){
             )
         })
     return (
-        <div className="flex w-5/6">
+        <div className="flex self-start">
             <div>
                 <Link to="/" className="flex items-center text-gray-700 py-3 hover:underline">
                     Trang chủ
                     <ChevronRightIcon className="w-3"/>
-                    
                 </Link>
             </div>
             {crumbs}

@@ -9,14 +9,11 @@ export default function RootLayout(){
     return(
         <>
             {/* Kiemt ra dieu kien de xe ly header */}
-            <div className="bg-gray-100">
+            <div className="bg-gray-100 w-full flex flex-col items-center">
                 <Header/>
-                <main className="flex flex-col items-center">
-                     <BreadCrumbs/>
-                    <div>
-                        <Outlet/>
-                        
-                    </div>
+                <main className="flex w-11/12 flex-col items-center">
+                    <BreadCrumbs/>
+                    <Outlet/>
                 </main>
                 <Footer/>
             </div>

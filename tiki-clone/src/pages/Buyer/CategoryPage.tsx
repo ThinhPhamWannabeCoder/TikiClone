@@ -1,12 +1,13 @@
+import OuterContainer from "../../components/Common/OuterContent";
+import CategoryContent from "../../modules/Product/Category";
 import CategoryNav from "../../modules/Product/Category/CategoryNav";
 
 export default function CategoryPage(){
     // props
     return(
-        <div className="flex w-11/12 mt-3 gap-4">
-        {/* Category Nav */}
+        <OuterContainer class="flex  gap-4">
             <CategoryNav/>
-            {/* Content */}
-        </div>
+            <CategoryContent/>
+        </OuterContainer>
     )
 }
