@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import NavBox from "../../nav/NavBox";
 import unidecode from "unidecode"; // Import unidecode library
+import ContentBox from "../../../../components/Common/ContentBox";
 
 const categories = [
   {
@@ -116,44 +116,44 @@ const categories = [
   },
   
 ];
-
-export default function CategoryNav() {
-  const convertToSlug = (text) => {
-    return unidecode(text)
-      .toLowerCase() // Convert text to lowercase
-      .replace(/ - /g,"-")
-      .replace(/[^\w\s-]/g, "") // Remove non-word characters
-      .replace(/\s+/g, "-") // Replace spaces with hyphens
-      .trim(); // Trim leading and trailing spaces
-  };
-  useEffect(()=>{
-    const content = document.querySelector('#content')
-    content?.addEventListener("scroll",()=>{
-        console.log('hi')
-    })
-    return ()=>{
-        content?.removeEventListener("scroll",()=>{
+export default function HomeNav(){
+    const convertToSlug = (text:string) => {
+        return unidecode(text)
+          .toLowerCase() // Convert text to lowercase
+          .replace(/ - /g,"-")
+          .replace(/[^\w\s-]/g, "") // Remove non-word characters
+          .replace(/\s+/g, "-") // Replace spaces with hyphens
+          .trim(); // Trim leading and trailing spaces
+      };
+      useEffect(()=>{
+        const content = document.querySelector('#content')
+        content?.addEventListener("scroll",()=>{
             console.log('hi')
         })
-    }
-  },[])
-
-  return (
-
-      <NavBox class=" sticky top-2">
-        <div className=" flex flex-col h-screen overflow-y-scroll no-scrollbar" id = 'content'>
-                <h1 className="font-semibold px-3">Danh mục</h1>
-                {categories.map((category) => (
-                    <Link
-                      key={category.id}
-                      to={`/${convertToSlug(category.title)}`} // Convert title to slug
-                      className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200"
-                      >
-                      {category.title}
-                    </Link>
-                ))}          
-        </div>
-      </NavBox>
-
-  );
+        return ()=>{
+            content?.removeEventListener("scroll",()=>{
+                console.log('hi')
+            })
+        }
+      },[])
+    
+      return (
+    
+          <ContentBox class="w-1/6 h-full flex-shrink-0  sticky top-2">
+            <div className=" flex flex-col h-screen overflow-y-scroll no-scrollbar" id = 'content'>
+                    <h1 className="font-semibold px-3">Danh mục</h1>
+                    {categories.map((category) => (
+                        <Link
+                          key={category.id}
+                          to={`/${convertToSlug(category.title)}`} // Convert title to slug
+                          className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200"
+                          >
+                          {category.title}
+                        </Link>
+                    ))}          
+            </div>
+          </ContentBox>
+    
+    );
+    
 }

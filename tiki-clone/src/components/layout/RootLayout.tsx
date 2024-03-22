@@ -13,12 +13,12 @@ export default function RootLayout(){
                 <Header/>
                 <main className="flex flex-col items-center">
                      <BreadCrumbs/>
-
-                    <Outlet/>
+                    <div>
+                        <Outlet/>
+                        
+                    </div>
                 </main>
-                <div>
-                    <Footer/>
-                </div>
+                <Footer/>
             </div>
             
         </>
