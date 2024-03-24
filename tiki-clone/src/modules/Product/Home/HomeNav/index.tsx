@@ -146,7 +146,7 @@ export default function HomeNav(){
                     {categories.map((category) => (
                         <Link
                           key={category.id}
-                          to={`/${convertToSlug(category.title)}`} // Convert title to slug
+                          to={`category/${convertToSlug(category.title)}`} // Convert title to slug
                           className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200"
                           >
                           {category.title}
