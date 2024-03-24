@@ -1,6 +1,6 @@
 import ProductListBox from "../../../../components/Common/ProductListBox";
 import { thinh_avatar } from "../../../../assets/images/image";
-import SmallFilterNav from "../../Category/MainContent/SmallFilterNav";
+import SmallFilterNav from "../../../../components/Product/Component/SmallFilterNav";
 
 const data = [
     {
@@ -34,10 +34,11 @@ export default function AllBest(){
         <ProductListBox >
             <div className="col-span-6">
                 <h1 className="font-semibold text-lg">Tiki best</h1>
-            </div>
-            <SmallFilterNav class="col-span-6">
+                <SmallFilterNav class="col-span-6">
                     for best
-            </SmallFilterNav>
+                </SmallFilterNav>
+            </div>
+            
             {
                 data.map((x,index)=>(
                     <div key={index} className="flex flex-col items-center hover:opacity-60 transition duration-150">

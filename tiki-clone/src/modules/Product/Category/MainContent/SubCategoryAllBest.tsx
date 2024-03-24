@@ -1,7 +1,5 @@
-import ProductListBox from "../../../../components/Common/ProductListBox";
 import { thinh_avatar } from "../../../../assets/images/image";
-import SmallFilterNav from "../../../../components/Product/Component/SmallFilterNav";
-
+import ProductListBox from "../../../../components/Common/ProductListBox";
 const data = [
     {
         url: thinh_avatar,
@@ -29,16 +27,10 @@ const data = [
     },
 
 ]
-export default function YouMayLike(){
+export default function SubCategoryAllBest(){
     return(
-        <ProductListBox >
-            <div className="col-span-6">
-                <h1 className="font-semibold text-lg">Bạn có thể thích</h1>
-                <SmallFilterNav class="col-span-6">
-                    for may like
-                </SmallFilterNav>
-            </div>
-            
+        <ProductListBox>
+            <h2 className="col-span-6 text-xl font-semibold pb-3">Tiki best</h2>
             {
                 data.map((x,index)=>(
                     <div key={index} className="flex flex-col items-center hover:opacity-60 transition duration-150">
@@ -47,7 +39,6 @@ export default function YouMayLike(){
                     </div>
                 ))
             }
-            
         </ProductListBox>
     )
 }
