@@ -1,6 +1,6 @@
 import OuterContainer from "../../components/Common/OuterContent";
-import CategoryContent from "../../modules/Product/Category";
-import CategoryNav from "../../modules/Product/Category/CategoryNav";
+import CategoryContent from "../../modules/Category";
+import CategoryNav from "../../modules/Category/CategoryNav";
 
 export default function CategoryPage(){
     // props

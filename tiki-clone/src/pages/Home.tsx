@@ -1,15 +1,13 @@
 import OuterContainer from "../components/Common/OuterContent";
-import HomeNav from "../modules/Product/Home/HomeNav";
-import MainHomeContent from "../modules/Product/Home/MainContent";
+import Home from "../modules/Product/Home";
 
 export default function HomePage(){
-    // Fetch upto 30-50 products 
+    // Khong fetch tai day
     return(
-        <>
-            <OuterContainer class="flex  gap-4 mt-4" >
-                <HomeNav/>
-                <MainHomeContent/>
-            </OuterContainer>
-        </>
+        <OuterContainer class="flex gap-4 mt-4" >
+        
+            <Home/>
+        </OuterContainer>
+
     )
 }

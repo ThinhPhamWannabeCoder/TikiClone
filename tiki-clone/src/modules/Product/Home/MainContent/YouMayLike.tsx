@@ -1,6 +1,6 @@
 import ProductListBox from "../../../../components/Common/ProductListBox";
 import { thinh_avatar } from "../../../../assets/images/image";
-import SmallFilterNav from "../../../../components/Product/Component/SmallFilterNav";
+import SmallFilterNav from "../../SmallFilterNav";
 
 const data = [
     {

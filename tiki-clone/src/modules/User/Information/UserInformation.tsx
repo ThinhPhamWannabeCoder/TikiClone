@@ -26,10 +26,7 @@ export default function UserInformation(){
         const [email, setEmail] = useState<string>(userData?.email)
         const [avatarChange, setAvatarChange] = useState(false)
         const [avatarId, setAvatarId] = useState<number>(userData?.avatarId)
-        // Cho chung vao 1 thang -> update
-        // Update user Context la xong
-        // Hoi lau de sau
-    
+
         const handleSubmit = async (e)=>{
             e.preventDefault();
             let tempId:number = avatarId;

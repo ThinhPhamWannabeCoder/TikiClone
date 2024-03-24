@@ -1,5 +1,5 @@
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements} from "react-router-dom";
-import RootLayout from "../components/layout/RootLayout";
+import RootLayout from "../components/Layout/RootLayout";
 import LoginPage from "../pages/Auth/Login";
 import RegisterPage from "../pages/Auth/Register";
 import UserInfo from "../pages/User/UserInfo";
@@ -8,8 +8,8 @@ import BuyerOrder from "../pages/User/BuyerOrder";
 import UserAddress from "../pages/User/UserAddress";
 import NotFound from "../components/Common/NotFound";
 import UserError from "../components/Error/UserError";
-import Layout from "../components/layout/Layout";
-import UserLayout from "../components/layout/UserLayout";
+import Layout from "../components/Layout/Layout";
+import UserLayout from "../components/Layout/UserLayout";
 import HomePage from "../pages/Home";
 
 const publicRoutes = createBrowserRouter(
