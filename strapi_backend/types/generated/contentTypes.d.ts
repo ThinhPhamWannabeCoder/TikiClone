@@ -362,191 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiAddressUserAddressUser extends Schema.CollectionType {
-  collectionName: 'address_users';
-  info: {
-    singularName: 'address-user';
-    pluralName: 'address-users';
-    displayName: 'address_user';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    user_id: Attribute.Relation<
-      'api::address-user.address-user',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    default_address: Attribute.Boolean & Attribute.DefaultTo<false>;
-    receiver_name: Attribute.String & Attribute.Required;
-    address_detail: Attribute.Text & Attribute.Required;
-    phone: Attribute.String & Attribute.Required;
-    company_name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::address-user.address-user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::address-user.address-user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiInfomationUserInfomationUser extends Schema.CollectionType {
-  collectionName: 'infomation_users';
-  info: {
-    singularName: 'infomation-user';
-    pluralName: 'infomation-users';
-    displayName: 'infomation_user';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    avatar: Attribute.Media;
-    Nickname: Attribute.String;
-    birthdate: Attribute.Date;
-    user_id: Attribute.Relation<
-      'api::infomation-user.infomation-user',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    gender: Attribute.Enumeration<['male', 'female', 'other']>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::infomation-user.infomation-user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::infomation-user.infomation-user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiNotificationUserNotificationUser
-  extends Schema.CollectionType {
-  collectionName: 'notification_users';
-  info: {
-    singularName: 'notification-user';
-    pluralName: 'notification-users';
-    displayName: 'notification_user';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    Title: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Attribute.DefaultTo<'NON-REPLY'>;
-    receiver_id: Attribute.Relation<
-      'api::notification-user.notification-user',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    message: Attribute.Text &
-      Attribute.Required &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::notification-user.notification-user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::notification-user.notification-user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::notification-user.notification-user',
-      'oneToMany',
-      'api::notification-user.notification-user'
-    >;
-    locale: Attribute.String;
-  };
-}
-
-export interface ApiProductProduct extends Schema.CollectionType {
-  collectionName: 'products';
-  info: {
-    singularName: 'product';
-    pluralName: 'products';
-    displayName: 'product';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    localizations: Attribute.Relation<
-      'api::product.product',
-      'oneToMany',
-      'api::product.product'
-    >;
-    locale: Attribute.String;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -970,6 +785,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::infomation-user.infomation-user'
     >;
+    stores: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::store.store'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -987,6 +807,517 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiAddressUserAddressUser extends Schema.CollectionType {
+  collectionName: 'address_users';
+  info: {
+    singularName: 'address-user';
+    pluralName: 'address-users';
+    displayName: 'address_user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user_id: Attribute.Relation<
+      'api::address-user.address-user',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    default_address: Attribute.Boolean & Attribute.DefaultTo<false>;
+    receiver_name: Attribute.String & Attribute.Required;
+    address_detail: Attribute.Text & Attribute.Required;
+    phone: Attribute.String & Attribute.Required;
+    company_name: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::address-user.address-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::address-user.address-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiInfomationUserInfomationUser extends Schema.CollectionType {
+  collectionName: 'infomation_users';
+  info: {
+    singularName: 'infomation-user';
+    pluralName: 'infomation-users';
+    displayName: 'infomation_user';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    avatar: Attribute.Media;
+    Nickname: Attribute.String;
+    birthdate: Attribute.Date;
+    user_id: Attribute.Relation<
+      'api::infomation-user.infomation-user',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    gender: Attribute.Enumeration<['male', 'female', 'other']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::infomation-user.infomation-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::infomation-user.infomation-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNotificationUserNotificationUser
+  extends Schema.CollectionType {
+  collectionName: 'notification_users';
+  info: {
+    singularName: 'notification-user';
+    pluralName: 'notification-users';
+    displayName: 'notification_user';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    Title: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'NON-REPLY'>;
+    receiver_id: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    message: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::notification-user.notification-user',
+      'oneToMany',
+      'api::notification-user.notification-user'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'product';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    product_information: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'api::product-information.product-information'
+    >;
+    price: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      >;
+    Inventory: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: false;
+        };
+      }> &
+      Attribute.DefaultTo<0>;
+    product_sub_category: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::product-sub-category.product-sub-category'
+    >;
+    store: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'api::store.store'
+    >;
+    product_images: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    primary_image: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::product.product'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiProductCategoryProductCategory
+  extends Schema.CollectionType {
+  collectionName: 'product_categories';
+  info: {
+    singularName: 'product-category';
+    pluralName: 'product-categories';
+    displayName: 'Product_Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Unique &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    product_sub_categories: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToMany',
+      'api::product-sub-category.product-sub-category'
+    >;
+    image: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::product-category.product-category',
+      'oneToMany',
+      'api::product-category.product-category'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiProductInformationProductInformation
+  extends Schema.CollectionType {
+  collectionName: 'product_informations';
+  info: {
+    singularName: 'product-information';
+    pluralName: 'product-informations';
+    displayName: 'Product_Information';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    weight: Attribute.Float &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    weight_unit: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    height: Attribute.Decimal &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    height_unit: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    width: Attribute.Float &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    width_unit: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    depth_unit: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    product: Attribute.Relation<
+      'api::product-information.product-information',
+      'oneToOne',
+      'api::product.product'
+    >;
+    desc: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    depth: Attribute.Float &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-information.product-information',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-information.product-information',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::product-information.product-information',
+      'oneToMany',
+      'api::product-information.product-information'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiProductSubCategoryProductSubCategory
+  extends Schema.CollectionType {
+  collectionName: 'product_sub_categories';
+  info: {
+    singularName: 'product-sub-category';
+    pluralName: 'product-sub-categories';
+    displayName: 'Product_SubCategory';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    product_category: Attribute.Relation<
+      'api::product-sub-category.product-sub-category',
+      'manyToOne',
+      'api::product-category.product-category'
+    >;
+    products: Attribute.Relation<
+      'api::product-sub-category.product-sub-category',
+      'oneToMany',
+      'api::product.product'
+    >;
+    image: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-sub-category.product-sub-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-sub-category.product-sub-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::product-sub-category.product-sub-category',
+      'oneToMany',
+      'api::product-sub-category.product-sub-category'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiStoreStore extends Schema.CollectionType {
+  collectionName: 'stores';
+  info: {
+    singularName: 'store';
+    pluralName: 'stores';
+    displayName: 'Store';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    users_permissions_user: Attribute.Relation<
+      'api::store.store',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    products: Attribute.Relation<
+      'api::store.store',
+      'oneToMany',
+      'api::product.product'
+    >;
+    avatar: Attribute.Media & Attribute.Required;
+    desc: Attribute.Text;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::store.store',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::store.store',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -997,10 +1328,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::address-user.address-user': ApiAddressUserAddressUser;
-      'api::infomation-user.infomation-user': ApiInfomationUserInfomationUser;
-      'api::notification-user.notification-user': ApiNotificationUserNotificationUser;
-      'api::product.product': ApiProductProduct;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -1009,6 +1336,14 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::address-user.address-user': ApiAddressUserAddressUser;
+      'api::infomation-user.infomation-user': ApiInfomationUserInfomationUser;
+      'api::notification-user.notification-user': ApiNotificationUserNotificationUser;
+      'api::product.product': ApiProductProduct;
+      'api::product-category.product-category': ApiProductCategoryProductCategory;
+      'api::product-information.product-information': ApiProductInformationProductInformation;
+      'api::product-sub-category.product-sub-category': ApiProductSubCategoryProductSubCategory;
+      'api::store.store': ApiStoreStore;
     }
   }
 }

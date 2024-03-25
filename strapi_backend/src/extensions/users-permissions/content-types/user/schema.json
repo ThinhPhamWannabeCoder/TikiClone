@@ -82,6 +82,12 @@
       "relation": "oneToOne",
       "target": "api::infomation-user.infomation-user",
       "mappedBy": "user_id"
+    },
+    "stores": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::store.store",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
