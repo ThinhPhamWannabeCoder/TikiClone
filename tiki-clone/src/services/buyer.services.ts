@@ -1,6 +1,7 @@
 import {axiosPublic} from "../config/axios.public"
 
-
+// Tat ca se dung chung tren axios.get(/product/get-all?) r
+// Xong roi filter tren day
 const productApi ={
     // Filter on Category
     // Filter on SubCategory
@@ -10,6 +11,7 @@ const productApi ={
     // Get Recommended Product
     // Get product by fiter
     // Get random product
+    
 }
 export default productApi
 // Co job de customize strapi roi
