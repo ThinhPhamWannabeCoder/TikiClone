@@ -9,6 +9,11 @@ export default {
             method: 'GET',
             path: '/product-sub-categories/:category/best',
             handler: 'product-sub-category.getBest'
+        },
+        {
+            method: 'GET',
+            path: '/product-sub-categories/:category/nav',
+            handler: 'product-sub-category.getNav'
         }
     ]
 }

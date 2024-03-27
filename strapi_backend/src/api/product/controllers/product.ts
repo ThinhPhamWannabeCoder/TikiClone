@@ -37,9 +37,9 @@ export default factories.createCoreController('api::product.product',({strapi})=
             
         // if()
         const result = await strapi.service('api::product.product').getAllHome({best_seller: queryParams.best_seller, limit: queryParams.limit, current_page: queryParams.current_page});
-        
+        // const result = await strapi.service('api::product.product').getAllSubCategory({ subcategory_id: queryParams.subcategory_id, best_seller: queryParams.best_seller, price_range: queryParams.price_range,limit: queryParams.limit, current_page: queryParams.current_page, new_product: queryParams.new_product, sort: queryParams.sort});
+        // const result= await strapi.service('api::product.product').getBestBySubCategory({subcategory_id: queryParams.subcategory_id, limit: queryParams.limit, current_page: queryParams.current_page})
         ctx.body = result;
-        
     },
     async bestSeller(ctx, next){
         // Lam sao de lay va handle tung du lieu trong nay
@@ -49,6 +49,10 @@ export default factories.createCoreController('api::product.product',({strapi})=
             limit: 5,
             fields: ['id', 'name']
         })
-
+    },
+    async getProductById(ctx, next){
+        const {id} = ctx.params;
+        const result = await strapi.service('api::product.product').getProductById(parseInt(id));
+        return result
     }
 }));

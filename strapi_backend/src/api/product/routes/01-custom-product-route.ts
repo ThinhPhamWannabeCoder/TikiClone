@@ -2,6 +2,11 @@ export default {
     routes:[
         {
             method: 'GET',
+            path: '/products/:id',
+            handler: 'product.getProductById',
+        },
+        {
+            method: 'GET',
             path: '/products/getAll',
             handler: 'product.getAll',
             // Chu y co filter 

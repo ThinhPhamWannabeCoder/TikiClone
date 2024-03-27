@@ -24,70 +24,48 @@ interface allProduct{
     limit?: number,
     current_page?: number
 }
+interface Filters {
+    Inventory: {
+        $gt: number;
+    };
+    product_sub_category?: {
+        product_category:{
+            id: number
+        }
+    }
+    price?: {
+        $between: [number, number];
+    };
+}
+interface sort{
+
+}
+
 import { factories } from '@strapi/strapi';
 //@ts-ignore
 export default factories.createCoreService('api::product.product',({strapi})=>({
-    getAll: async (options: allProduct) =>{
-       //Handle tai day
-        // Handle theo tung truong hop
-        // 
-        return(options)
-    },
-    getAllHome: async (options: {best_seller: boolean, limit:number, current_page:number})=>{
-        // All the variable Have to be avaialble
-        // Limit = 10
-        // Current-Page = 1
-        // Best Seller: true, false
-        // Lam sao de lay duoc thong tin 
-        if(options.best_seller){
-            // console.log(typeof options.best_seller)
-
-            return await strapi.entityService.findMany('api::product.product',{
-                fields: ['id', 'name', 'price','Inventory'],
-                populate:{
-                    product_sub_category: {
-                        fields: ['id', 'name'],
-                        populate:{
-                            product_category:{
-                                fields: ['id', 'name']
-                            }
-                        }
-                    },
-                    primary_image:{
-                        fields: ['id','url']
-                    }
-                },
-                start: (options.current_page - 1)*options.limit,
-                limit: options.limit,
-                sort: [{price: 'desc'},{Inventory: 'desc'}],
-                filters: {
-                    price: {
-                        $gte: 0
-                    },
-                    Inventory: {
-                        $gte: 0
-                    }
-                }
-            })
-        }
-        return await strapi.entityService.findMany('api::product.product',{
-            fields: ['id', 'name', 'price','Inventory'],
-            populate:{
+    getAllHome: async (options: {
+        best_seller: boolean;
+        limit: number;
+        current_page: number;
+    }) => {
+        const queryOptions: any = {
+            fields: ['id', 'name', 'price', 'Inventory'],
+            populate: {
                 product_sub_category: {
                     fields: ['id', 'name'],
-                    populate:{
-                        product_category:{
+                    populate: {
+                        product_category: {
                             fields: ['id', 'name']
                         }
                     }
                 },
-                primary_image:{
-                    fields: ['id','url']
+                primary_image: {
+                    fields: ['id', 'url']
                 }
             },
-            start: (options.current_page - 1)*options.limit,
+            start: (options.current_page - 1) * options.limit,
             limit: options.limit,
-            // sort: [{price: 'desc'},{Inventory: 'desc'}],
             filters: {
                 price: {
                     $gte: 0
@@ -96,21 +74,247 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                     $gt: 0
                 }
             }
-        })
+        };
+    
+        if (options.best_seller) {
+            // If best_seller is true, include sorting
+            queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' },{createdAt: "desc"}];
+        }
+    
+        return await strapi.entityService.findMany('api::product.product', queryOptions);
     },
-    getAllCategory: async (category_id, best_seller, price_range,limit, current_page) => {
-        // tuong tu va co rat nhieu
-    },
-    getBestByCategory: async (category_id, limit, current_page) =>{
+    getAllCategory: async (options: 
+        {
+            category_id: number, 
+            best_seller: boolean, 
+            price_range?: string,
+            limit: number, 
+            current_page: number,
+            new_product: boolean,
+            sort?: string,
+        }
+    ) => {
+        // DONE
+        let filters: any = {
+            Inventory: {
+                $gt: 0
+            },
+            product_sub_category: {
+                product_category:{
+                    id: options.category_id
+                }
+            }
+        };
+        if(options.price_range){
+            const priceArray = options.price_range.split('-');
+            filters.price = {
+                $between: [parseFloat(priceArray[0]), parseFloat(priceArray[1])]
+            };
+        }
+
+        const queryOptions: any = {
+            fields: ['id', 'name', 'price', 'Inventory'],
+            populate: {
+                product_sub_category: {
+                    fields: ['id', 'name'],
+                    populate: {
+                        product_category: {
+                            fields: ['id', 'name']
+                        }
+                    }
+                },
+                primary_image: {
+                    fields: ['id', 'url']
+                }
+            },
+            start: (options.current_page - 1) * options.limit,
+            limit: options.limit,
+            filters: filters
+        };
+        if (options.sort) {
+            const option = options.sort.split(':')
+            queryOptions.sort = [{ price: option[1] }, { Inventory: 'desc' }];
+        }
+        if (options.best_seller) {
+            queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' }];
+        }
+        if (options.new_product){
+            queryOptions.sort =  [{createdAt: "desc"},{ price: 'desc' }, { Inventory: 'desc' }];
+        }
+
+        return await strapi.entityService.findMany('api::product.product', queryOptions);
 
     },
-    getAllSubCategory: async (subcategory_id, best_seller, price_range,limit, current_page) => {
+    getBestByCategory: async (
+        options: 
+        {
+            category_id: number, 
+            limit: number, 
+            current_page: number,
+        }
+    ) =>{
+        // DONE
+        let filters: any = {
+            Inventory: {
+                $gt: 0
+            },
+            product_sub_category: {
+                product_category:{
+                    id: options.category_id
+                }
+            }
+        };
+        const queryOptions: any = {
+            fields: ['id', 'name', 'price', 'Inventory'],
+            populate: {
+                product_sub_category: {
+                    fields: ['id', 'name'],
+                    populate: {
+                        product_category: {
+                            fields: ['id', 'name']
+                        }
+                    }
+                },
+                primary_image: {
+                    fields: ['id', 'url']
+                }
+            },
+            start: (options.current_page - 1) * options.limit,
+            limit: options.limit,
+            sort: [{price: 'desc'},{Inventory: 'desc'}],
+            filters: filters,
+        };
+        return await strapi.entityService.findMany('api::product.product', queryOptions);
 
     },
-    getBestBySubCategory: async (subcategory_id, limit, current_page) =>{
+    getAllSubCategory: async (options: 
+        {
+            subcategory_id: number, 
+            best_seller: boolean, 
+            price_range?: string,
+            limit: number, 
+            current_page: number,
+            new_product: boolean,
+            sort?: string,
+        }
+    ) => {
+        // DONE
+        let filters: any = {
+            Inventory: {
+                $gt: 0
+            },
+            product_sub_category: {
+                id: options.subcategory_id
+            }
+        };
+        if(options.price_range){
+            const priceArray = options.price_range.split('-');
+            filters.price = {
+                $between: [parseFloat(priceArray[0]), parseFloat(priceArray[1])]
+            };
+        }
 
+        const queryOptions: any = {
+            fields: ['id', 'name', 'price', 'Inventory'],
+            populate: {
+                product_sub_category: {
+                    fields: ['id', 'name'],
+                    populate: {
+                        product_category: {
+                            fields: ['id', 'name']
+                        }
+                    }
+                },
+                primary_image: {
+                    fields: ['id', 'url']
+                }
+            },
+            start: (options.current_page - 1) * options.limit,
+            limit: options.limit,
+            filters: filters
+        };
+        if (options.sort) {
+            const option = options.sort.split(':')
+            queryOptions.sort = [{ price: option[1] }, { Inventory: 'desc' }];
+        }
+        if (options.best_seller) {
+            queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' }];
+        }
+        if (options.new_product){
+            queryOptions.sort =  [{createdAt: "desc"},{ price: 'desc' }, { Inventory: 'desc' }];
+        }
+
+        return await strapi.entityService.findMany('api::product.product', queryOptions);
+    },
+    getBestBySubCategory: async (
+        options: 
+        {
+            subcategory_id: number, 
+            limit: number, 
+            current_page: number,
+        }
+    ) =>{
+        // DONE
+        let filters: any = {
+            Inventory: {
+                $gt: 0
+            },
+            product_sub_category: {
+                id: options.subcategory_id
+              
+            }
+        };
+        const queryOptions: any = {
+            fields: ['id', 'name', 'price', 'Inventory'],
+            populate: {
+                product_sub_category: {
+                    fields: ['id', 'name'],
+                    populate: {
+                        product_category: {
+                            fields: ['id', 'name']
+                        }
+                    }
+                },
+                primary_image: {
+                    fields: ['id', 'url']
+                }
+            },
+            start: (options.current_page - 1) * options.limit,
+            limit: options.limit,
+            sort: [{price: 'desc'},{Inventory: 'desc'}],
+            filters: filters,
+        };
+        return await strapi.entityService.findMany('api::product.product', queryOptions);
     },
     getProductById: async (product_id: number) =>{
-        // Process all Information -> Later
+        // Phai hanlde phai nay tuong doi ki
+        const queryOptions: any = {
+            fields: ['id', 'name', 'price', 'Inventory'],
+            populate: {
+                product_sub_category: {
+                    fields: ['id', 'name'],
+                    populate: {
+                        product_category: {
+                            fields: ['id', 'name']
+                        }
+                    }
+                },
+                primary_image: {
+                    fields: ['id', 'url']
+                }
+            },
+            filters: {
+                price: {
+                    $gte: 0
+                },
+                Inventory: {
+                    $gt: 0
+                }
+            }
+        };
+    
+       
+    
+        return await strapi.entityService.findOne('api::product.product', product_id ,queryOptions);
     }
 }));
