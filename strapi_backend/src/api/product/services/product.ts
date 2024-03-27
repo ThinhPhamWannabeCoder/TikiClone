@@ -17,24 +17,40 @@ interface result{
 interface allProduct{
     category_id?: number,
     subcategory_id?: number,
-    price_range?: string,
+    price_range?: string | string[],
     best_seller?: boolean,
     new_product?: boolean,
-    sort?: string,
+    sort?: string | string[],
+    limit?: number,
+    currentPage?: number
 }
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::product.product',({strapi})=>({
-    getAllProducts: async (options: allProduct) =>{
-        // resolver ve luon
-        // filter luon
-        // Handle here
-        // Get chuan product
-        // return 1;
-        console.log(options)
-        return(1)
+    getAll: async (options: allProduct) =>{
+       //Handle tai day
+        // Handle theo tung truong hop
+        // 
+        return(options)
     },
-    getProductById: async () =>{
+    getAllHome: async (best_seller, limit, current_page)=>{
+        // Phan cuoi
+
+        return 1;
+    },
+    getAllCategory: async (category_id, best_seller, price_range,limit, current_page) => {
+
+    },
+    getBestByCategory: async (category_id, limit, current_page) =>{
+
+    },
+    getAllSubCategory: async (subcategory_id, best_seller, price_range,limit, current_page) => {
+
+    },
+    getBestBySubCategory: async (subcategory_id, limit, current_page) =>{
+
+    },
+    getProductById: async (product_id: number) =>{
 
     }
 }));
