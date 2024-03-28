@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { thinh_avatar } from "../../assets/images/image";
 import ProductListBox from "../../components/Common/ProductListBox";
 import SmallFilterNav from "./SmallFilterNav";
@@ -91,9 +91,18 @@ const data = [
 export default function ProductList(){
     //  Here's the state 
     // 
+    // Lam 
+    const [data, setData] = useState(undefined);
+
+    const handleOption()=>{
+        // 
+
+    }
     useEffect(()=>{
         // productApi.get(filter)
         // pass props to small filter
+        // Lay thong tin product nav
+        // Gan nav
     },[])
     return (
         <div className="w-full">
@@ -102,7 +111,7 @@ export default function ProductList(){
                     <h1 className="bg-white font-semibold text-lg">Gợi ý ngày hôm nay</h1>
                     <SmallFilterNav class="w-full sticky top-2">
                     for products
-                </SmallFilterNav>
+                    </SmallFilterNav>
                 </div>
                 
                 {

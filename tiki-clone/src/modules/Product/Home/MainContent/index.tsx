@@ -1,15 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MainContent from "../../../../components/Common/MainContent";
 import ProductList from "../../ProductList";
 import AllBest from "./AllBest";
 import HeroSection from "./HeroSection";
 import SmallNavigation from "./SmallNavigatetion";
 import YouMayLike from "./YouMayLike";
+import { useLocation } from "react-router-dom";
 
 export default function MainHomeContent(){
     // Fetch va xu ly logic tai day
     // Chi lien quan den Fetch va link 
-
+    // Rat la complex, can phai danh thoi gian de xe ly no
+    // Khon can dung Redux
+    // Khong co dung location tai day
     useEffect(()=>{
         // Fetch Hero Sectionh
         // Fetch Small Navigation

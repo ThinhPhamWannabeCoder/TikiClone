@@ -30,6 +30,15 @@ const data = [
 
 ]
 export default function YouMayLike(){
+    const [option. setOption] = useState(1);
+    const [count, setCount] = useState(1);
+    useEffect(()=>{
+        // Call API 
+        
+    },[])
+    if(!data){
+        return 'loading'
+    }
     return(
         <ProductListBox >
             <div className="col-span-6">

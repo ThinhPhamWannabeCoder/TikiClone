@@ -3,6 +3,7 @@ export default {
         {
             method: 'GET',
             path: '/products/getAll',
+            // auth: false,
             handler: 'product.getAll',
 
             config:{

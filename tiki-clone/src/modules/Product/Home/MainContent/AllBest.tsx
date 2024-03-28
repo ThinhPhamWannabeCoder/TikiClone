@@ -1,6 +1,7 @@
 import ProductListBox from "../../../../components/Common/ProductListBox";
 import { thinh_avatar } from "../../../../assets/images/image";
 import SmallFilterNav from "../../SmallFilterNav";
+import { useEffect, useState } from "react";
 
 const data = [
     {
@@ -30,6 +31,15 @@ const data = [
 
 ]
 export default function AllBest(){
+    const [option. setOption] = useState(1);
+    const [count, setCount] = useState(1);
+    useEffect(()=>{
+        // Call API 
+        
+    },[])
+    if(!data){
+        return 'loading'
+    }
     return(
         <ProductListBox >
             <div className="col-span-6">

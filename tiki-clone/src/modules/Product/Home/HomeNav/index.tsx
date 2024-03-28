@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import unidecode from "unidecode"; // Import unidecode library
 import ContentBox from "../../../../components/Common/ContentBox";
 import NavBox from "../../../../components/Common/NavBox";
+import productApi from "../../../../services/buyer.services";
 
 const categories = [
   {
@@ -137,7 +138,11 @@ export default function HomeNav(){
             })
         }
       },[])
-    
+    useEffect(()=>{
+      productApi.getCategoryNav()
+        .then()
+        .catch()
+    },[])
       return (
     
           <NavBox class="sticky top-2">

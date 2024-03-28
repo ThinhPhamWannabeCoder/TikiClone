@@ -13,6 +13,7 @@ import UserTest from "../pages/Test/UserTest";
 import CategoryPage from "../pages/Buyer/CategoryPage";
 import SubCategoryPage from "../pages/Buyer/SubCategoryPage";
 import ProductPage from "../pages/Buyer/ProductPage";
+import Test from "../pages/Test/test";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -28,7 +29,7 @@ const publicRoutes = createBrowserRouter(
           <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
-          <Route path="usertest" element={<UserTest/>}></Route>
+          <Route path="test" element={<Test/>}></Route>
           <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}></Route>
           <Route path='product' element={<ProductPage/>}></Route>
         </Route>
