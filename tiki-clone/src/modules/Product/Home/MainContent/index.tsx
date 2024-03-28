@@ -20,7 +20,9 @@ export default function MainHomeContent(){
         // Fetch Small Navigation
         // Fetch All Best Product
         // Fetch you may like
-        console.log(searchParams.get('category_id'));
+        // console.log(searchParams.get('category_id'));
+        // 
+        
         // 
     },[])
     return(

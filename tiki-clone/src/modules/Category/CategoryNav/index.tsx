@@ -31,7 +31,7 @@ export default function CategoryNav(){
     }
     useEffect(()=>{
         
-        productApi.getSubCategoryNav(searchParams.get('category_id'))
+        productApi.getSubCategoryNav(parseInt(searchParams.get('category_id') as string))
             .then(x => {
                 if(x.data.length){
                     setData(x.data); setLoading(false)
