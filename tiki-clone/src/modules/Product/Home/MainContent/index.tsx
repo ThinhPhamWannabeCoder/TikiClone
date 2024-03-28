@@ -8,6 +8,8 @@ import YouMayLike from "./YouMayLike";
 import { useLocation } from "react-router-dom";
 
 export default function MainHomeContent(){
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
     // Fetch va xu ly logic tai day
     // Chi lien quan den Fetch va link 
     // Rat la complex, can phai danh thoi gian de xe ly no
@@ -18,6 +20,7 @@ export default function MainHomeContent(){
         // Fetch Small Navigation
         // Fetch All Best Product
         // Fetch you may like
+        console.log(searchParams.get('category_id'));
         // 
     },[])
     return(

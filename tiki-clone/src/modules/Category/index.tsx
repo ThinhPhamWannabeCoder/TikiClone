@@ -4,22 +4,32 @@ import CategoryProductList from "./MainContent/CategoryProductList";
 import SubCategoryAllBest from "./MainContent/SubCategoryAllBest";
 import SubCategoryNav from "./MainContent/SubCategoryNav";
 import Title from "./MainContent/Title";
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function CategoryContent(){
-    // get id from path variable
-    const { category } = useParams();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    // Fetch va xu ly logic tai day
+    // Chi lien quan den Fetch va link 
+    // Rat la complex, can phai danh thoi gian de xe ly no
+    // Khon can dung Redux
+    // Khong co dung location tai day
+    // GET NAME GET CAC THU, GET PRODUCT
+    
+    // CONSTRUCT TIEP LAI API
     useEffect(()=>{
-        // Fetch category name - fro
-        // Fetch du lieu tu categoy
-        // Fetch thong tin navigation
+        // Fetch Hero Sectionh
+        // Fetch Small Navigation
+        // Fetch All Best Product
+        // Fetch you may like
+        console.log(searchParams.get('category_id'));
         // 
     },[])
     return(
         <MainContent>
             {/* Get tu path variable - */}
             <Title >
-                <h1 className="text-xl font-semibold">{category}</h1>
+                <h1 className="text-xl font-semibold">"TEST"</h1>
             </Title>
             <SubCategoryNav/>
             {/* props cateogry cho all best */}

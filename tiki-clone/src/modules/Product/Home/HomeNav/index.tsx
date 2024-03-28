@@ -1,7 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import unidecode from "unidecode"; // Import unidecode library
-import ContentBox from "../../../../components/Common/ContentBox";
+import { unidecode } from "../../../../utils/common";
 import NavBox from "../../../../components/Common/NavBox";
 import productApi from "../../../../services/buyer.services";
 
@@ -118,7 +117,14 @@ const categories = [
   },
   
 ];
+interface navItem{
+  id: number,
+  name: string,
+  image: string,
+}
 export default function HomeNav(){
+    const [data, setData] = useState<navItem[]|undefined>(undefined);
+    const [isLoading, setLoading] = useState<boolean>(true)
     const convertToSlug = (text:string) => {
         return unidecode(text)
           .toLowerCase() // Convert text to lowercase
@@ -127,39 +133,37 @@ export default function HomeNav(){
           .replace(/\s+/g, "-") // Replace spaces with hyphens
           .trim(); // Trim leading and trailing spaces
       };
-      useEffect(()=>{
-        const content = document.querySelector('#content')
-        content?.addEventListener("scroll",()=>{
-            console.log('hi')
-        })
-        return ()=>{
-            content?.removeEventListener("scroll",()=>{
-                console.log('hi')
-            })
-        }
-      },[])
+     
+
     useEffect(()=>{
       productApi.getCategoryNav()
-        .then()
-        .catch()
+        .then(x => {setData(x.data); setLoading(false)})
+        .catch(e => console.log(e.message))
     },[])
-      return (
+    if(isLoading){
+      return (<div>Loading</div>)
+    }
+    return (
     
-          <NavBox class="sticky top-2">
-            <div className=" flex flex-col h-screen overflow-y-scroll no-scrollbar" id = 'content'>
-                <h1 className="font-semibold px-3">Danh mục</h1>
-                    {categories.map((category) => (
-                        <Link
-                          key={category.id}
-                          to={`category/${convertToSlug(category.title)}`} // Convert title to slug
-                          className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200"
-                          >
-                          {category.title}
-                        </Link>
-                    ))} 
-            </div>
-          </NavBox>
+        <NavBox class="sticky top-2">
+          <div className=" flex flex-col max-h-screen overflow-y-scroll no-scrollbar">
+              <h1 className="font-semibold px-3">Danh mục</h1>
+                  {data.map((item) => (
+                      <Link
+                        key={item.id}
+                        to={`${convertToSlug(item.name)}?category_id=${item.id}`} // Convert title to slug
+                        className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2"
+                        >
+                        {/* <div className="flex"> */}
+                          <img src={`http://localhost:1337${item.image}`} alt="categry iamge"  className="w-10 h-10"/>
+                          <p>{item.name}</p>
+
+                        {/* </div> */}
+                      </Link>
+                  ))} 
+          </div>
+        </NavBox>
     
-    );
+    )
     
 }

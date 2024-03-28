@@ -92,18 +92,18 @@ export default function ProductList(){
     //  Here's the state 
     // 
     // Lam 
-    const [data, setData] = useState(undefined);
+    // const [data, setData] = useState(undefined);
 
-    const handleOption()=>{
-        // 
+    // const handleOption = ()=>{
+    //     // 
 
-    }
-    useEffect(()=>{
-        // productApi.get(filter)
-        // pass props to small filter
-        // Lay thong tin product nav
-        // Gan nav
-    },[])
+    // }
+    // useEffect(()=>{
+    //     // productApi.get(filter)
+    //     // pass props to small filter
+    //     // Lay thong tin product nav
+    //     // Gan nav
+    // },[])
     return (
         <div className="w-full">
             <ProductListBox >
