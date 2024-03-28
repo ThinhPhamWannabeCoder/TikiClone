@@ -37,9 +37,9 @@ interface Filters {
         $between: [number, number];
     };
 }
-interface sort{
-
-}
+const limitList = 30;
+const limitNav = 6;
+const current_pageDefault = 1
 
 import { factories } from '@strapi/strapi';
 //@ts-ignore
@@ -64,7 +64,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                     fields: ['id', 'url']
                 }
             },
-            start: (options.current_page - 1) * options.limit,
+            start: (options.current_page  - 1) * options.limit,
             limit: options.limit,
             filters: {
                 price: {
@@ -80,7 +80,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             // If best_seller is true, include sorting
             queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' },{createdAt: "desc"}];
         }
-    
         return await strapi.entityService.findMany('api::product.product', queryOptions);
     },
     getAllCategory: async (options: 
@@ -128,7 +127,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 }
             },
             start: (options.current_page - 1) * options.limit,
-            limit: options.limit,
+            limit: options.limit ,
             filters: filters
         };
         if (options.sort) {
@@ -179,8 +178,8 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                     fields: ['id', 'url']
                 }
             },
-            start: (options.current_page - 1) * options.limit,
-            limit: options.limit,
+            start: (options.current_page- 1) * options.limit,
+            limit: options.limit ,
             sort: [{price: 'desc'},{Inventory: 'desc'}],
             filters: filters,
         };
@@ -194,7 +193,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             price_range?: string,
             limit: number, 
             current_page: number,
-            new_product: boolean,
+            new_product?: boolean,
             sort?: string,
         }
     ) => {
@@ -204,7 +203,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 $gt: 0
             },
             product_sub_category: {
-                id: options.subcategory_id
+                id: 2
             }
         };
         if(options.price_range){
@@ -213,7 +212,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 $between: [parseFloat(priceArray[0]), parseFloat(priceArray[1])]
             };
         }
-
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
@@ -229,6 +227,8 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                     fields: ['id', 'url']
                 }
             },
+            // start: (options.current_page || current_pageDefault - 1) * options.limit||limitList,
+            // limit: options.limit ||limitList,
             start: (options.current_page - 1) * options.limit,
             limit: options.limit,
             filters: filters
@@ -243,7 +243,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         if (options.new_product){
             queryOptions.sort =  [{createdAt: "desc"},{ price: 'desc' }, { Inventory: 'desc' }];
         }
-
         return await strapi.entityService.findMany('api::product.product', queryOptions);
     },
     getBestBySubCategory: async (
@@ -254,16 +253,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             current_page: number,
         }
     ) =>{
-        // DONE
-        let filters: any = {
-            Inventory: {
-                $gt: 0
-            },
-            product_sub_category: {
-                id: options.subcategory_id
-              
-            }
-        };
+        console.log(options.subcategory_id)
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
@@ -279,13 +269,25 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                     fields: ['id', 'url']
                 }
             },
-            start: (options.current_page - 1) * options.limit,
+            // start: (options.current_page - 1) * options.limit,
+            // limit: options.limit,
+            start: (options.current_page - 1) * 2,
             limit: options.limit,
             sort: [{price: 'desc'},{Inventory: 'desc'}],
-            filters: filters,
+            filters: {
+                Inventory: {
+                    $gt: 0
+                },
+                product_sub_category: {
+                    id: options.subcategory_id
+                }
+            },
         };
+        console.log(await strapi.entityService.findMany('api::product.product', queryOptions));
         return await strapi.entityService.findMany('api::product.product', queryOptions);
+
     },
+
     getProductById: async (product_id: number) =>{
         // Phai hanlde phai nay tuong doi ki
         const queryOptions: any = {
