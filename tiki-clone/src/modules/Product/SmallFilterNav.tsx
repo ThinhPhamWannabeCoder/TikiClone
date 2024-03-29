@@ -6,7 +6,7 @@ interface classProps{
 }
 export default function SmallFilterNav(props: classProps){
     return(
-        <ContentBox>
+        <ContentBox class={props.class}>
               {props.children}
         </ContentBox>
     )

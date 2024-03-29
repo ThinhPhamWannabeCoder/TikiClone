@@ -18,7 +18,7 @@ const productApi ={
     
     // =============== HOME =============== //
     getHomeProduct: async (data : {best_seller: BooleanLiteral, limit: number, current_page: number})  => await axiosAdmin.get(`products/getAll?best_seller=${data.best_seller}&limit=${data.limit}&current_page=${data.current_page}`),
-    getHomeBestProductByCategory: async (data: {category_id: number, limit: number,current_page:number}) => await axiosPublic.get(`products/getAll?category_id=${data.category_id}&limit=${data.limit}&current_page=${data.current_page}`),
+    getHomeBestProductByCategory: async (data: {category_id: number, limit: number,current_page:number}) => await axiosAdmin.get(`products/getAll?category_id=${data.category_id}&limit=${data.limit}&current_page=${data.current_page}`),
 
     // =============== CATEGORY =============== //
     getCategory: async (category_id: number,) => await axiosAdmin.get(`/product-categories/${category_id}`),

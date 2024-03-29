@@ -6,7 +6,6 @@ export default function Home(){
     //
     return(
         <>
-            {/* Home Nav only for naviatting to next page -> no need to reredner */}
             <HomeNav/>
             <MainHomeContent/>
         </>

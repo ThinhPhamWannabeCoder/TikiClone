@@ -1,4 +1,4 @@
-import ProductBagde from "../../components/Product/Badge/ProductBadge";
+import ProductBagde from "../../components/Badge/ProductBadge";
 import OrderForm from "../Order/OrderForm";
 import ProductDescription from "./Description";
 import ProductMainBadge from "./Image/ProductMainBadge";
