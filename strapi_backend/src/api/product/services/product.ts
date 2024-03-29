@@ -75,7 +75,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 }
             }
         };
-    
         if (options.best_seller) {
             // If best_seller is true, include sorting
             queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' },{createdAt: "desc"}];
@@ -253,7 +252,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             current_page: number,
         }
     ) =>{
-        console.log(options.subcategory_id)
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
@@ -283,7 +281,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 }
             },
         };
-        console.log(await strapi.entityService.findMany('api::product.product', queryOptions));
+        // console.log(await strapi.entityService.findMany('api::product.product', queryOptions));
         return await strapi.entityService.findMany('api::product.product', queryOptions);
 
     },
