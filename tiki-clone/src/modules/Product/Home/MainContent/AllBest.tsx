@@ -7,33 +7,7 @@ import FilterBadge from "../../../../components/Badge/FilterBadge";
 import ProductBagde from "../../../../components/Badge/ProductBadge";
 import ContentBox from "../../../../components/Common/ContentBox";
 
-const fake = [
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
 
-]
 interface filterItem{
     id: number,
     name: string,
@@ -100,15 +74,15 @@ export default function AllBest(){
     }
     return(
         <ContentBox class="flex flex-col gap-3">
-                <h1 className="font-semibold text-lg">Tiki best</h1>
-                <SmallFilterNav class="col-span-6 flex p-0">
-                {
-                    filterData?.map(x=>(
-                        <FilterBadge key={x.id} id={x.id} url={x.image} title={x.name} onClickHanlder={setCurCategoryId}/>
-                    ))
-                }
-                </SmallFilterNav>
-            <ProductListBox class="p-0">
+            <h1 className="font-semibold text-lg">Tiki best</h1>
+            <SmallFilterNav class="col-span-6 flex p-0">
+            {
+                filterData?.map(x=>(
+                    <FilterBadge key={x.id} id={x.id} url={x.image} title={x.name} onClickHanlder={setCurCategoryId}/>
+                ))
+            }
+            </SmallFilterNav>
+            <ProductListBox >
             {
                     prouductData?.map(item=>
                         <ProductBagde 
@@ -120,10 +94,35 @@ export default function AllBest(){
                 }
             </ProductListBox>
         
-            {/* </div> */}
         </ContentBox>
-        
-            
             
     )
 }
+
+const fake = [
+    {
+        url: thinh_avatar,
+        title: 'option'
+    },
+    {
+        url: thinh_avatar,
+        title: 'option'
+    },
+    {
+        url: thinh_avatar,
+        title: 'option'
+    },
+    {
+        url: thinh_avatar,
+        title: 'option'
+    },
+    {
+        url: thinh_avatar,
+        title: 'option'
+    },
+    {
+        url: thinh_avatar,
+        title: 'option'
+    },
+
+]
