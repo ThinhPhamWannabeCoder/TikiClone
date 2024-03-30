@@ -79,6 +79,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             // If best_seller is true, include sorting
             queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' },{createdAt: "desc"}];
         }
+        // console.log(queryOptions)
         return await strapi.entityService.findMany('api::product.product', queryOptions);
     },
     getAllCategory: async (options: 

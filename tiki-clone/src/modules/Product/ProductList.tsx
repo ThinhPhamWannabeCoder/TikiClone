@@ -31,20 +31,25 @@ export default function ProductList(){
     const [productData, setProductData] = useState<product[]|undefined>(undefined)
     const [isLoading, setLoading] = useState<boolean>(true)
     const [currentPage, setCurentPage] = useState<number>(1)
- 
+    const [bestSeller, setBestSeller] = useState<"true"|"false">("false")
     // Handling end pagination
     const handleNext = () => {
         setCurentPage(currentPage+1)
     }
+    const handleBestSeller=()=>{
+        setBestSeller("true");
+    }  
+    const handleAll=()=>{
+        setBestSeller("false")
+    }
     useEffect(()=>{
+        // console.log(bestSeller)
         productApi.getHomeProduct({
-            best_seller: "false",
+            best_seller: bestSeller,
             limit: 6,
             current_page: currentPage,
         })
             .then(res => {
-                    
-                    console.log(productData)
                     if(currentPage>1){
                         // Append 
                         setProductData((prevData) => [...prevData, ...res.data]);
@@ -55,34 +60,37 @@ export default function ProductList(){
                     }
                 })
             .catch(err => console.log(err.message))
-    },[currentPage])
+    },[currentPage,bestSeller])
 
     // Place holder for doing lazy loading
     if(isLoading){
         return 'loading'
     }
     return (
-        <ContentBox class="w-full">
-            <div className="col-span-6 z-10 sticky top-0">
+        // <ContentBox class="w-full">
+        <div className="flex flex-col gap-3">
+            <ContentBox class="col-span-6 z-10 sticky top-0 flex flex-col gap-2">
                 <SecondaryTitle name="Gợi ý ngày hôm nay"/>
-                {/* <SmallFilterNav class="w-full sticky top-2">
-                    for products
-                </SmallFilterNav> */}
-                <HomeProductListFilter/>
-            </div>
-            <ProductListBox >
-                {
-                    productData?.map(item=>
-                        <ProductBagde key={item.id}
-                            product_url={item.primary_image.url} 
-                            name={item.name}
-                            price={item.price}
-                        />
-                    )
-                }
-            </ProductListBox>
+                <HomeProductListFilter best={handleBestSeller} all={handleAll} state={bestSeller}/>
+            </ContentBox>
+            <ContentBox>
+                <ProductListBox >
+                    {
+                        // console.log(productData)
+                        productData?.map(item=>
+                            <ProductBagde key={item.id}
+                                product_url={item.primary_image.url} 
+                                name={item.name}
+                                price={item.price}
+                            />
+                        )
+                    }
+                </ProductListBox>
+            </ContentBox>
+            
             <ProductListPagination next={handleNext}/>
-        </ContentBox>
+    {/* </ContentBox> */}
+        </div>
         
     
     )
