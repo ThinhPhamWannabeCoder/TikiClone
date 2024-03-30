@@ -1275,6 +1275,38 @@ export interface ApiProductSubCategoryProductSubCategory
   };
 }
 
+export interface ApiPromotionPromotion extends Schema.CollectionType {
+  collectionName: 'promotions';
+  info: {
+    singularName: 'promotion';
+    pluralName: 'promotions';
+    displayName: 'Promotion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    banner: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::promotion.promotion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::promotion.promotion',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiStoreStore extends Schema.CollectionType {
   collectionName: 'stores';
   info: {
@@ -1343,6 +1375,7 @@ declare module '@strapi/types' {
       'api::product-category.product-category': ApiProductCategoryProductCategory;
       'api::product-information.product-information': ApiProductInformationProductInformation;
       'api::product-sub-category.product-sub-category': ApiProductSubCategoryProductSubCategory;
+      'api::promotion.promotion': ApiPromotionPromotion;
       'api::store.store': ApiStoreStore;
     }
   }
