@@ -6,6 +6,7 @@ import ContentBox from "../../../../components/Common/ContentBox";
 import ProductBagde from "../../../../components/Badge/ProductBadge";
 import FilterBadge from "../../../../components/Badge/FilterBadge";
 import productApi from "../../../../services/buyer.services";
+import SecondaryTitle from "../../../../components/Title/SecondaryTitle";
 
 interface filterItem{
     id: number,
@@ -74,7 +75,7 @@ export default function YouMayLike(){
     }
     return(
         <ContentBox class="flex flex-col gap-3">
-            <h1 className="font-semibold text-lg">Bạn có thể thích</h1>
+            <SecondaryTitle name="Bạn có thể thích"/>
             <SmallFilterNav class="col-span-6 flex p-0">
             {
                 filterData?.map(x=>(
@@ -93,7 +94,7 @@ export default function YouMayLike(){
                     )
                 }
             </ProductListBox>
-        
+                {/* Pagination here */}
         </ContentBox>
             
     )

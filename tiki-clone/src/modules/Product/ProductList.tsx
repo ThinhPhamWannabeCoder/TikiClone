@@ -4,6 +4,10 @@ import ProductListBox from "../../components/Common/ProductListBox";
 import SmallFilterNav from "./SmallFilterNav";
 import productApi from "../../services/buyer.services";
 import ProductBagde from "../../components/Badge/ProductBadge";
+import SecondaryTitle from "../../components/Title/SecondaryTitle";
+import ProductListPagination from "../../components/Pagination/ProductListPagination";
+import ContentBox from "../../components/Common/ContentBox";
+import HomeProductListFilter from "../../components/Badge/HomeProductListFIlter";
 
 interface product{
     id: number,
@@ -29,11 +33,13 @@ export default function ProductList(){
     const [currentPage, setCurentPage] = useState<number>(1)
  
     // Handling end pagination
-
+    const handleNext = () => {
+        setCurentPage(currentPage+1)
+    }
     useEffect(()=>{
         productApi.getHomeProduct({
             best_seller: "false",
-            limit: 30,
+            limit: 6,
             current_page: currentPage,
         })
             .then(res => {
@@ -41,7 +47,7 @@ export default function ProductList(){
                     console.log(productData)
                     if(currentPage>1){
                         // Append 
-                        setProductData((prevData) => [...prevData, ...newProducts]);
+                        setProductData((prevData) => [...prevData, ...res.data]);
                     }
                     else{
                         setProductData(res.data)
@@ -56,17 +62,16 @@ export default function ProductList(){
         return 'loading'
     }
     return (
-        <div className="w-full">
+        <ContentBox class="w-full">
             <div className="col-span-6 z-10 sticky top-0">
-                <h1 className="bg-white font-semibold text-lg">Gợi ý ngày hôm nay</h1>
-            <SmallFilterNav class="w-full sticky top-2">
-                for products
-            </SmallFilterNav>
+                <SecondaryTitle name="Gợi ý ngày hôm nay"/>
+                {/* <SmallFilterNav class="w-full sticky top-2">
+                    for products
+                </SmallFilterNav> */}
+                <HomeProductListFilter/>
             </div>
             <ProductListBox >
-            
                 {
-
                     productData?.map(item=>
                         <ProductBagde key={item.id}
                             product_url={item.primary_image.url} 
@@ -76,9 +81,8 @@ export default function ProductList(){
                     )
                 }
             </ProductListBox>
-            {/* Create component */}
-            <div onClick={()=> {setCurentPage(currentPage+1)}}> This is Pagination</div>
-        </div>
+            <ProductListPagination next={handleNext}/>
+        </ContentBox>
         
     
     )

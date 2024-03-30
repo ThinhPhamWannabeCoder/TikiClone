@@ -6,6 +6,7 @@ import productApi from "../../../../services/buyer.services";
 import FilterBadge from "../../../../components/Badge/FilterBadge";
 import ProductBagde from "../../../../components/Badge/ProductBadge";
 import ContentBox from "../../../../components/Common/ContentBox";
+import SecondaryTitle from "../../../../components/Title/SecondaryTitle";
 
 
 interface filterItem{
@@ -74,7 +75,7 @@ export default function AllBest(){
     }
     return(
         <ContentBox class="flex flex-col gap-3">
-            <h1 className="font-semibold text-lg">Tiki best</h1>
+            <SecondaryTitle name="Tiki best"/>
             <SmallFilterNav class="col-span-6 flex p-0">
             {
                 filterData?.map(x=>(
@@ -93,7 +94,8 @@ export default function AllBest(){
                     )
                 }
             </ProductListBox>
-        
+                {/* Pagination here */}
+                
         </ContentBox>
             
     )
