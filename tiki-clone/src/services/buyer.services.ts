@@ -40,6 +40,8 @@ const productApi ={
     getProduct: async (product_id:number) => await axiosAdmin.get(`products/${product_id}`),
 
 
+    // =============== PROMOTION =============== //
+    getPromotionBanner: async () => await axiosAdmin.get('/promotions'),
     
 }
 export default productApi

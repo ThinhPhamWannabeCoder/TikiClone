@@ -79,7 +79,7 @@ export default function YouMayLike(){
             <SmallFilterNav class="col-span-6 flex p-0">
             {
                 filterData?.map(x=>(
-                    <FilterBadge key={x.id} id={x.id} url={x.image} title={x.name} onClickHanlder={setCurCategoryId}/>
+                    <FilterBadge key={x.id} id={x.id} url={x.image} title={x.name} state={curCategoryId as number} onClickHanlder={setCurCategoryId}/>
                 ))
             }
             </SmallFilterNav>

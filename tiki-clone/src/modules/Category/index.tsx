@@ -7,23 +7,20 @@ import Title from "./MainContent/Title";
 import { useLocation, useNavigate } from 'react-router-dom';
 import productApi from "../../services/buyer.services";
 
-interface TitleType{
-    id: number,
-    name: string
-}
+
 
 export default function CategoryContent(){
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const [title, setTitle]  = useState<TitleType|undefined>(undefined)
+    const [title, setTitle]  = useState<string|undefined>(undefined)
     const navigate = useNavigate();
-
-    if(!searchParams.get('category_id')){
+    const category_id = searchParams.get('category_id')
+    if(!category_id){
         navigate("/")
     }
     useEffect(()=>{
-        productApi.getCategory(parseInt(searchParams.get('category_id') as string))
-            .then(x => setTitle(x.data))
+        productApi.getCategory(parseInt(category_id as string))
+            .then(x => {setTitle(x.data.data.attributes.name); console.log(x.data.data.attributes.name)})
             .catch(e => console.log(e.message));
 
     },[])
@@ -32,19 +29,13 @@ export default function CategoryContent(){
     }
     return(
         <MainContent>
-            {/* Get tu path variable - */}
-            {/* RIENG TITLE LIEN QUA */}
-            <Title >
-                <h1 className="text-xl font-semibold">{title?.name}</h1>
-            </Title>
-            {/* Phan nay link khong lien quan */}
+
+            <Title name={title}/>
             <SubCategoryNav/>
-            {/* props cateogry cho all best */}
-            {/* LIST REING KHONG LIEN QUAN */}
-            <SubCategoryAllBest/>
-            {/* Props category cho product category list */}
-            {/* TUONG TU */}
-            <CategoryProductList/>
+
+            <SubCategoryAllBest category_id={parseInt(category_id as string)}/>
+
+            <CategoryProductList category_id={parseInt(category_id as string)}/>
         </MainContent>
     )
 }

@@ -1,14 +1,15 @@
 import ContentBox from "../../../components/Common/ContentBox";
 
 import {  ReactNode } from "react";
+import PrimaryTitle from "../../../components/Title/PrimaryTitle";
 interface classProps{
     class?: string
-    children: ReactNode
+    name: string
 }
 export default function Title(prop: classProps){
     return (
         <ContentBox class={`${prop.class}`}>
-            {prop.children}
+            <PrimaryTitle name={prop.name}/>
         </ContentBox>
     )
 }

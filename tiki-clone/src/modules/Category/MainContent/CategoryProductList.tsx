@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { thinh_avatar } from "../../../assets/images/image";
 import ProductListBox from "../../../components/Common/ProductListBox";
 import SmallFilterNav from "../../Product/SmallFilterNav";
+import productApi from "../../../services/buyer.services";
 
 const data = [
     {
@@ -87,13 +88,50 @@ const data = [
     
 
 ]
+interface product{
+    id: number,
+    price: number,
+    Inventory: number,
+    name: string,
+    product_sub_category: {
+        id: number,
+        name: number,
+        product_category:{
+            id: number,
+            name: number
+        }
+    }
+    primary_image: {
+        id: number,
+        url: string,
+    }
+}
+interface propType{
+    category_id: number,
 
-export default function CategoryProductList(){
-    //  Here's the state 
-    // 
-    useEffect(()=>{
-        // productApi.get(filter)
-        // pass props to small filter
+}
+export default function CategoryProductList(prop: propType){
+    const [productData, setProductData] = useState<product[]|undefined>(undefined)
+    const [isLoading, setLoading] = useState<boolean>(true)
+    const [currentPage, setCurentPage] = useState<number>(1)
+    const [bestSeller, setBestSeller] = useState<"true"|"false">("false")
+    const handleNext = () => {
+        setCurentPage(currentPage+1)
+    }
+    const handleBestSeller=()=>{
+        setBestSeller("true");
+    }  
+    const handleAll=()=>{
+        setBestSeller("false")
+    }
+    // useEffect(()=>{
+    //     console.log(prop.category_id)
+    //     productApi.getCategoryProduct({
+    //         best_seller: bestSeller,
+    //         limit: 6,
+    //         current_page: currentPage
+    //     })
+
     },[])
     return (
         <div className="w-full">

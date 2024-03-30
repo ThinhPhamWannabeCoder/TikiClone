@@ -31,14 +31,10 @@ export default function MainHomeContent(){
         <MainContent>
             {/* Link */}
             <HeroSection/>
-            {/* Go to the link */}
-            <SmallNavigation/>
-            {/* Filter in init  */}
-            {/* Props: filter + inital product of the first filter */}
+            {/* <SmallNavigation/> */}
+
             <AllBest/>
-            {/* Nhu all best */}
             <YouMayLike/>
-            {/* Khong co props */}
             <ProductList/>
         </MainContent>
             

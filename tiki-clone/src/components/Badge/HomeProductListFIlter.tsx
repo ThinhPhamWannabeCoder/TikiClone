@@ -7,12 +7,12 @@ interface props{
 }
 export default function HomeProductListFilter(data: props){
     return(
-        <div className="grid grid-cols-6 gap-0 p-0">
+        <div className="grid grid-cols-6 gap-1 p-0">
             
                         <div
                             onClick={data.all} 
                             className={`h-full flex flex-col justify-center items-center rounded-md
-                                ${data.state === "false" ? 'bg-blue-200' : 'hover:bg-slate-200' }
+                                ${data.state === "false" ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-slate-200' }
                             `}
                         >
                             <UserCircleIcon className="w-10 h-10 text-blue-700"/>
@@ -21,7 +21,7 @@ export default function HomeProductListFilter(data: props){
                         <div
                             onClick={data.best} 
                             className={`h-full  flex flex-col justify-center items-center rounded-md
-                             ${data.state === "true" ? 'bg-blue-200' : 'hover:bg-slate-200' }
+                             ${data.state === "true" ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-slate-200' }
 
                             `}
                         >

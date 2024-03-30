@@ -37,7 +37,7 @@ export default function AllBest(){
     const [filterData, setFilterData] = useState<filterItem[]|undefined>(undefined)
     const [isLoading, setLoading] = useState<boolean>(true)
     const [curCategoryId, setCurCategoryId] = useState<number|undefined>(undefined)
-    const [prouductData, setProducData] = useState<product[]|undefined>(undefined)
+    const [productData, setProducData] = useState<product[]|undefined>(undefined)
     // const [count, setCount] = useState(1);
     useEffect(()=>{
         productApi.getCategoryBestFilter()
@@ -79,14 +79,15 @@ export default function AllBest(){
             <SmallFilterNav class="col-span-6 flex p-0">
             {
                 filterData?.map(x=>(
-                    <FilterBadge key={x.id} id={x.id} url={x.image} title={x.name} onClickHanlder={setCurCategoryId}/>
+                    <FilterBadge key={x.id} id={x.id} url={x.image} title={x.name} state={curCategoryId as number} onClickHanlder={setCurCategoryId}/>
                 ))
             }
             </SmallFilterNav>
             <ProductListBox >
             {
-                    prouductData?.map(item=>
+                    productData?.map(item=>
                         <ProductBagde 
+                            key={item.id}
                             product_url={item.primary_image.url} 
                             name={item.name}
                             price={item.price}
@@ -96,8 +97,7 @@ export default function AllBest(){
             </ProductListBox>
                 {/* Pagination here */}
                 
-        </ContentBox>
-            
+        </ContentBox>      
     )
 }
 
