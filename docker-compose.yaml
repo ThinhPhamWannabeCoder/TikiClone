@@ -1,0 +1,22 @@
+version: "3.8"
+# PRODUCT ONLY
+services:
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./tiki-clone
+    container_name: tiki-c
+    volumes:
+      - /client/node_modules
+      - ./tiki-clone:/client
+    # ports:
+    #   - "5173:5173"  # Adjust port if needed
+  nginx:
+    depends_on:
+      - client
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3060:80"

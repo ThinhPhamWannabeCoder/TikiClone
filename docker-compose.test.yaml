@@ -1,0 +1,16 @@
+version: "3.8"
+
+name: "test-term-project-2024"
+services:
+  db:
+    container_name: test-postgres-db
+    image: "postgres"
+    volumes:
+      - data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  data: 
+    external: true
+    name: term-project-2024_data

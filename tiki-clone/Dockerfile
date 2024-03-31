@@ -1,18 +1,14 @@
 #futher modification will be added later
-FROM node:20-alpine
+FROM node:20-alpine as builder
+
 
 WORKDIR /client
-
-COPY package.json .
-COPY tsconfig.json .
-COPY package-lock.json .
-
+COPY ./package.json ./
 RUN npm i
-
 COPY . .
+RUN npm run build
 
-## EXPOSE [Port you mentioned in the vite.config file]
-
-EXPOSE 5173
-
-CMD ["npm", "run", "build"]
+FROM nginx
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /client/build /usr/share/nginx/html

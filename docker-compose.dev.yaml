@@ -1,22 +1,68 @@
 version: "3.8"
 
+name: "term-project-2024"
 services:
-  client:
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./tiki-clone
-    container_name: tiki-c
+  db:
+    container_name: postgres-db
+    image: "postgres"
+    env_file: .dev.env
+    environment:
+      - POSTGRES_USER=${DATABASE_NAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
-      - /client/node_modules
-      - ./tiki-clone:/client
-    # ports:
-    #   - "5173:5173"  # Adjust port if needed
-  nginx:
-    depends_on:
-      - client
-    restart: always
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile.dev
+      - data:/var/lib/postgresql/data
     ports:
-      - "3060:80"
+      - "5432:5432"
+
+
+  server:
+    container_name: strapi
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./strapi_backend
+    image: strapi:latest
+    restart: unless-stopped
+    env_file: .dev.env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: db
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      APP_KEYS: ${APP_KEYS}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./strapi_backend/config:/opt/app/config
+      - ./strapi_backend/src:/opt/app/src
+      - ./strapi_backend/package.json:/opt/package.json
+      - ./strapi_backend/yarn.lock:/opt/yarn.lock
+      - ./.dev.env:/opt/app/.env
+      - ./strapi_backend/public/uploads:/opt/app/public/uploads
+      - server_node_volume:/opt/node_modules
+    ports:
+      - "1337:1337"
+
+    depends_on:
+      - db
+  client:
+    container_name: tiki-client
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./tiki-clone  
+    volumes:
+      - client_node_volume:/client/node_modules
+      - ./tiki-clone:/client
+      - ./tiki-clone/.env:/client/.env
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+  
+volumes:
+  data:
+  client_node_volume:
+  server_node_volume:

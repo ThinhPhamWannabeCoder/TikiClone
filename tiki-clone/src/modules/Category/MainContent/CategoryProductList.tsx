@@ -132,7 +132,7 @@ export default function CategoryProductList(prop: propType){
     //         current_page: currentPage
     //     })
 
-    },[])
+    // },[])
     return (
         <div className="w-full">
             <ProductListBox >
