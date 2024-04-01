@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "length_units",
+  "info": {
+    "singularName": "length-unit",
+    "pluralName": "length-units",
+    "displayName": "Length_Unit"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "length_unit"
+    }
+  }
+}

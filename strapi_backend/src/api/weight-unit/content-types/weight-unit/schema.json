@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "weight_units",
+  "info": {
+    "singularName": "weight-unit",
+    "pluralName": "weight-units",
+    "displayName": "Weight_Unit"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "weight_unit"
+    }
+  }
+}

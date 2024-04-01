@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notification_types",
+  "info": {
+    "singularName": "notification-type",
+    "pluralName": "notification-types",
+    "displayName": "Notification_Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "notification_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::notification-user.notification-user",
+      "mappedBy": "notification_type"
+    }
+  }
+}

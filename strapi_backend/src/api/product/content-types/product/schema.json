@@ -95,6 +95,36 @@
       "relation": "manyToMany",
       "target": "api::cart.cart",
       "mappedBy": "products"
+    },
+    "weight_unit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::weight-unit.weight-unit",
+      "inversedBy": "products"
+    },
+    "product_material": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-material.product-material",
+      "inversedBy": "products"
+    },
+    "length_unit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::length-unit.length-unit",
+      "inversedBy": "products"
+    },
+    "product_color": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-color.product-color",
+      "inversedBy": "products"
+    },
+    "oder_detail": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::oder-detail.oder-detail",
+      "mappedBy": "product"
     }
   }
 }

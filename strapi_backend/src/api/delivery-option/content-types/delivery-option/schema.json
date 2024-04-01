@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "delivery_options",
+  "info": {
+    "singularName": "delivery-option",
+    "pluralName": "delivery-options",
+    "displayName": "Delivery_Option"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "unique": true
+    },
+    "base_price": {
+      "type": "float"
+    }
+  }
+}

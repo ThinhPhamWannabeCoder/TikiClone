@@ -39,6 +39,12 @@
       },
       "type": "text",
       "required": true
+    },
+    "notification_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::notification-type.notification-type",
+      "inversedBy": "notification_users"
     }
   }
 }
