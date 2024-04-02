@@ -24,12 +24,6 @@
       },
       "type": "string"
     },
-    "product_information": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product-information.product-information",
-      "mappedBy": "product"
-    },
     "price": {
       "pluginOptions": {
         "i18n": {
@@ -77,35 +71,83 @@
       }
     },
     "primary_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "videos"
       ],
-      "type": "media",
-      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "product_color": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-color.product-color",
+      "inversedBy": "products"
+    },
+    "weight": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true
+      "type": "decimal"
     },
-    "carts": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::cart.cart",
-      "mappedBy": "products"
+    "length": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "decimal"
     },
-    "weight_unit": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::weight-unit.weight-unit",
-      "inversedBy": "products"
+    "depth": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "decimal"
+    },
+    "width": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "decimal"
+    },
+    "desc": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "json"
+    },
+    "detailDesc": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "json"
     },
     "product_material": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::product-material.product-material",
+      "inversedBy": "products"
+    },
+    "weight_unit": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::weight-unit.weight-unit",
       "inversedBy": "products"
     },
     "length_unit": {
@@ -114,17 +156,17 @@
       "target": "api::length-unit.length-unit",
       "inversedBy": "products"
     },
-    "product_color": {
+    "depth_unit": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::product-color.product-color",
+      "target": "api::depth-unit.depth-unit",
       "inversedBy": "products"
     },
-    "oder_detail": {
+    "width_unit": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::oder-detail.oder-detail",
-      "mappedBy": "product"
+      "relation": "manyToOne",
+      "target": "api::width-unit.width-unit",
+      "inversedBy": "products"
     }
   }
 }

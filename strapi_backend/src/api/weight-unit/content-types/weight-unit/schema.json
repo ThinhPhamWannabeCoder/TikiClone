@@ -4,7 +4,8 @@
   "info": {
     "singularName": "weight-unit",
     "pluralName": "weight-units",
-    "displayName": "Weight_Unit"
+    "displayName": "Weight_Unit",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

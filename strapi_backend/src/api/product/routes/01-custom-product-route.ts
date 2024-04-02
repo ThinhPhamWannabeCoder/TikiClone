@@ -9,11 +9,11 @@ export default {
             config:{
             },
         },
-        {
-            method: 'GET',
-            path: '/products/:id',
-            handler: 'product.getProductById',
-        },
+        // {
+        //     method: 'GET',
+        //     path: '/products/:id',
+        //     handler: 'product.getProductById',
+        // },
         
 
     ]

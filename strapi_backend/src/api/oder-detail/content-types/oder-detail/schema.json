@@ -11,12 +11,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "product": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product",
-      "inversedBy": "oder_detail"
-    },
     "order": {
       "type": "relation",
       "relation": "oneToOne",

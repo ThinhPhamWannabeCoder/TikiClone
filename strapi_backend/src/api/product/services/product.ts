@@ -289,33 +289,52 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
 
     getProductById: async (product_id: number) =>{
         // Phai hanlde phai nay tuong doi ki
-        const queryOptions: any = {
-            fields: ['id', 'name', 'price', 'Inventory'],
-            populate: {
-                product_sub_category: {
-                    fields: ['id', 'name'],
-                    populate: {
-                        product_category: {
-                            fields: ['id', 'name']
-                        }
-                    }
-                },
-                primary_image: {
-                    fields: ['id', 'url']
-                }
-            },
-            filters: {
-                price: {
-                    $gte: 0
-                },
-                Inventory: {
-                    $gt: 0
-                }
-            }
-        };
-    
-       
-    
-        return await strapi.entityService.findOne('api::product.product', product_id ,queryOptions);
+        // const queryOptions: any = {
+        //     fields: ['id', 'name', 'price', 'Inventory'],
+        //     populate: {
+        //         product_sub_category: {
+        //             fields: ['id', 'name'],
+        //             populate: {
+        //                 product_category: {
+        //                     fields: ['id', 'name']
+        //                 }
+        //             }
+        //         },
+        //         primary_image: {
+        //             fields: ['id', 'url']
+        //         },
+        //         product_images:{
+        //             fields: ['id','url']
+        //         }
+        //     },
+        // };
+        // await strapi.entityService.findOne('api::product.product', product_id ,queryOptions);
+        const data = await strapi.entityService.findOne('api::product.product', product_id,{
+            populate: '*'
+        });
+        console.log(data.product_images.map(image => image.url))
+        const payload = {
+            id: data.id,
+            name: data.name,
+            price: data.price,
+            weight: data.weight,
+            weight_unit: data.weight_unit.name,
+            depth: data.depth,
+            depth_unit: data.depth_unit.name ,
+            length: data.length,
+            length_unit: data.length_unit.name,
+            material: data.product_material.name,
+            color: data.product_color.color,
+            desc: data.desc,
+            detailDesc: data.detailDesc,
+            primary_image: data.primary_image.url,
+            secondary_images: data.product_images.map(image => image.url)
+            // product_subcategory:{
+            //     id: data.
+            // }
+
+
+        }
+        return payload;
     }
 }));

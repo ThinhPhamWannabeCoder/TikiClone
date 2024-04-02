@@ -1,11 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "length_units",
+  "collectionName": "width_units",
   "info": {
-    "singularName": "length-unit",
-    "pluralName": "length-units",
-    "displayName": "Length_Unit",
-    "description": ""
+    "singularName": "width-unit",
+    "pluralName": "width-units",
+    "displayName": "Width_Unit"
   },
   "options": {
     "draftAndPublish": true
@@ -19,7 +18,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
-      "mappedBy": "length_unit"
+      "mappedBy": "width_unit"
     }
   }
 }

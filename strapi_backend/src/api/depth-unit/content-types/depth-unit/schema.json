@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "length_units",
+  "collectionName": "depth_units",
   "info": {
-    "singularName": "length-unit",
-    "pluralName": "length-units",
-    "displayName": "Length_Unit",
+    "singularName": "depth-unit",
+    "pluralName": "depth-units",
+    "displayName": "Depth_Unit",
     "description": ""
   },
   "options": {
@@ -19,7 +19,7 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
-      "mappedBy": "length_unit"
+      "mappedBy": "depth_unit"
     }
   }
 }
