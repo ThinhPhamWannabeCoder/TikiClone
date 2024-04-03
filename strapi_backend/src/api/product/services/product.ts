@@ -313,6 +313,9 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             populate: '*'
         });
         console.log(data.product_images.map(image => image.url))
+        const subcategory = await strapi.entityService.findOne('api::product-sub-category.product-sub-category',data.product_sub_category.id,{
+            populate : '*'
+        })
         const payload = {
             id: data.id,
             name: data.name,
@@ -328,11 +331,15 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             desc: data.desc,
             detailDesc: data.detailDesc,
             primary_image: data.primary_image.url,
-            secondary_images: data.product_images.map(image => image.url)
-            // product_subcategory:{
-            //     id: data.
-            // }
-
+            secondary_images: data.product_images.map(image => image.url),
+            product_sub_category:{
+                id: data.product_sub_category.id,
+                name: data.product_sub_category.name,
+                product_category:{
+                    id: subcategory.product_category.id,
+                    name: subcategory.product_category.name,
+                }
+            }
 
         }
         return payload;

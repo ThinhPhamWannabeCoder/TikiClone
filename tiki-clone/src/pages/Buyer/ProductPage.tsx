@@ -7,6 +7,6 @@ export default function ProductPage(){
         <>
             <Product/>
         </>
-        
+        // <p>hihi</p>
     )
 }

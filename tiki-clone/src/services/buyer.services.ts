@@ -37,7 +37,7 @@ const productApi ={
     getSubcategoryProduct: async (data: {subcategory_id: number, limit: number,current_page:number}) => await axiosPublic.get(`products/get-all?subcategory_id=${data.subcategory_id}&limit=${data.limit}&current_page=${data.current_page}`),
     // =============== PRODUCT =============== //
 
-    getProduct: async (product_id:number) => await axiosAdmin.get(`products/${product_id}`),
+    getProductById: async (product_id:number) => await axiosAdmin.get(`products/${product_id}`),
 
 
     // =============== PROMOTION =============== //

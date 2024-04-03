@@ -20,21 +20,7 @@ export default function ImageSector(){
             <div className=" w-full h-3/5 flex flex-col gap-2">
                 <ImageSelector/>
             </div>
-            <div className="h-2/5">
-                <h1 className="font-semibold">Đặc điểm nổi bật</h1>
-                {/* List Rendering */}
-
-            <ul className="flex flex-col"> {/* Align list items vertically */}
-                {data.character.map((x, index) => (
-                    <li key={index} className="flex items-start"> {/* Align items horizontally and align them to the start */}
-                        <CheckCircleIcon className="w-4 flex-shrink-0 mt-1 mr-2" /> {/* Add margin-top to align icon with the text */}
-                        <span>{x}</span> {/* Wrap text in a span for better alignment */}
-                    </li>
-                ))}
-            </ul>
-
-                
-            </div>
+            
         </div>
     )
 }
