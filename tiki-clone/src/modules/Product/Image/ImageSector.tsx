@@ -13,7 +13,7 @@ const data = {
 
 }
 
-export default function ImageSector(){
+export default function ImageSector(prop: propsType){
     return(
         <div className="flex flex-col gap-6">
 

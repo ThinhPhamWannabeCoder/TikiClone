@@ -3,23 +3,44 @@ import ContentBox from "../../../components/Common/ContentBox";
 import ImageSector from "./ImageSector";
 import ImageSelector from "./ImageSelector";
 
-interface props{
-    primaryImage: string,
-    productImage: string[],
+const domain = 'http://localhost:1337/'
+
+interface propsType{
+    // primaryImage: string,
+    productImages: string[],
     OutstandingDesc: string[],
 }
 
-export default function ProductMainBadge(){
+export default function ProductMainBadge( prop:propsType){
+    // prop.productImages.unshift(prop.primaryImage)
     return(
+
+        // <ContentBox class="w-4/12 h-full sticky top-2 flex flex-col gap-6">
+        //     <div className=" w-full h-3/5 flex flex-col gap-2">
+        //         <ImageSelector/>
+
+        //         <div className="h-2/5">
+        //             <h1 className="font-semibold">Đặc điểm nổi bật</h1>
+        //             <ul className="flex flex-col"> {/* Align list items vertically */}
+        //                 {data.character.map((x, index) => (
+        //                     <li key={index} className="flex items-start"> {/* Align items horizontally and align them to the start */}
+        //                         <CheckCircleIcon className="w-4 flex-shrink-0 mt-1 mr-2" /> {/* Add margin-top to align icon with the text */}
+        //                         <span>{x}</span> {/* Wrap text in a span for better alignment */}
+        //                     </li>
+        //                 ))}
+        //             </ul>  
+        //         </div>
+        //     </div>
+            
+        // </ContentBox>
 
         <ContentBox class="w-4/12 h-full sticky top-2 flex flex-col gap-6">
             <div className=" w-full h-3/5 flex flex-col gap-2">
-                <ImageSelector/>
-
+                <ImageSelector productImages = {prop.productImages}/>
                 <div className="h-2/5">
                     <h1 className="font-semibold">Đặc điểm nổi bật</h1>
                     <ul className="flex flex-col"> {/* Align list items vertically */}
-                        {data.character.map((x, index) => (
+                        {prop.OutstandingDesc.map((x, index) => (
                             <li key={index} className="flex items-start"> {/* Align items horizontally and align them to the start */}
                                 <CheckCircleIcon className="w-4 flex-shrink-0 mt-1 mr-2" /> {/* Add margin-top to align icon with the text */}
                                 <span>{x}</span> {/* Wrap text in a span for better alignment */}

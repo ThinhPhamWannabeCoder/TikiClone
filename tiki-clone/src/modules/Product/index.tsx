@@ -10,13 +10,14 @@ interface ProductProps{
     productId: number
 }
 interface MainBadge{
-
+    productImages: string[],
+    OutstandingDesc: string[],
 }
 interface Description{
 
 }
 interface OrderForm{
-    
+
 }
 export default function Product(){
     // Get all those ....
@@ -24,17 +25,32 @@ export default function Product(){
     // const searchParams = new URLSearchParams(location.search);
     // const navigate = useNavigate();
     const [data, SetData] = useState();
-    const [mainBadge, setMainBadge] =useState()
+    
+    const [mainBadge, setMainBadge] =useState<MainBadge|undefined>(undefined)
     useEffect(()=>{
         productApi.getProductById(1)
-            .then(x=>{console.log(x.data)})
-            .catch(err => {console.log(err.message)})
+            .then(x=>{
+                // console.log(x.data)
+                setMainBadge(
+                    {
+                        productImages: x.data.product_images,
+                        OutstandingDesc: x.data.detailDesc.test
+                    }
+                )
+            })
+            .catch(err => {
+                // Axios Error
+                console.log(err.message)
+            })
 
     },[])
+    if(!mainBadge){
+        return("Loading")
+    }
     return(
         <>
             <div className="flex gap-6 ">
-                    <ProductMainBadge/>
+                    <ProductMainBadge {...mainBadge}/>
                     <ProductDescription/>
                     <OrderForm/>
                 </div>

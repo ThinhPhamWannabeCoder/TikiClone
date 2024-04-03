@@ -316,22 +316,44 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const subcategory = await strapi.entityService.findOne('api::product-sub-category.product-sub-category',data.product_sub_category.id,{
             populate : '*'
         })
+        // primary_image: data.primary_image.url,
+        const secondary_images =  data.product_images.map(image => image.url);
+        secondary_images.unshift(data.primary_image.url)
+        // const product_images 
+
+
+        // Bo sung thong tin store
         const payload = {
             id: data.id,
             name: data.name,
             price: data.price,
-            weight: data.weight,
-            weight_unit: data.weight_unit.name,
-            depth: data.depth,
-            depth_unit: data.depth_unit.name ,
-            length: data.length,
-            length_unit: data.length_unit.name,
+
+            // STORE
+            // store_id:{
+            //     store_id,
+            //     store_image,
+            //     store_short_info
+            // }
+            // DELIVERY
+            delivery: {
+                weight: data.weight,
+                weight_unit: data.weight_unit.name,
+                depth: data.depth,
+                depth_unit: data.depth_unit.name ,
+                length: data.length,
+                length_unit: data.length_unit.name,
+            },
             material: data.product_material.name,
             color: data.product_color.color,
+
+            
             desc: data.desc,
             detailDesc: data.detailDesc,
-            primary_image: data.primary_image.url,
-            secondary_images: data.product_images.map(image => image.url),
+            // primary_image: data.primary_image.url,
+            // secondary_images: data.product_images.map(image => image.url),
+
+
+            product_images:secondary_images,
             product_sub_category:{
                 id: data.product_sub_category.id,
                 name: data.product_sub_category.name,
