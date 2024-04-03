@@ -122,15 +122,7 @@
       },
       "type": "decimal"
     },
-    "desc": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "json"
-    },
-    "detailDesc": {
+    "description": {
       "pluginOptions": {
         "i18n": {
           "localized": true

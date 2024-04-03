@@ -312,7 +312,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const data = await strapi.entityService.findOne('api::product.product', product_id,{
             populate: '*'
         });
-        console.log(data.product_images.map(image => image.url))
+        // console.log(data.product_images.map(image => image.url))
         const subcategory = await strapi.entityService.findOne('api::product-sub-category.product-sub-category',data.product_sub_category.id,{
             populate : '*'
         })
@@ -327,7 +327,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             id: data.id,
             name: data.name,
             price: data.price,
-
+            store_id: data.store.id,
             // STORE
             // store_id:{
             //     store_id,
@@ -338,17 +338,23 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             delivery: {
                 weight: data.weight,
                 weight_unit: data.weight_unit.name,
+                // conversion
                 depth: data.depth,
                 depth_unit: data.depth_unit.name ,
+                // conversion
                 length: data.length,
                 length_unit: data.length_unit.name,
+                // conversion
+                width: data.width,
+                width_unit: data.width_unit.name
+                // conversion
             },
             material: data.product_material.name,
             color: data.product_color.color,
 
             
-            desc: data.desc,
-            detailDesc: data.detailDesc,
+            desc: data.description,
+            // detailDesc: data.detailDesc,
             // primary_image: data.primary_image.url,
             // secondary_images: data.product_images.map(image => image.url),
 

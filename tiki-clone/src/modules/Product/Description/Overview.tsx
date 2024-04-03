@@ -1,3 +1,4 @@
+import ContentBox from "../../../components/Common/ContentBox"
 
 interface Overview{
     name: string,
@@ -5,11 +6,11 @@ interface Overview{
 }
 export default function Overview(prop: Overview){
     return(
-        <>
+        <ContentBox class="">
             <h1 className=" text-xl">
                 {prop.name}
             </h1>
             <p className="text-xl font-bold mt-4">{prop.price.toFixed(3)}</p>
-        </>
+        </ContentBox>
     )
 }

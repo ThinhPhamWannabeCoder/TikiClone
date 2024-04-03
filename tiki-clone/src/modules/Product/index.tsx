@@ -14,10 +14,44 @@ interface MainBadge{
     OutstandingDesc: string[],
 }
 interface Description{
-
+    name: string,
+    price: number,
+    detail:{
+        title: string,
+        desc: string
+    }[],
+    desc:  {
+        title: string,
+        desc: string[]
+    }[]
 }
-interface OrderForm{
-
+interface productShape{
+    weight: {
+        amount: number,
+        unit: string,
+        gramConversion: number,
+    },
+    depth:{
+        amount: number,
+        unit: string,
+        cmConversion: number,
+    },
+    length:{
+        amount: number,
+        unit: string,
+        cmConversion: number,
+    },
+    width:{
+        amount: number,
+        unit: string,
+        cmConversion: number,
+    }
+}
+interface Order{
+    
+        product_id: number
+        price: number,
+        store_id: number
 }
 export default function Product(){
     // Get all those ....
@@ -27,6 +61,9 @@ export default function Product(){
     const [data, SetData] = useState();
     
     const [mainBadge, setMainBadge] =useState<MainBadge|undefined>(undefined)
+    const [description, setDescription]=useState<Description|undefined>(undefined)
+    const [lastBadge, setLastBadge] = useState<Order|undefined>(undefined)
+    const [productShape, setProductShape] =  useState<productShape|undefined>(undefined)
     useEffect(()=>{
         productApi.getProductById(1)
             .then(x=>{
@@ -34,9 +71,20 @@ export default function Product(){
                 setMainBadge(
                     {
                         productImages: x.data.product_images,
-                        OutstandingDesc: x.data.detailDesc.test
+                        OutstandingDesc: x.data.desc.outstanding
                     }
                 )
+                setDescription({
+                    name: x.data.name,
+                    price: x.data.price,
+                    detail: x.data.desc.detail,
+                    desc: x.data.desc.desc
+                })
+                setLastBadge({
+                    product_id: x.data.id,
+                    price: x.data.price,
+                    store_id: x.data.store_id
+                })
             })
             .catch(err => {
                 // Axios Error
@@ -51,8 +99,8 @@ export default function Product(){
         <>
             <div className="flex gap-6 ">
                     <ProductMainBadge {...mainBadge}/>
-                    <ProductDescription/>
-                    <OrderForm/>
+                    <ProductDescription {...description as Description}/>
+                    <OrderForm {...lastBadge as Order}/>
                 </div>
                 <div>
                     {/* <ProductBagde/> */}

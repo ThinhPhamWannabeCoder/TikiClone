@@ -13,6 +13,7 @@ interface propsType{
 
 export default function ProductMainBadge( prop:propsType){
     // prop.productImages.unshift(prop.primaryImage)
+    // console.log(prop)
     return(
 
         // <ContentBox class="w-4/12 h-full sticky top-2 flex flex-col gap-6">
