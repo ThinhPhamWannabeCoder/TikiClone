@@ -14,6 +14,8 @@ import CategoryPage from "../pages/Buyer/CategoryPage";
 import SubCategoryPage from "../pages/Buyer/SubCategoryPage";
 import ProductPage from "../pages/Buyer/ProductPage";
 import Test from "../pages/Test/test";
+import CommingSoon from "../pages/CommingSoon";
+import CartPage from "../pages/Checkout/Cart";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -21,10 +23,14 @@ const publicRoutes = createBrowserRouter(
         <Route path='/' element= {<RootLayout/>}>
 
           <Route index element={<HomePage/>}></Route>
-          
+
+          <Route path='checkout/payment' element={<CommingSoon/>}></Route>
+          <Route path='checkout/cart' element={<CartPage/>}></Route>
+
           <Route path=':category' element={<CategoryPage/>}></Route>
           <Route path=':category/:subcategory' element={<SubCategoryPage/>}></Route>
           <Route path=':category/:subcategory/:product' element={<ProductPage/>}></Route>
+        
           <Route path='login' element={<LoginPage/>}></Route>
           <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
