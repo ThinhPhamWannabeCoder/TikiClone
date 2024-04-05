@@ -68,10 +68,80 @@ export default function CartTable(){
 
     return (
     //    <CartCard
-    <>
-        <StoreCart/>
-    </>
+
+    // <>
+    //     <StoreCart/>
+    // </>
+        <>
+            {
+                data.map(item=>{
+                    return(
+                        // <CartCard prop={item}/>
+                        <StoreCart 
+                            store_id={item.store_id} 
+                            name={item.name}
+                            product={item.product}
+                        
+                        />
+                    )
+                })
+            }
+        </>
+   
        
     );
    
 }
+
+
+interface cartByStore{
+    store_id: number,
+    name: string,
+    product:
+        {
+            id: number,
+            name: string,
+            quantity: number,
+            price: number
+        }[]
+    
+}
+
+const data:cartByStore[]=[
+    {
+        store_id: 1,
+        name: "Apple",
+        product:[
+            {
+            id:1,
+            name: "iphone",
+            quantity: 200,
+            price: 340.000,
+            },
+            {
+                id:2,
+                name: "ipad",
+                quantity: 300,
+                price: 340.000,
+            },
+        ]
+    },
+    {
+        store_id: 2,
+        name: "Samsung",
+        product:[
+            {
+                id:3,
+                name: "Samsung A52",
+                quantity: 150,
+                price: 340.000,
+            },
+            {
+                id:4,
+                name: "Samsung A40",
+                quantity: 180,
+                price: 340.000,
+            },
+        ]
+    }
+]

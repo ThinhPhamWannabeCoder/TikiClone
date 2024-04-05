@@ -3,6 +3,15 @@ import CartMainContent from "./MainContent";
 import SideBar from "./SideBar";
 
 export default function Cart(){
+    
+    // // State  Selected ID -> het
+
+    // State Quantity
+
+    // 
+
+    
+
     return (
         <div className="w-full flex flex-col gap-3">
             <PrimaryTitle name="GIỎ HÀNG" />
