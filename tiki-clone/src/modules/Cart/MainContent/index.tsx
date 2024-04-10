@@ -2,19 +2,23 @@ import PrimaryTitle from "../../../components/Title/PrimaryTitle";
 import CartMainHeader from "./Header/CartMainHeader";
 import CartTable from "./CartTable";
 // interface : selectedId
-
-export default function CartMainContent(){
+interface propsType{
+    handleSelectedCart: (cartdId: number) => void,
+    handleSelectedStore: (storeId: number) => void,
+    handleSelectAll: () => void,
+    selectedCarts: number[]
+    allState: boolean,
+    selectedStores: number[],
+    data: object[],
+    //carts: object[],
+}
+export default function CartMainContent(prop: propsType){
     // FETCH DU LIEU TAI DAY
     // SET STATE
     
 
     // 
-    const handleSelectAll = ()=>{
-        // setState
-    }
-    const handleSelect = ()=>{
-        // setState
-    }
+    
 
     // CREATE FUNCTION  
     // TO-DO 1
@@ -26,10 +30,18 @@ export default function CartMainContent(){
 
     return(
         <div className="flex flex-col gap-3 w-4/5">
-            {/* Handle tick all, handle delete All */}
-            <CartMainHeader/>
+            <CartMainHeader 
+                handleSelectAll={prop.handleSelectAll} 
+                allState={prop.allState}
+            />
             {/* HandleStoreOnchange, Handle Delete Store */}
-            <CartTable/>
+            <CartTable
+                handleSelectedCart={prop.handleSelectedCart}
+                handleSelectedStore={prop.handleSelectedStore}
+                selectedStores={prop.selectedStores}
+                data={prop.data}
+                selectedCarts={prop.selectedCarts}
+            />
         </div>
     )
 }

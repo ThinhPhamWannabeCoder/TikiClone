@@ -8,16 +8,23 @@ import OrderProductPrice from "../../../../components/Order/OrderDetail/OrderPro
 import OrderProductQuantity from "../../../../components/Order/OrderDetail/OrderProductQuantity"
 import OrderProductFinalSection from "../../../../components/Order/OrderDetail/OrderProductFinalSection"
 
-// interface propsType{
-//     checkAllfn?: ()=>void(),
-//     deleteAllfn?: ()=>void()
-// }
-export default function CartMainHeader(){
+interface propsType{
+
+    handleSelectAll: () => void,
+    allState: boolean,
+
+}
+export default function CartMainHeader(prop: propsType){
     return(
         <OrderLayout class="text-slate-500">
             {/* <OrderProductName name="Tất Cả"/> */}
             <OrderProductFirstSection class="flex gap-1">
-                <input type="checkbox" name="" id="" className="cursor-pointer" />
+                <input 
+                    type="checkbox"
+                    checked={prop.allState}
+                    onChange={prop.handleSelectAll}
+                    className="cursor-pointer" 
+                />
                 <p>Tất cả</p>
             </OrderProductFirstSection>
             <OrderProductPrice>

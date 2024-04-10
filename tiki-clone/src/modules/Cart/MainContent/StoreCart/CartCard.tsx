@@ -10,6 +10,9 @@ interface productCart{
     name: string,
     quantity: number,
     price: number,
+    handleSelectedCart: (cartdId: number) => void,
+    selectedCarts: number[],
+
 
     
 }
@@ -26,7 +29,11 @@ export default function CartCard(prop: productCart){
         <div className="py-4 grid grid-cols-9 items-center">
 
             <OrderProductFirstSection class="flex gap-1">
-                <input type="checkbox" name="" id="" className="cursor-pointer" />
+                <input 
+                    type="checkbox" 
+                    checked={(prop.selectedCarts.includes(prop.id))?true:false} 
+                    onChange={()=>prop.handleSelectedCart(prop.id)}
+                    className="cursor-pointer" />
                 <p>{prop.name}</p>
             </OrderProductFirstSection>
             <OrderProductPrice>
