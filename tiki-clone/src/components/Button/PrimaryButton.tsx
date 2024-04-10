@@ -9,7 +9,8 @@ export default function PrimaryButton(prop: propsType){
     return(
         <button 
                 className={`bg-red-500 w-full text-white py-2 rounded-md ${prop.class}`}
-                // onClick={buttonHandler}
+
+                onClick={prop.fnc}
         >
                 {prop.name}
         </button>

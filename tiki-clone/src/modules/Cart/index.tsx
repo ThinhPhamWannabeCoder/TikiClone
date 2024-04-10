@@ -87,18 +87,26 @@ export default function Cart(){
         
     }
     const handleDeleteCart = (cartId: number)=>{
+        // API DELETE CART
+        // UPDATE STATE
+        console.log(`delete cart ${cartId}`)
 
     }
     const handleDeleteStore = (storeId: number)=>{
-
+        console.log(`delete store ${storeId}`)
     }
-    const hanldeDeleteAll = ()=>{}
+    const hanldeDeleteAll = ()=>{
+        console.log("Delete All");
+        // API 
+        // UDPATE STATE
+        // UPDATE REDUX
+    }
     const handleQuantity = (data:{cartId: number, quantity: number})=>{
         // API UPDATE CART
     }
     useEffect(()=>{
         // TO-DO: API FETCH Cart IN CATCH
-        console.log(selectedCarts)
+        // console.log(selectedCarts)
         if(selectedCarts.length!=0){
             // console.log(selectedCarts)
             const carts = allCart.map(item => item.cart.map(cart => cart.id))
@@ -163,10 +171,17 @@ export default function Cart(){
                     selectedStores={selectedStores}
                     data={allCart}
                     selectedCarts={selectedCarts}
+                    hanldeDeleteAll={hanldeDeleteAll}
+                    handleDeleteStore={handleDeleteStore}
+                    handleDeleteCart={handleDeleteCart}
+
                 />
                 {/* Cart */}
                 {/* Calculating price */}
-                <SideBar/>
+                <SideBar
+                    data={sampleData}
+                    selectedCarts={selectedCarts}
+                />
             </div>
             
         </div>

@@ -6,6 +6,10 @@ interface propsType{
     handleSelectedCart: (cartdId: number) => void,
     handleSelectedStore: (storeId: number) => void,
     handleSelectAll: () => void,
+    hanldeDeleteAll: ()=> void,
+    handleDeleteStore: (storeId: number) => void,
+    handleDeleteCart: (cartId: number) => void,
+
     selectedCarts: number[]
     allState: boolean,
     selectedStores: number[],
@@ -33,6 +37,7 @@ export default function CartMainContent(prop: propsType){
             <CartMainHeader 
                 handleSelectAll={prop.handleSelectAll} 
                 allState={prop.allState}
+                hanldeDeleteAll={prop.hanldeDeleteAll}
             />
             {/* HandleStoreOnchange, Handle Delete Store */}
             <CartTable
@@ -41,6 +46,8 @@ export default function CartMainContent(prop: propsType){
                 selectedStores={prop.selectedStores}
                 data={prop.data}
                 selectedCarts={prop.selectedCarts}
+                handleDeleteStore={prop.handleDeleteStore}
+                handleDeleteCart={prop.handleDeleteCart}
             />
         </div>
     )

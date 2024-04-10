@@ -11,6 +11,7 @@ interface productCart{
     quantity: number,
     price: number,
     handleSelectedCart: (cartdId: number) => void,
+    handleDeleteCart: (cartId: number) => void,
     selectedCarts: number[],
 
 
@@ -68,7 +69,7 @@ export default function CartCard(prop: productCart){
             </OrderProductQuantity>
             <OrderProductFinalSection class="flex justify-between items-center">
                 <p>{finalPrice}</p>
-                <TrashIcon className="w-6 h-6 cursor-pointer" />
+                <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{prop.handleDeleteCart(prop.id)}}/>
 
             </OrderProductFinalSection>
             

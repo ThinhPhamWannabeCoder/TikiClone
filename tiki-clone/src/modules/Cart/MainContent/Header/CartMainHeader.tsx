@@ -9,7 +9,7 @@ import OrderProductQuantity from "../../../../components/Order/OrderDetail/Order
 import OrderProductFinalSection from "../../../../components/Order/OrderDetail/OrderProductFinalSection"
 
 interface propsType{
-
+    hanldeDeleteAll: ()=>void,
     handleSelectAll: () => void,
     allState: boolean,
 
@@ -36,7 +36,7 @@ export default function CartMainHeader(prop: propsType){
             </OrderProductQuantity>
             <OrderProductFinalSection class="flex justify-between items-center">
                 <p>Thành tiền</p>
-                <TrashIcon className="w-6 h-6 cursor-pointer" />
+                <TrashIcon className="w-6 h-6 cursor-pointer" onClick={prop.hanldeDeleteAll} />
 
             </OrderProductFinalSection>
         </OrderLayout>

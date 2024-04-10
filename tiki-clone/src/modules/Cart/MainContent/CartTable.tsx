@@ -7,7 +7,9 @@ import StoreCart from "./StoreCart";
 
 interface propsType{
     handleSelectedStore: (storeId: number) => void,
+    handleDeleteStore: (storeId: number) => void,
     handleSelectedCart: (cartId: number) => void,
+    handleDeleteCart: (cartId: number) => void,
     selectedCarts: number[]
     selectedStores: number[],
     data: object[]
@@ -34,7 +36,9 @@ export default function CartTable(prop:propsType){
                             handleSelectedStore={prop.handleSelectedStore}
                             selectedStores={prop.selectedStores}
                             data={item.cart}
-                            selectedCarts={prop.selectedCarts}                            
+                            selectedCarts={prop.selectedCarts}
+                            handleDeleteStore={prop.handleDeleteStore}
+                            handleDeleteCart={prop.handleDeleteCart}                            
                         />
                     )
                 })
