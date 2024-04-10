@@ -39,6 +39,8 @@ export default function Cart(){
     }
     const handleSelectedStore = (storeId: number)=>{
         if(selectedStores.includes(storeId)){
+            console.log("test1")
+
             const updateStores = selectedStores.filter(id => id !== storeId);
             setSelectedStores(updateStores)
 
@@ -52,6 +54,7 @@ export default function Cart(){
             // UNSELECT ALL Cart
         }
         else{
+
             setSelectedStores([...selectedStores, storeId])
             const filteredCartItems = allCart.filter(item => item.store.id === storeId);
             // const currentCart = selectedCarts.filter(item=>item!===)
@@ -77,10 +80,7 @@ export default function Cart(){
             const carts = allCart.map(item => item.cart)
             const flatCarts = carts.reduce((acc,cur)=> acc.concat(cur));
             const allCartsId = flatCarts.map(item => item.id);
-            // const subCart = carts.map(item => item.})
-            // const mainCart = subCart
-            // console.log(carts)
-            // console.log(all)
+
             setSelectedStores([...allStoreId])
             setSelectedCarts([...allCartsId])
         }
@@ -93,12 +93,42 @@ export default function Cart(){
 
     }
     const hanldeDeleteAll = ()=>{}
-    const handleQuanlity = ()=>{
+    const handleQuantity = (data:{cartId: number, quantity: number})=>{
         // API UPDATE CART
     }
     useEffect(()=>{
         // TO-DO: API FETCH Cart IN CATCH
         console.log(selectedCarts)
+        if(selectedCarts.length!=0){
+            // console.log(selectedCarts)
+            const carts = allCart.map(item => item.cart.map(cart => cart.id))
+
+            const indexes = carts.reduce((acc, arr, index)=>{
+                if(arr.every(val=>selectedCarts.includes(val))){
+                    // console.log(val)
+                    acc.push(index)
+                }
+                return acc
+            },[])
+            if(indexes.length===allCart.length){
+                // handleSelectAll();
+                const updateStore = indexes.map(i => (allCart[i].store.id))
+                setSelectedStores([...updateStore])
+                setAllState(true)
+
+            }
+            else if(indexes.length>0){
+                const updateStore = indexes.map(i => (allCart[i].store.id))
+                setSelectedStores([...updateStore])
+                setAllState(false)
+            }
+            else{
+                setSelectedStores([])
+                setAllState(false)
+
+            }
+        }
+        
     },[selectedCarts])
     const processCart = (data:object[])=>{
         const groupedData = data.reduce((acc, item) => {
