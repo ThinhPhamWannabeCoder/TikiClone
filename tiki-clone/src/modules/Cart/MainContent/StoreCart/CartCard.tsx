@@ -1,4 +1,4 @@
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import ContentBox from "../../../../components/Common/ContentBox";
 import OrderProductFirstSection from "../../../../components/Order/OrderDetail/OrderProductFirstSection";
 import OrderProductPrice from "../../../../components/Order/OrderDetail/OrderProductPrice";
@@ -15,11 +15,15 @@ interface productCart{
 }
 export default function CartCard(prop: productCart){
     const [finalPrice, setFinalPrice] = useState<number>(prop.price*prop.quantity)
+    const [productQuantity, setProductQuantity] = useState<number>(prop.quantity);
     useEffect(()=>{
-        setFinalPrice(prop.price*prop.quantity)
-    },[prop.quantity])
+        setFinalPrice(prop.price*productQuantity)
+        // SetNewQuantity
+        // productApi.updateCartQuantityByProductBy({cartId, quantity})
+    },[productQuantity])
+    
     return (
-        <div className="py-4 grid grid-cols-9">
+        <div className="py-4 grid grid-cols-9 items-center">
 
             <OrderProductFirstSection class="flex gap-1">
                 <input type="checkbox" name="" id="" className="cursor-pointer" />
@@ -30,7 +34,30 @@ export default function CartCard(prop: productCart){
             </OrderProductPrice>
 
             <OrderProductQuantity>
-                <p>{prop.quantity}</p>
+                <div className="flex items-center gap-1">
+                    <button className={`border-2  p-1 rounded-lg 
+                                        ${productQuantity===1 ? 'bg-slate-200':' border-slate-400'}
+                                    `}
+                            onClick={()=>{setProductQuantity(productQuantity-1)}}
+                            disabled={productQuantity===1}
+                            
+                    >
+                        <MinusIcon className="w-6"/>
+
+                    </button>
+                    <p className="border-2 p-1 rounded-lg w-10 flex justify-center items-center border-slate-400">
+                        {productQuantity}
+                    </p>
+
+                    
+                    
+                    <button className="border-2 p-1 rounded-lg border-slate-400"
+                            onClick={()=>{setProductQuantity(productQuantity+1)}}
+                    >
+                        <PlusIcon className="w-6"/>
+
+                    </button>
+                </div>
             </OrderProductQuantity>
             <OrderProductFinalSection class="flex justify-between items-center">
                 <p>{finalPrice}</p>

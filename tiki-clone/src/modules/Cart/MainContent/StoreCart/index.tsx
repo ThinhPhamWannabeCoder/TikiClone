@@ -14,6 +14,8 @@ export default function StoreCart(data: cartByStore){
                     </p>
                 </div>
                 <div className="flex flex-col col-span-9">
+
+                    {/* Handle quantity Change and selected, delete */}
                     {
                         data.product.map(item => {
                             return (
@@ -46,41 +48,3 @@ interface cartByStore{
     
 }
 
-const data:cartByStore[]=[
-    {
-        store_id: 1,
-        name: "Apple",
-        product:[
-            {
-            id:1,
-            name: "iphone",
-            quantity: 200,
-            price: 340.000,
-            },
-            {
-                id:2,
-                name: "ipad",
-                quantity: 300,
-                price: 340.000,
-            },
-        ]
-    },
-    {
-        store_id: 2,
-        name: "Samsung",
-        product:[
-            {
-                id:3,
-                name: "Samsung A52",
-                quantity: 150,
-                price: 340.000,
-            },
-            {
-                id:4,
-                name: "Samsung A40",
-                quantity: 180,
-                price: 340.000,
-            },
-        ]
-    }
-]

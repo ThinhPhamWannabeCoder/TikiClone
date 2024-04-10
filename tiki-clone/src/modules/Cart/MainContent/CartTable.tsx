@@ -66,6 +66,10 @@ export default function CartTable(){
     //     }
     // };
 
+    const handleStoreChecl = ()=>{
+        // update store selectedStore
+        // update Product
+    }
     return (
     //    <CartCard
 
@@ -77,6 +81,9 @@ export default function CartTable(){
                 data.map(item=>{
                     return(
                         // <CartCard prop={item}/>
+                        // input checkbox onChange = {handleStoreCheck}
+
+                        
                         <StoreCart 
                             store_id={item.store_id} 
                             name={item.name}

@@ -47,12 +47,13 @@ const productApi ={
     getStoreShortById: async (storeId: number) => await axiosAdmin.get(`/stores/short/${storeId}`),
 
     // =============== CART =============== //
-    // updateCartByProductId: async (data: {user_id:number, product_id: number, newQuantity: number}) => await axiosAdmin.patch(`carts/products/${}`)
-    // deleteCartByProductId: async (data: {userId: number, productId: number}) => await axiosAdmin.delete(`/carts/products/${data.productId}`),
+    // updateCartByCartId: async (data: {cartId: number, newQuantity: number}) => await axiosAdmin.patch(`carts/products/${}`)
+    // deleteCartByProductId: async (data: {cartId: number}) => await axiosAdmin.delete(`/carts/products/${data.productId}`),
     // deleteCartAll: async (data:{userId: number}) => await axiosAdmin.delete(`carts/user/${data.userId}`),
-
+    // deleteCartAllStore: async (data:{userId:number, storeId: number}) => await axiosAdmin.patch(`carts/user/${userId}/store/${storeId})
     // =============== ORDER =============== //
     // postOrder => Tao order moi
+
 
 
 

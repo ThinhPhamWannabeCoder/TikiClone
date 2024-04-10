@@ -43,6 +43,7 @@ export default function LoginForm(){
                 // console.log(authResponse.data.infomation_user.id)
                 const userInfo = await userApi.get_info_user(authResponse.data.infomation_user.id)
                 // console.log(userInfo.data.data.attributes.avatar.data.attributes.url)                
+                // Handler here
                 const result: User ={
                     user_id: authResponse.data.id,
                     name: authResponse.data.username,
@@ -84,7 +85,7 @@ export default function LoginForm(){
                     className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required />
                 </label>
                 <label>
-                    <span className="block text-gray-700 text-sm font-bold mb-2">Password</span>
+                    <span className="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</span>
                     <input type="password" name="password" value={formData.password} onChange={handleChange}
                     className="hover:border-slate-400 transition duration-200 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin"  required />
                 </label>

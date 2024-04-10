@@ -7,15 +7,15 @@ export default function RegisterForm(){
             
             <Form method = "post" action="/login" className="">
                 <label>
-                    <span  className="block text-gray-700 text-sm font-bold mb-2">Email</span>
+                    <span  className="block text-gray-700 text-sm font-bold mb-2">Số điện thoại</span>
                     <input type="email" name="email" className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin" required />
                 </label>
                 <label>
-                    <span className="block text-gray-700 text-sm font-bold mb-2">Password</span>
+                    <span className="block text-gray-700 text-sm font-bold mb-2">Mật khẩu</span>
                     <input type="password" name="password" className="hover:border-slate-400 transition duration-200 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin"  required />
                 </label>
                 <label>
-                    <span className="block text-gray-700 text-sm font-bold mb-2">Re-enter Password</span>
+                    <span className="block text-gray-700 text-sm font-bold mb-2">Nhập lại mật khẩu</span>
                     <input type="password" name="password" className="hover:border-slate-400 transition duration-200 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin"  required />
                 </label>
                 {/* {data && data.error && (<p className="text-red-500">User or Passwrod incorrect</p>)}  */}
