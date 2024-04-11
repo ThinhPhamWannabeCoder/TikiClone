@@ -12,6 +12,7 @@ interface propsType{
 
 export default function SideBar(prop: propsType){
     const [sumPrice, setSumPrice] = useState<number>(0)
+    const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
 //  const [deliveryPrice, setDeliveryPrice] = useState<number>(0)
 // Delievery to will have to delievy contact and sumprice will have the delivery price added to calculate at their
     const navigate = useNavigate();
@@ -26,6 +27,9 @@ export default function SideBar(prop: propsType){
                 // userId: redux - if needed
             }
         })
+        // addressId
+        // Gia tien da tinh: Delivery va product + sum -> dua vao order cho nhanh
+        // 
         console.log(orderData)
         // navigate("/user")
     }
@@ -43,7 +47,7 @@ export default function SideBar(prop: propsType){
 
     return(
         <div className="flex flex-col gap-3 w-1/5">
-            <DeliveryTo/>
+            <DeliveryTo data={sampleData}/>
             {/* [{ProductPrice & Produce Quantity}] */}
             <SumPrice
                 sumPrice={sumPrice}
@@ -55,4 +59,30 @@ export default function SideBar(prop: propsType){
             />
         </div>
     )
+}
+const sampleData = {
+    id: 1,
+    type: {
+        id:1,
+        name: "Nhà"
+    },
+    user_id:2,
+    contactName: "Phạm Tiến Thịnh",
+    contactPhone: "0971933424",
+    address:{
+        city: {
+            id: 1,
+            name: "Hà Nội"
+        },
+        district: {
+            id: 1,
+            name: "Hoàn Kiếm"
+        },
+        ward: {
+            id: 1,
+            name: "Chương Dương"
+        },
+    },
+    location: "Ngõ 210 bạch Đằng, Phường Chương Dương Độ, Quận Hoàn Kiếm, Hà Nội, Phường Chương Dương Độ, Quận Hoàn Kiếm, Hà Nội",
+    
 }

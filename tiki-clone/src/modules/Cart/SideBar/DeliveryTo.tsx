@@ -1,33 +1,41 @@
+import { useState } from "react";
 import ContentBox from "../../../components/Common/ContentBox";
+import DeliveryUpdateModal from "../Modal/DeliveryUpdateModal";
 
-interface propstype{
-    addressType: string,
-    address: string,
-    usename: string,
-    phone: string
+interface propsType{
+    data: object
 }
 
-export default function DeliveryTo(){
+export default function DeliveryTo(prop: propsType){
     // Get Delivery Location
+    const [isOpen, setIsOpen] = useState(false);
 
+    const toggleModal = () => {
+      setIsOpen(!isOpen);
+    };
     // User Id from Redux
+    const onCloseModal = (addressId: number)=>{
+        console.log(addressId)
+        setIsOpen(!isOpen);
+    }
     return(
         <ContentBox>
             <div className="flex justify-between items-center">
                 <h2>Giao tới</h2>
-                <p className="text-blue-500 cursor-pointer">Thay đổi</p>
+                <p className="text-blue-500 cursor-pointer" onClick={toggleModal}>Thay đổi</p>
+                <DeliveryUpdateModal isOpen={isOpen} onClose={onCloseModal} />
             </div>
             <div className="font-semibold flex ">
                 {/* Redux*/}
-                <p className="border-r-2  pr-2">Phạm Tiến Thịnh</p>
+                <p className="border-r-2  pr-2">{prop.data.contactName}</p>
                 {/* Redux */}
-                <p className="pl-2">0971933424</p>
+                <p className="pl-2">{prop.data.contactPhone}</p>
             </div>
             <div>
                 {/* Type */}
                  
-                <span className="text-green-400 p-1 bg-green-100 rounded-sm">Nhà</span>
-                <span className="mx-1">Ngõ 210 bạch Đằng, Phường Chương Dương Độ, Quận Hoàn Kiếm, Hà Nội, Phường Chương Dương Độ, Quận Hoàn Kiếm, Hà Nội</span>
+                <span className="text-green-400 p-1 bg-green-100 rounded-sm" rel={prop.data.type.id}>{prop.data.type.name}</span>
+                <span className="mx-1">{prop.data.location}</span>
 
             </div>
         </ContentBox>
