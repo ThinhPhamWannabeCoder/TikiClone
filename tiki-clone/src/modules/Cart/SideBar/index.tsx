@@ -4,6 +4,7 @@ import PrimaryButton from "../../../components/Button/PrimaryButton";
 import DeliveryTo from "./DeliveryTo";
 import SumPrice from "./SumPrice";
 import { useNavigate } from "react-router-dom";
+import OrderModal from "../Modal/OrderModal";
 
 interface propsType{
     data: object[],
@@ -13,6 +14,16 @@ interface propsType{
 export default function SideBar(prop: propsType){
     const [sumPrice, setSumPrice] = useState<number>(0)
     const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleModal = () => {
+      setIsOpen(!isOpen);
+    };
+    // User Id from Redux
+    // const onCloseModal = (addressId: number)=>{
+    //     console.log(addressId)
+    //     setIsOpen(!isOpen);
+    // }
 //  const [deliveryPrice, setDeliveryPrice] = useState<number>(0)
 // Delievery to will have to delievy contact and sumprice will have the delivery price added to calculate at their
     const navigate = useNavigate();
@@ -31,6 +42,7 @@ export default function SideBar(prop: propsType){
         // Gia tien da tinh: Delivery va product + sum -> dua vao order cho nhanh
         // 
         console.log(orderData)
+        toggleModal()
         // navigate("/user")
     }
     useEffect(()=>{
@@ -57,6 +69,7 @@ export default function SideBar(prop: propsType){
                 name="Mua hàng"
                 fnc={OrderHandler}
             />
+            <OrderModal isOpen={isOpen} onClose={toggleModal}/>
         </div>
     )
 }
