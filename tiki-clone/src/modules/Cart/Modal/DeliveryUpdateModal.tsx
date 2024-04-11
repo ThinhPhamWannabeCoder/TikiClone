@@ -78,8 +78,15 @@ export default function DeliveryUpdateModal({ isOpen, onClose }){
                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                 onClick={()=>onClose(activeDeliveryId)}
               >
-                Close
+                Xác nhận
               </button>
+              <button
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  onClick={()=>onClose(activeDeliveryId)}
+                >
+                  Huỷ
+                </button>
             </div>
           </div>
         </div>
