@@ -6,7 +6,7 @@ interface User{
 }
 interface authState{
     user: User,
-    token: ''
+    token: string
 }
 const initialState: authState = {
     user: {
@@ -30,8 +30,12 @@ const authSlice = createSlice({
                 },
             state.token= ''
             
+        },
+        test: (state)=>{
+            console.log("test redux")
+            console.log(state.user)
         }
     }
 })
-export const {login, logout} = authSlice.actions;
+export const {login, logout, test} = authSlice.actions;
 export default authSlice.reducer;

@@ -16,6 +16,8 @@ import ProductPage from "../pages/Buyer/ProductPage";
 import Test from "../pages/Test/test";
 import CommingSoon from "../pages/CommingSoon";
 import CartPage from "../pages/Checkout/Cart";
+import TestX from "../pages/Test/TestX";
+import Order from "../pages/Checkout/Order";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -26,6 +28,7 @@ const publicRoutes = createBrowserRouter(
 
           <Route path='checkout/payment' element={<CommingSoon/>}></Route>
           <Route path='checkout/cart' element={<CartPage/>}></Route>
+          <Route path='checkout/paymnent' element={<Order/>}></Route>
 
           <Route path=':category' element={<CategoryPage/>}></Route>
           <Route path=':category/:subcategory' element={<SubCategoryPage/>}></Route>
@@ -36,6 +39,7 @@ const publicRoutes = createBrowserRouter(
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
           <Route path="test" element={<Test/>}></Route>
+          <Route path="testx" element={<TestX/>}></Route>
           <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}></Route>
           <Route path='product' element={<ProductPage/>}></Route>
         </Route>

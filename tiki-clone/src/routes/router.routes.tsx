@@ -8,7 +8,7 @@ import publicRoutes from "./public.routes";
 //     return publicRoutes;
 // }
 // export default router
-export default function Provider(){
+export default function RProvider(){
     const context = useAuthContext();
     // console.log(context?.test)
     

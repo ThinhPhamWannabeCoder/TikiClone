@@ -41,7 +41,8 @@ export default function LoginForm(){
 
                 const authResponse = await userApi.user()
                 // console.log(authResponse.data.infomation_user.id)
-                const userInfo = await userApi.get_info_user(authResponse.data.infomation_user.id)
+                console.log(authResponse.data)
+                const userInfo = await userApi.get_info_user(1)
                 // console.log(userInfo.data.data.attributes.avatar.data.attributes.url)                
                 // Handler here
                 const result: User ={
