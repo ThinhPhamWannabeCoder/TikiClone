@@ -159,6 +159,12 @@
       "relation": "manyToOne",
       "target": "api::width-unit.width-unit",
       "inversedBy": "products"
+    },
+    "carts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart.cart",
+      "mappedBy": "product"
     }
   }
 }

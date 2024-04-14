@@ -89,17 +89,17 @@
       "target": "api::store.store",
       "mappedBy": "users_permissions_user"
     },
-    "carts": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::cart.cart",
-      "mappedBy": "users_permissions_user"
-    },
     "order": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::order.order",
       "inversedBy": "users_permissions_users"
+    },
+    "carts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart.cart",
+      "mappedBy": "user"
     }
   }
 }
