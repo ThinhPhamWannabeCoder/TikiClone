@@ -1,31 +1,46 @@
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../../Auth/AuthProvider";
 
 
 import userApi from "../../../services/user.services";
-import UserForm from "./UserForm";
 import ContactForm from "./ContactForm";
 import ImageInput from "./UserForm/ImageInput";
 import NameInput from "./UserForm/NameInput";
 import BirthDateInput from "./UserForm/BirthDateInput";
 import GenderInput from "./UserForm/GenderInput";
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { AuthState } from "../../../types/user.types";
+import { logout } from "../../../redux/authentication/authSlice";
+
 
 export default function UserInformation(){
         // throw Error('ehehe')
+        const user = useSelector((state:RootState)=>state.auth.user)
+        const dispatch = useDispatch();
+        const handleLogout = ()=>{
+            console.log("hi")
+            dispatch(
+                logout()
+            )
+            location.reload();
+        }
         const [data, setUpdateChecker] = useState(null);
-        const context = useAuthContext();
         // If null -> strapi will delete it
-        const [userData, setUserData] = useState<User | null>(null)
-        const [name, setName] = useState<string>(userData?.name);
-        const [nickName, setNickname] = useState<string | null>(userData?.nickname);
-        const [phone, setPhone] = useState<string>(userData?.phone);
-        const [avatarUrl, setAvatarUrl] = useState<string>(userData?.avatarUrl)
-        const [birthdate, setBirthdate] = useState<string>(userData?.birthdate);
-        const [gender, setGender] = useState<string | null>(userData?.gender);
-        const [email, setEmail] = useState<string>(userData?.email)
+        if(user===undefined){
+            return "chet may ne"
+        }
+        // const [userData, setUserData] = useState<User | null>(null)
+        const [name, setName] = useState<string>(user?.name);
+        const [nickName, setNickname] = useState<string | null>(user?.nickname);
+        const [phone, setPhone] = useState<string>(user?.phone);
+        const [avatarUrl, setAvatarUrl] = useState<string>(user?.avatar?.url)
+        const [birthdate, setBirthdate] = useState<string>(user?.dob);
+        const [gender, setGender] = useState<string | null>(user?.gender);
+        const [email, setEmail] = useState<string>(user?.email)
         const [avatarChange, setAvatarChange] = useState(false)
-        const [avatarId, setAvatarId] = useState<number>(userData?.avatarId)
+        const [avatarId, setAvatarId] = useState<number>(user?.avatar?.id)
+
 
         const handleSubmit = async (e)=>{
             e.preventDefault();
@@ -42,12 +57,12 @@ export default function UserInformation(){
                     setAvatarId(uploadResponse.data[0].id);
                     tempId=uploadResponse.data[0].id
                 } 
-                await userApi.put_user(context?.data?.user_id,{
+                await userApi.put_user(user.id,{
                     "username": name
                 })
                 
                 // console.log(context?.data?.information_id)
-                await userApi.put_info_user(context?.data?.information_id,{
+                await userApi.put_info_user(user.infomationId,{
                     "data": {
                         "Nickname": nickName,
                         "birthdate": birthdate,
@@ -63,25 +78,6 @@ export default function UserInformation(){
                 console.log(err.message)
             }
             
-        }
-        // console.log(context?.number1)
-        useEffect(()=>{
-            setName(context?.data.name);
-            setNickname(context?.data.nickname);
-            setGender(context?.data.gender);
-            setPhone(context?.data.phone);
-            setBirthdate(context?.data?.birthdate);
-            setAvatarUrl(context?.data?.avatarUrl)
-            // console.log(context?.data?.avatarUrl)
-            setEmail(context?.data?.email);
-            setAvatarId(context?.data?.avatarId);
-            setUserData(context?.data);
-            // console.log(avatarUrl)
-    
-        },[context])
-    
-        if(!userData){
-            return <div>Loading...</div>;
         }
         return(
             <>
@@ -101,13 +97,14 @@ export default function UserInformation(){
                                         ( <p className="text-blue-500 font-semibold">Updated sucessfully</p>) :
                                         ( <p className="text-red-500">Unable to update</p>))
                                         }
+                                    <button type="button" className="bg-red-500 p-4" onClick={()=>handleLogout()}>Test logout</button>
                                 </div>
                         </form>
                             
 
                     </div>
                 </div>
-                <ContactForm email={email} phone={phone}/>
+                <ContactForm email={email} phone={phone} />
 
             </>
         )

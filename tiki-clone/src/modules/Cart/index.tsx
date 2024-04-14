@@ -3,8 +3,27 @@ import PrimaryTitle from "../../components/Title/PrimaryTitle";
 import CartMainContent from "./MainContent";
 import SideBar from "./SideBar";
 import productApi from "../../services/buyer.services";
+import { useDispatch, useSelector } from "react-redux";
+import { CartType } from "../../types/user.types";
+import { add, remove } from "../../redux/cart/cartSlice";
+import { RootState } from "../../redux/store";
 
 export default function Cart(){
+    const carts = useSelector((state:RootState)=>state.cart)
+    const dispatch = useDispatch();
+    const handleAddActiveCart=()=>{
+        dispatch(
+            add(sampleData)
+        )
+    }
+    const handleCheckcart=()=>{
+        console.log(carts)
+    }
+    const handleRemoveCart=(cartId: number)=>{
+        dispatch(
+            remove(cartId)
+        )
+    }
     // for calculating price
     const [allState, setAllState] = useState<boolean>(false);
     const [selectedCarts, setSelectedCarts] = useState<number[]>([])
@@ -18,14 +37,7 @@ export default function Cart(){
 
     // 
     useEffect(()=>{
-        // console.log(selectedCarts);
-        // const sampleData = [
-        //     { id: 1, store: { id: 1, name: "Apple" }, quantity: 200 },
-        //     { id: 2, store: { id: 1, name: "Apple" }, quantity: 100 },
-        //     { id: 3, store: { id: 2, name: "Samsung" }, quantity: 200 },
-        //   ];
-          
-          // Grouping logic using reduce()
+
         setAllCart(processCart(sampleData))
     },[])
     const handleSelectedCart = (CartId : number) =>{
@@ -183,12 +195,14 @@ export default function Cart(){
                     selectedCarts={selectedCarts}
                 />
             </div>
-            
+            <button type="button" className="p-3 bg-red-500" onClick={()=>handleAddActiveCart()}>Test Add Cart</button>
+            <button type="button" className="p-3 bg-green-500" onClick={()=>handleCheckcart()}>Test check Cart</button>
+            <button type="button" className="p-3 bg-green-500" onClick={()=>handleRemoveCart(2)}>Test check Cart</button>
         </div>
     )
 }
 // PHAI PROCESS LAI DU LIEU CHO DE LAM VIEC ? 
-const sampleData = [
+const sampleData:CartType[] = [
     {
         id: 1,
         store:{

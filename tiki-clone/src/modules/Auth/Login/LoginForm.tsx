@@ -1,10 +1,11 @@
 import { useState } from "react";
 import {  Link, useNavigate} from "react-router-dom";
-import { useAuthContext } from "../AuthProvider";
 import authApi from "../../../services/auth.services";
 import Cookies from 'js-cookie';
-import { User } from "../../../types/user.types";
+import { User, AuthState, UserTrue} from "../../../types/user.types";
 import userApi from "../../../services/user.services";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/authentication/authSlice";
 
 interface LoginResponse {
     status?: number;
@@ -12,7 +13,13 @@ interface LoginResponse {
 }
 
 export default function LoginForm(){
-    const context = useAuthContext();
+    // REDUX
+    const dispatch = useDispatch();
+    const handleLogin =(payload: AuthState) =>{
+        dispatch(
+            login(payload)
+        );
+    }
     const navigate = useNavigate();
     const [errChecker, setErrChecker] = useState<LoginResponse>()
     const [formData, setFormData] = useState({
@@ -58,8 +65,23 @@ export default function LoginForm(){
                     avatarUrl: userInfo.data.data.attributes.avatar.data ? userInfo.data.data.attributes.avatar.data.attributes.url : userInfo.data.data.attributes.avatar.data,
                     avatarId: userInfo.data.data.attributes.avatar.data ? userInfo.data.data.attributes.avatar.data.id : userInfo.data.data.attributes.avatar.data,
                 }
-                context?.login(result);
-                // console.log(context?.data)
+                const intemediate: UserTrue={
+                    id: authResponse.data.id,
+                    infomationId: userInfo.data.data.id,
+                    avatar: {
+                        id: userInfo.data.data.attributes.avatar.data ? userInfo.data.data.attributes.avatar.data.id : userInfo.data.data.attributes.avatar.data,
+                        url: userInfo.data.data.attributes.avatar.data ? userInfo.data.data.attributes.avatar.data.attributes.url : userInfo.data.data.attributes.avatar.data,
+                    },
+                    name: authResponse.data.username,
+                    nickname: userInfo.data.data.attributes.Nickname,
+                    dob: userInfo.data.data.attributes.birthdate,
+                    gender: userInfo.data.data.attributes.gender ,
+                    phone: userInfo.data.data.attributes.phone ,
+                    email: authResponse.data.email,
+                    jwtToken: response.data.jwt
+                }
+                handleLogin({user:intemediate})
+
                 navigate("/user")
                 return
             }

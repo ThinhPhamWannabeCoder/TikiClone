@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import { useAuthContext } from "../../Auth/AuthProvider";
+
 import { UserNotification } from "../../../types/user.types";
 import { GET_USER_NOTIFICATION } from "../../../services/graphql.queries";
 import { useQuery } from "@apollo/client";
 import PrivateNotifcation from "./PrivateNotification";
 import Pagination from "../../../components/Common/Pagination";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 export default function UserNotifcation(){
-    const context =  useAuthContext();
+    const user = useSelector((state: RootState)=>state.auth.user)
     const [currentPage, setCurrentPage] = useState(1);
     const [notifications, setnotifications] = useState<UserNotification[]>([])
     const [totalPage, setTotaPage] = useState<number>(0)
     
     const {loading, error, data, refetch} = useQuery(GET_USER_NOTIFICATION,{
-        variables: {id: context?.data?.user_id, page: 1, pageSize: 10}
+        variables: {id: user?.id, page: 1, pageSize: 10}
     });
     useEffect(()=>{
         if(!loading && data){
@@ -39,7 +41,7 @@ export default function UserNotifcation(){
     },[loading, data])
 
     useEffect(()=>{
-        refetch({ id: context?.data?.user_id, page: currentPage, pageSize: 10 })
+        refetch({ id: user?.id, page: currentPage, pageSize: 10 })
     },[currentPage])
 
     const paginationHandle = (input:number) =>{

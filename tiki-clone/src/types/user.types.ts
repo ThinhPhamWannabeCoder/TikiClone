@@ -14,10 +14,41 @@ export  interface User {
     avatarUrl: string | null;
     avatarId: number | null;
 }
-
+export interface UserTrue{
+    id: number,
+    infomationId: number,
+    avatar: {
+        id: number,
+        url: string,
+    } | undefined,
+    name: string,
+    nickname: string | undefined,
+    dob: string | undefined,
+    gender: string | undefined,
+    phone: string,
+    email: string,
+    jwtToken: string,
+}
+export interface AuthState{
+    user: UserTrue|undefined,
+}
 export interface UserNotification{
     id: number,
     title: string,
     message: string,
     date: string,
+}
+export interface CartType{
+    id: number,
+    store:{
+        id: number,
+        name: string,
+    },
+    product:{
+        id: number,
+        name: string,
+        price: number,
+        primaryImage: string,
+    },
+    quantity: number,
 }

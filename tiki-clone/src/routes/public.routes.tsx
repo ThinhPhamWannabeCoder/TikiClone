@@ -8,15 +8,12 @@ import Layout from "../components/Layout/Layout";
 import PreviewAvatar from "../pages/Test/PreviewAvatar";
 import GraphQl from "../pages/Test/GraphQl";
 import HomePage from "../pages/Home";
-import UserTest from "../pages/Test/UserTest";
 
 import CategoryPage from "../pages/Buyer/CategoryPage";
 import SubCategoryPage from "../pages/Buyer/SubCategoryPage";
 import ProductPage from "../pages/Buyer/ProductPage";
-import Test from "../pages/Test/test";
 import CommingSoon from "../pages/CommingSoon";
 import CartPage from "../pages/Checkout/Cart";
-import TestX from "../pages/Test/TestX";
 import Order from "../pages/Checkout/Order";
 
 const publicRoutes = createBrowserRouter(
@@ -38,8 +35,6 @@ const publicRoutes = createBrowserRouter(
           <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path="preview" element={<PreviewAvatar/>}></Route>
           <Route path="graph" element={<GraphQl/>}></Route>
-          <Route path="test" element={<Test/>}></Route>
-          <Route path="testx" element={<TestX/>}></Route>
           <Route path='user/*' element={<Navigate to="/login" replace></Navigate>} errorElement={<UserError/>}></Route>
           <Route path='product' element={<ProductPage/>}></Route>
         </Route>
