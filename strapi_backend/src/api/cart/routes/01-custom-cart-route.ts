@@ -19,7 +19,7 @@ export default{
         },
         {
             method: 'POST',
-            path: '/carts/user/id',
+            path: '/carts/user/:userId',
             handler: 'cart.addCart',
             config:{
 
