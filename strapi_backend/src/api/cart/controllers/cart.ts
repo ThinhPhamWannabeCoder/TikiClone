@@ -68,22 +68,31 @@ export default factories.createCoreController('api::cart.cart',({strapi})=>({
             ctx.response.status=400,
             ctx.response.body={
                 status: 400,
-                message: "Delete fail, please try again"
+                message: "Delete fail, please contact to admin"
             }
-            // FUNCION TO CALL ADMIN FOR HELP
         }
 
-        // }
-        // else{
-            // ctx.body = payload.msg;
+    },
+    async addToCart(ctx, next){
+        const body = ctx.request.body;
+        const payload = await strapi.service('api::cart.cart').addToCart(body);
+        if(!payload.bug){
+            ctx.response.status=200,
 
-        // }
-        // CHANGE
+            ctx.response.body={
+                status: 200,
+                message: payload.msg
+            }
+        }
+        else{
+            ctx.response.status=400,
+            ctx.response.body={
+                status: 400,
+                message: "Add to cart fail, please contact to admin",
+                errmsg: payload.msg,
+            }
+        }
+
     }
-    //CREATE NEW CART
 
-    // EDIT CART -> Quantity
-
-    // DELETE all Cart
-    // DELETE one Cart
 }));

@@ -19,8 +19,8 @@ export default{
         },
         {
             method: 'POST',
-            path: '/carts/user/:userId',
-            handler: 'cart.addCart',
+            path: '/carts',
+            handler: 'cart.addToCart',
             config:{
 
             }

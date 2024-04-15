@@ -36,6 +36,7 @@ export default factories.createCoreService('api::cart.cart',({strapi})=>({
     //   console.log(body.ids);
       const ids:number[] = body.ids;
         try{
+            
             await strapi.db.query("api::cart.cart").deleteMany({
                 where: {
                   id: {
@@ -56,5 +57,46 @@ export default factories.createCoreService('api::cart.cart',({strapi})=>({
         }
       
 
-    }
+    },
+    addToCart: async(body)=>{
+        try{
+            const data = await strapi.entityService.findMany('api::cart.cart',{
+                populate: "*",
+                filters:{
+                    user:{
+                        id: parseInt(body.userId),
+                    },
+                    product:{
+                        id: parseInt(body.productId)   
+                    }
+                }
+            })
+            if(data.length>0){
+                return {
+                    status: 400,
+                    msg: "User already has this cart"
+                }
+            }
+            console.log(data)
+            const entry = await strapi.entityService.create('api::cart.cart',{
+                data:{
+                    user: body.userId,
+                    product: body.productId,
+                    quantity: body.quantity,
+                }
+            })
+            return{
+                bug: 0,
+                msg: entry,
+            }
+        }
+        catch(e){
+            console.log(e.message)
+            return {
+                bug: 1,
+                msg: e.message
+            }
+        }
+        
+    },
 }));
