@@ -1,7 +1,7 @@
 export default{
     routes:[
         {
-            method: 'POST',
+            method: 'PUT',
             path: '/carts/delete',
             handler: 'cart.deleteByIds',
             config:{
@@ -11,7 +11,7 @@ export default{
         },
         {
             method: 'PATCH',
-            path: '/carts/:id',
+            path: '/carts',
             handler: 'cart.updateQuantity',
             config:{
 

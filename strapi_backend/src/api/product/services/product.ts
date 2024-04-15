@@ -371,5 +371,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
 
         }
         return payload;
-    }
+    },
+    
 }));
