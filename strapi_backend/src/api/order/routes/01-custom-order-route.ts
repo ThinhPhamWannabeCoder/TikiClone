@@ -23,7 +23,7 @@ export default{
         {
             method: 'PATCH',
             path: '/orders',
-            hanlder: 'order.updateOrder',
+            handlder: 'order.updateOrder',
             config:{}
         },
 
