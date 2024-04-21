@@ -23,6 +23,12 @@
     },
     "duration": {
       "type": "string"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "delivery"
     }
   }
 }

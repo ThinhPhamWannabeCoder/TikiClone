@@ -165,6 +165,12 @@
       "relation": "oneToMany",
       "target": "api::cart.cart",
       "mappedBy": "product"
+    },
+    "oder_details": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::oder-detail.oder-detail",
+      "mappedBy": "product"
     }
   }
 }

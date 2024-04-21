@@ -83,12 +83,6 @@
       "target": "api::store.store",
       "mappedBy": "users_permissions_user"
     },
-    "order": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::order.order",
-      "inversedBy": "users_permissions_users"
-    },
     "carts": {
       "type": "relation",
       "relation": "oneToMany",
@@ -99,6 +93,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::address.address",
+      "mappedBy": "user"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
       "mappedBy": "user"
     }
   }

@@ -4,27 +4,76 @@
   "info": {
     "singularName": "order",
     "pluralName": "orders",
-    "displayName": "Order"
+    "displayName": "Order",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "holder": {
-      "type": "string"
-    },
-    "users_permissions_users": {
+    "user": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "mappedBy": "order"
+      "inversedBy": "orders"
     },
     "oder_detail": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::oder-detail.oder-detail",
       "mappedBy": "order"
+    },
+    "address": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::address.address",
+      "inversedBy": "orders"
+    },
+    "store": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::store.store",
+      "inversedBy": "orders"
+    },
+    "delivery": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::delivery.delivery",
+      "inversedBy": "orders"
+    },
+    "DeliveryTotalCost": {
+      "type": "decimal"
+    },
+    "ProductTotalCost": {
+      "type": "decimal"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Đã đặt hàng",
+        "Đã nhận đơn",
+        "Đang chuẩn bị hàng",
+        "Đang vận chuyển",
+        "Đang giao",
+        "Giao hàng thành công",
+        "Giao hàng thất bại"
+      ],
+      "default": "Đã đặt hàng"
+    },
+    "seller_status": {
+      "type": "enumeration",
+      "enum": [
+        "Chưa thanh toán",
+        "Đã thanh toán"
+      ]
+    },
+    "buyer_status": {
+      "type": "enumeration",
+      "enum": [
+        "Đã thanh toán",
+        "Chưa thanh toán"
+      ]
     }
   }
 }

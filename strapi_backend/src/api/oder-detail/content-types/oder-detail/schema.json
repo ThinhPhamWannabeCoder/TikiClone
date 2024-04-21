@@ -4,7 +4,8 @@
   "info": {
     "singularName": "oder-detail",
     "pluralName": "oder-details",
-    "displayName": "Oder_Detail"
+    "displayName": "Oder_Detail",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,23 @@
       "relation": "oneToOne",
       "target": "api::order.order",
       "inversedBy": "oder_detail"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "oder_details"
+    },
+    "deliveryCost": {
+      "type": "decimal",
+      "required": true
+    },
+    "quantity": {
+      "type": "integer",
+      "required": true
+    },
+    "totalPrice": {
+      "type": "decimal"
     }
   }
 }
