@@ -10,7 +10,8 @@ export default factories.createCoreController('api::delivery.delivery',({strapi}
         ctx.body = payload
     },
     async getById(ctx, next){
-        const payload = await strapi.service('api::delivery.delivery').getById();
+        const {id} = ctx.params;
+        const payload = await strapi.service('api::delivery.delivery').getById(id);
         ctx.body = payload
     },
     async create(ctx, next){
@@ -18,7 +19,9 @@ export default factories.createCoreController('api::delivery.delivery',({strapi}
         ctx.body = payload
     },
     async delete(ctx, next){
-        const payload = await strapi.service('api::delivery.delivery').deleteById();
+        const {id} = ctx.params;
+
+        const payload = await strapi.service('api::delivery.delivery').deleteById(id);
         ctx.body = payload
     },
     async update(ctx, next){
