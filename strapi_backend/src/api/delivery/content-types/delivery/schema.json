@@ -20,6 +20,9 @@
     },
     "base_price": {
       "type": "float"
+    },
+    "duration": {
+      "type": "string"
     }
   }
 }
