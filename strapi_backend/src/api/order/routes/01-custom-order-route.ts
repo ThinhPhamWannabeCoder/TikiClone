@@ -6,12 +6,7 @@ export default{
             handler: 'order.getAllOrder',
             config:{}
         },
-        { 
-            method: 'GET',
-            path: '/orders/:id',
-            handler: 'order.getOrderById',
-            config:{}
-        },
+       
         {
             method: 'POST',
             path: '/orders',
@@ -26,6 +21,19 @@ export default{
             handler: 'order.updateOrder',
             config:{}
         },
+        {
+            method: 'GET',
+            path: '/orders/check',
+            handler: 'order.updateRandom',
+            config:{}
+        },
+        { 
+            method: 'GET',
+            path: '/orders/:id',
+            handler: 'order.getOrderById',
+            config:{}
+        },
+        
 
 
     ]

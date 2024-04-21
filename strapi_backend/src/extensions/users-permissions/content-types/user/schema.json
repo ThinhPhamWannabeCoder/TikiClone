@@ -71,12 +71,6 @@
       "target": "api::notification-user.notification-user",
       "mappedBy": "receiver_id"
     },
-    "address_users": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::address-user.address-user",
-      "mappedBy": "user_id"
-    },
     "infomation_user": {
       "type": "relation",
       "relation": "oneToOne",
