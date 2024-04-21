@@ -3,7 +3,7 @@ export default{
         {
             method: 'GET',
             path: '/orders',
-            handler: 'order.getAllOrder',
+            handler: 'order.getByUserId',
             config:{}
         },
        
@@ -21,16 +21,10 @@ export default{
             handler: 'order.updateOrder',
             config:{}
         },
-        {
-            method: 'GET',
-            path: '/orders/check',
-            handler: 'order.updateRandom',
-            config:{}
-        },
         { 
             method: 'GET',
             path: '/orders/:id',
-            handler: 'order.getOrderById',
+            handler: 'order.getById',
             config:{}
         },
         

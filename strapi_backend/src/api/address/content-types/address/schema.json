@@ -4,15 +4,49 @@
   "info": {
     "singularName": "address",
     "pluralName": "addresses",
-    "displayName": "address"
+    "displayName": "address",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
+    "ward": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::ward.ward",
+      "inversedBy": "addresses"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Nhà",
+        "Công ty"
+      ],
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "required": true
+    },
+    "contact_name": {
+      "type": "string",
+      "required": true
+    },
+    "contact_mobile": {
+      "type": "string",
+      "required": true
+    },
+    "default": {
+      "type": "boolean",
+      "required": false
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "addresses"
     }
   }
 }

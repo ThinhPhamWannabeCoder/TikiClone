@@ -5,9 +5,10 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::order.order',({strapi})=>({
-    // createNewOrder:async (body)=>{
-    //     return "Hello"
-    // },
+    createNewOrder:async (body)=>{
+        // TODO PROCESSING
+        return "Hello"
+    },
     // getAllOrder:async ()=>{
     //     return "Hello"
 

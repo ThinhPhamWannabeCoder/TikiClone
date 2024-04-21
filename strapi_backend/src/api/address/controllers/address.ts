@@ -7,11 +7,14 @@ import { factories } from '@strapi/strapi'
 export default factories.createCoreController('api::address.address',({strapi})=>({
     // CREATE NEW NOTIFICATION
     async getByUserId(ctx, next){
-        const data = await strapi.service('api::address.address').getByUserId();
+        const {id} = ctx.params
+        const data = await strapi.service('api::address.address').getByUserId(id);
         ctx.body=data;
     },
     async getById(ctx, next){
-        const data = await strapi.service('api::address.address').getById();
+        const {id} = ctx.params
+
+        const data = await strapi.service('api::address.address').getById(id);
         ctx.body=data;
     },
     async create(ctx, next){

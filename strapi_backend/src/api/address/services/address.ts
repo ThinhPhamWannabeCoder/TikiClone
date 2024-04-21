@@ -5,11 +5,23 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::address.address',({strapi})=>({
-    getByUserId:async ()=>{
-        return "Hello"
+    getByUserId:async (userId: number)=>{
+        const data  = await strapi.entityService.findMany('api::address.address',{
+            fields: ["type", "address", "contact_name", "contact_mobile","default"],
+            filters:{
+                user: {
+                    id: userId
+                }
+            }
+        })
+        return data
     },
-    getById:async ()=>{
-        return "Hello"
+    getById:async (id: number)=>{
+        const data  = await strapi.entityService.findOne('api::address.address',id,{
+            fields: ["type", "address", "contact_name", "contact_mobile","default"],
+
+        })
+        return data
 
     },
     createNew: async()=>{
