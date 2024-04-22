@@ -81,10 +81,67 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
         return  result
 
     },
-    // getAllOrder:async ()=>{
-    //     return "Hello"
+    getAllOrder:async ()=>{
+        // return "Hello"
+        try {
+            const id = [1, 2];
+            const promises = id.map(async (item) => {
+                id.map(async(item)=>{}
+                return await strapi.entityService.findOne('api::product.product', item);
 
-    // },
+            });
+    
+            const data = await Promise.all(promises);
+            return data;
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            throw error; // Throw the error for handling elsewhere if needed
+        }
+// DAY LA CACH XU LY
+        // getAllOrdersAndDetails: async () => {
+        //     try {
+        //         const orderIds = [1, 2]; // Sample order IDs
+        
+        //         // Create promises for each order and its details
+        //         const promises = orderIds.map(async (orderId) => {
+        //             // 1. Create order
+        //             const orderData = {
+        //                 // Order data
+        //                 // userId, addressId, deliveryId, etc.
+        //             };
+        //             const createdOrder = await strapi.services.order.create(orderData);
+        
+        //             // 2. Create order details
+        //             const orderDetailsData = [
+        //                 // Order details data for the orderId
+        //                 // { productId: 1, quantity: 10 },
+        //                 // { productId: 2, quantity: 20 },
+        //             ];
+        //             const createdOrderDetails = await Promise.all(orderDetailsData.map(async (detail) => {
+        //                 return await strapi.services.orderDetail.create({
+        //                     orderId: createdOrder.id,
+        //                     productId: detail.productId,
+        //                     quantity: detail.quantity,
+        //                 });
+        //             }));
+        
+        //             // Return any data needed from this operation
+        //             return { order: createdOrder, details: createdOrderDetails };
+        //         });
+        
+        //         // Wait for all promises to resolve
+        //         const results = await Promise.all(promises);
+        
+        //         // Handle or process results as needed
+        //         console.log('All orders and details created:', results);
+        //         return results;
+        //     } catch (error) {
+        //         console.error('Error creating orders and details:', error);
+        //         throw error; // Throw the error for handling elsewhere if needed
+        //     }
+        // },
+        
+    },
     // getOrderById: async(orderId: number)=>{
     //     return "Hello"
 
