@@ -42,10 +42,10 @@
       "target": "api::delivery.delivery",
       "inversedBy": "orders"
     },
-    "DeliveryTotalCost": {
+    "deliveryTotalCost": {
       "type": "decimal"
     },
-    "ProductTotalCost": {
+    "productTotalCost": {
       "type": "decimal"
     },
     "status": {
@@ -66,14 +66,16 @@
       "enum": [
         "Chưa thanh toán",
         "Đã thanh toán"
-      ]
+      ],
+      "default": "Chưa thanh toán"
     },
     "buyer_status": {
       "type": "enumeration",
       "enum": [
         "Đã thanh toán",
         "Chưa thanh toán"
-      ]
+      ],
+      "default": "Chưa thanh toán"
     }
   }
 }

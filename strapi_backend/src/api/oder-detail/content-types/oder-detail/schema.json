@@ -24,10 +24,6 @@
       "target": "api::product.product",
       "inversedBy": "oder_details"
     },
-    "deliveryCost": {
-      "type": "decimal",
-      "required": true
-    },
     "quantity": {
       "type": "integer",
       "required": true
