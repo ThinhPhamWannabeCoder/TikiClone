@@ -6,87 +6,76 @@ import { factories } from '@strapi/strapi';
 import product from '../../product/controllers/product';
 
 export default factories.createCoreService('api::order.order',({strapi})=>({
-    createNewOrder:async (body)=>{
-        // TODO PROCESSING
+ 
+    createNewOrder: async (body) =>{
         const {userId, addressId, deliveryId, orders} = body
-        const orderData = [];
-        const orderDetailData = []
-        const productsData = []
-        // console.log(products)
-        orders.forEach(item=>{
-            let totalCost = 0 ;
-            let productData  = []
-            item.products.forEach(product=>{
-                productData.push({
-                    id: product.id,
-                    quantity: product.quantity,
-                    totalPrice: product.quantity  * product.price
+        try {
+            const promises = orders.map(async(order)=>{
+                //  Chuan bi thong tin product
+                let totalProductCost = 0;
+                order.products.forEach(product => {
+                    totalProductCost += product.quantity * product.price;
                 })
-                totalCost += product.quantity  * product.price
-            })
-            productsData.push({
-                products: productData
-            })
-            const data = {
-                user: userId,
-                address: addressId,
-                store: item.storeId,
-                delivery: deliveryId,
-                deliveryTotalCost: item.deliveryCost,
-                productTotalCost: totalCost,
-            }    
-            orderData.push(data)
-            // console.log(data)
-        })
-            // CREATE ORDER
-            // const id = await strapi.entittySerivce('api::order.order').create({},{})
-            // CALCULATE AGGREATED VALUE
-            // CREATE ORDER_DETAIL
-            let {ids} = await strapi.db.query('api::order.order').createMany({
-                data: [
-                    {
-                      user: 1,
-                      address: 1,
-                      store: 1,
-                      delivery: 1,
-                      deliveryTotalCost: 50000,
-                      productTotalCost: 12000
+                // const orderId = 
+                const orderId=await strapi.entityService.create('api::order.order', {
+                    data:{
+                        user: userId,
+                        address: addressId,
+                        store: order.storeId,
+                        delivery: deliveryId,
+                        deliveryTotalCost: order.deliveryCost,
+                        productTotalCost: totalProductCost,
+                        publishedAt: Date.now()
                     },
-                    {
-                      user: 1,
-                      address: 1,
-                      store: 2,
-                      delivery: 1,
-                      deliveryTotalCost: 25000,
-                      productTotalCost: 10000
-                    }
-                   ]
-                   
-            });
-
-            ids.forEach((value, index)=> {
-                orderDetailData.push({
-                    order: value,
-                    product: 3,
-                    quantity: 20,
-                    totalPrice: 1000,
+                    fields: ["id"]
                 })
-            })
-            console.log(orderDetailData)
+                const detailResult = await Promise.all(order.products.map(async(product)=>{
+                    console.log({
+                        order: orderId,
+                        product: product.id,
+                        quantity: product.quantity,
+                        totalPrice: product.quantity * product.price,
+                        publishedAt: Date.now()
+                    })
+                    return await strapi.entityService.create('api::oder-detail.oder-detail',{
+                        data:{
+                            order: orderId,
+                            product: product.id,
+                            quantity: product.quantity,
+                            totalPrice: product.quantity * product.price,
+                            publishedAt: Date.now()
 
-            const result  = await strapi.db.query('api::oder-detail.oder-detail').createMany({
-                data: orderDetailData
-            });
-       
-        return  result
+                        },
+                        fields: ["id"]
+                    })
+                }))
+                return orderId
+            })
+            // console.log("check orderDetail")
+            const ids = await Promise.all(promises);
+            const response = {
+                status: 204,
+                message: "Order has been created",
+                data: ids
+            }
+            return response
+            
+            
+        } catch (error) {
+            return {
+                status: 500,
+                message: error.message,
+
+            }
+        }
+        
 
     },
     getAllOrder:async ()=>{
-        // return "Hello"
+        return "Hello"
         try {
             const id = [1, 2];
             const promises = id.map(async (item) => {
-                id.map(async(item)=>{}
                 return await strapi.entityService.findOne('api::product.product', item);
 
             });
@@ -97,76 +86,51 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
             console.error('Error fetching orders:', error);
             throw error; // Throw the error for handling elsewhere if needed
         }
-// DAY LA CACH XU LY
-        // getAllOrdersAndDetails: async () => {
-        //     try {
-        //         const orderIds = [1, 2]; // Sample order IDs
-        
-        //         // Create promises for each order and its details
-        //         const promises = orderIds.map(async (orderId) => {
-        //             // 1. Create order
-        //             const orderData = {
-        //                 // Order data
-        //                 // userId, addressId, deliveryId, etc.
-        //             };
-        //             const createdOrder = await strapi.services.order.create(orderData);
-        
-        //             // 2. Create order details
-        //             const orderDetailsData = [
-        //                 // Order details data for the orderId
-        //                 // { productId: 1, quantity: 10 },
-        //                 // { productId: 2, quantity: 20 },
-        //             ];
-        //             const createdOrderDetails = await Promise.all(orderDetailsData.map(async (detail) => {
-        //                 return await strapi.services.orderDetail.create({
-        //                     orderId: createdOrder.id,
-        //                     productId: detail.productId,
-        //                     quantity: detail.quantity,
-        //                 });
-        //             }));
-        
-        //             // Return any data needed from this operation
-        //             return { order: createdOrder, details: createdOrderDetails };
-        //         });
-        
-        //         // Wait for all promises to resolve
-        //         const results = await Promise.all(promises);
-        
-        //         // Handle or process results as needed
-        //         console.log('All orders and details created:', results);
-        //         return results;
-        //     } catch (error) {
-        //         console.error('Error creating orders and details:', error);
-        //         throw error; // Throw the error for handling elsewhere if needed
-        //     }
-        // },
+
         
     },
-    // getOrderById: async(orderId: number)=>{
-    //     return "Hello"
-
-    // },
+    buyerGetOrderById: async(orderId: number)=>{
+        const data = await strapi.entityService.findOne('api::order.order',orderId,{
+            fields:["deliveryTotalCost","productTotalCost","status","seller_status"],
+            populate: {
+                oder_detail:{
+                    fields:["quantity", "totalPrice"],
+                    populate: {
+                        product: {
+                            fields: ["name"],
+                            populate: {
+                                primary_image: {
+                                    fields: ["url"]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // populate: "*"
+        })
+        return {
+            status: 200,
+            data: data,
+            message: "Fetch successfully"
+        }
+    },
     // updateOrder: async (body)=>{
     //     return "Hello"
 
     // }
+    updateDeliveryStatus: async(body)=>{
+        const {id, status} = body;
+        const data = await strapi.entityService.update('api::order.order',id,{
+            data:{
+                status: status
+            }
+        })
+        return {
+            status: 204,
+            data: data,
+            message: "Updated Successfully"
+        }
+    }
 }));
 
-[
- {
-   user: 1,
-   address: 1,
-   store: 1,
-   delivery: 1,
-   deliveryTotalCost: 50000,
-   productTotalCost: 12000
- },
- {
-   user: 1,
-   address: 1,
-   store: 2,
-   delivery: 1,
-   deliveryTotalCost: 25000,
-   productTotalCost: 10000
- }
-]

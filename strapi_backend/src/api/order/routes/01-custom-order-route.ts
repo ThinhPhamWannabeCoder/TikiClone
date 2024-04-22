@@ -23,8 +23,14 @@ export default{
         },
         { 
             method: 'GET',
-            path: '/orders/:id',
-            handler: 'order.getById',
+            path: '/orders/buyer/:id',
+            handler: 'order.buyerGetById',
+            config:{}
+        },
+        { 
+            method: 'PATCH',
+            path: '/orders/delivery',
+            handler: 'order.updateDeliveryStatus',
             config:{}
         },
         
