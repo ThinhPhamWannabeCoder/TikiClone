@@ -11,6 +11,9 @@ import UserError from "../components/Error/UserError";
 import Layout from "../components/Layout/Layout";
 import UserLayout from "../components/Layout/UserLayout";
 import HomePage from "../pages/Home";
+import CommingSoon from "../pages/CommingSoon";
+import CartPage from "../pages/Checkout/Cart";
+import Order from "../pages/Checkout/Order";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -21,6 +24,10 @@ const publicRoutes = createBrowserRouter(
                     SubCategory
                       Product*/}
           </Route>
+          <Route path='checkout/payment' element={<CommingSoon/>}></Route>
+          <Route path='checkout/cart' element={<CartPage/>}></Route>
+          <Route path='checkout/paymnent' element={<Order/>}></Route>
+
           <Route path='login' element={<LoginPage/>} ></Route>
           <Route path='register' element= {<RegisterPage/>}></Route>
           <Route path='user' element={<UserLayout/>} errorElement={<UserError/>}>

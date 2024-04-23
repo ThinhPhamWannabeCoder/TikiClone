@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContentBox from "../../../components/Common/ContentBox";
 import DeliveryUpdateModal from "../Modal/DeliveryUpdateModal";
+import productApi from "../../../services/buyer.services";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
+interface UserAddresses{
+    id: number,
+    type: string,
+    address: string,
+    contact_name: string,
+    contact_mobile: string,
+    default: string
+}
 interface propsType{
-    data: object
+    data: UserAddresses[],
+    activeAddress: number
+    setActive: (addressId: number)=>void
 }
 
 export default function DeliveryTo(prop: propsType){
+    // GET USER INFOMATION
     // Get Delivery Location
     const [isOpen, setIsOpen] = useState(false);
 
@@ -18,6 +32,7 @@ export default function DeliveryTo(prop: propsType){
         console.log(addressId)
         setIsOpen(!isOpen);
     }
+    
     return(
         <ContentBox>
             <div className="flex justify-between items-center">

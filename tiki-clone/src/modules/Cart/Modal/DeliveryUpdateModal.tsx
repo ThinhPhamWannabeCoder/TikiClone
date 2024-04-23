@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import productApi from "../../../services/buyer.services";
+
+
 
 export default function DeliveryUpdateModal({ isOpen, onClose }){
-    const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
-    if (!isOpen) return null;
-    const handleSelection = (id: number)=>{
-        setActiveDeliveryId(id)
-        console.log(id)
-    }
+
+  const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
+ 
+  const handleSelection = (id: number)=>{
+    setActiveDeliveryId(id)
+    console.log(id)
+  }
+  if (!isOpen) return null;
+    
+
      return (
       <div className="fixed z-10 inset-0 overflow-y-auto ">
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

@@ -5,45 +5,51 @@ import DeliveryTo from "./DeliveryTo";
 import SumPrice from "./SumPrice";
 import { useNavigate } from "react-router-dom";
 import OrderModal from "../Modal/OrderModal";
+import productApi from "../../../services/buyer.services";
+import { RootState } from "../../../redux/store";
+import { useSelector } from "react-redux";
 
 interface propsType{
     data: object[],
     selectedCarts: number[],
 }
-
+// DON'T DO IT LIKE THIS -> FILTER -> GET DEFAULT THEN  SET
+interface UserAddresses{
+    id: number,
+    type: string,
+    address: string,
+    contact_name: string,
+    contact_mobile: string,
+    default: string
+}
 export default function SideBar(prop: propsType){
+    const user = useSelector((state: RootState)=>state.auth.user)
+
     const [sumPrice, setSumPrice] = useState<number>(0)
-    const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
+    // const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
     const [isOpen, setIsOpen] = useState(false);
+    const [activeAddress, setActiveAddress] = useState<number>()
+    const [addresses, setAddresses] = useState<UserAddresses[]|undefined>(undefined)
 
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
-    // User Id from Redux
-    // const onCloseModal = (addressId: number)=>{
-    //     console.log(addressId)
-    //     setIsOpen(!isOpen);
-    // }
-//  const [deliveryPrice, setDeliveryPrice] = useState<number>(0)
-// Delievery to will have to delievy contact and sumprice will have the delivery price added to calculate at their
-    const navigate = useNavigate();
+
     const OrderHandler = ()=>{
-        // console.log(prop.data.filter(item=>prop.selectedCarts.includes(item.id)))
-        // SET REDUX
+
         const orderData = prop.data.filter(item=>prop.selectedCarts.includes(item.id)).map(item=> {
             return {
                 id: item.id,
                 productId: item.product.id,
                 quantity: item.quantity,
-                // userId: redux - if needed
             }
         })
-        // addressId
-        // Gia tien da tinh: Delivery va product + sum -> dua vao order cho nhanh
-        // 
+
         console.log(orderData)
         toggleModal()
-        // navigate("/user")
+    }
+    const activeAddressHanlder = (addressId: number)=>{
+        setActiveAddress(addressId)
     }
     useEffect(()=>{
         let sum = 0;
@@ -55,11 +61,25 @@ export default function SideBar(prop: propsType){
         setSumPrice(sum)
 
     },[prop.selectedCarts])
-    
+    useEffect(()=>{
+        productApi.getAddress(user?.id)
+            .then(res=>{
+                setActiveAddress(res.data)
+                // console.log(res.data)
+                res.data.forEach((item,index)=>{
+                    if(item.default == true){
+                        setActiveAddress(index)
+                    }
+                })
+            })
+            .catch(err =>{
+                console.log(err.message)
+            })
+    },[])
 
     return(
         <div className="flex flex-col gap-3 w-1/5">
-            <DeliveryTo data={sampleData}/>
+            <DeliveryTo data={addresses as UserAddresses[]} activeAddress={activeAddress as number} setActive={activeAddressHanlder}/>
             {/* [{ProductPrice & Produce Quantity}] */}
             <SumPrice
                 sumPrice={sumPrice}

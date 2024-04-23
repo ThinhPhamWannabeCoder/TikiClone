@@ -19,7 +19,6 @@ export default function UserInformation(){
         const user = useSelector((state:RootState)=>state.auth.user)
         const dispatch = useDispatch();
         const handleLogout = ()=>{
-            console.log("hi")
             dispatch(
                 logout()
             )
