@@ -14,7 +14,7 @@ interface propsType{
     selectedCarts: number[],
 }
 // DON'T DO IT LIKE THIS -> FILTER -> GET DEFAULT THEN  SET
-interface UserAddresses{
+interface UserAddress{
     id: number,
     type: string,
     address: string,
@@ -28,8 +28,7 @@ export default function SideBar(prop: propsType){
     const [sumPrice, setSumPrice] = useState<number>(0)
     // const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
     const [isOpen, setIsOpen] = useState(false);
-    const [activeAddress, setActiveAddress] = useState<number>()
-    const [addresses, setAddresses] = useState<UserAddresses[]|undefined>(undefined)
+    const [address, setAddress] = useState<UserAddress|undefined>(undefined)
 
     const toggleModal = () => {
       setIsOpen(!isOpen);
@@ -48,8 +47,8 @@ export default function SideBar(prop: propsType){
         console.log(orderData)
         toggleModal()
     }
-    const activeAddressHanlder = (addressId: number)=>{
-        setActiveAddress(addressId)
+    const handleAddress = (data: UserAddress) =>{
+        setAddress(data)
     }
     useEffect(()=>{
         let sum = 0;
@@ -63,24 +62,19 @@ export default function SideBar(prop: propsType){
     },[prop.selectedCarts])
     useEffect(()=>{
         productApi.getAddress( {userId: user?.id as number, default: true})
-            .then(res=>{
-                // setActiveAddress(res.data)
-                // console.log(res.data)
-                // res.data.forEach((item,index)=>{
-                //     if(item.default == true){
-                //         setActiveAddress(index)
-                //     }
-                // })
-                console.log(res.data)
+            .then(res=>{  
+                setAddress(res.data[0])
             })
             .catch(err =>{
                 console.log(err.message)
             })
     },[])
-
+    if(address === undefined){
+        return "waiting" 
+    }
     return(
         <div className="flex flex-col gap-3 w-1/5">
-            <DeliveryTo data={sampleData}/>
+            <DeliveryTo data={address as UserAddress} setAddress={setAddress}/>
             {/* [{ProductPrice & Produce Quantity}] */}
             <SumPrice
                 sumPrice={sumPrice}

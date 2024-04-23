@@ -5,7 +5,7 @@ import productApi from "../../../services/buyer.services";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
-interface UserAddresses{
+interface UserAddress{
     id: number,
     type: string,
     address: string,
@@ -14,23 +14,27 @@ interface UserAddresses{
     default: string
 }
 interface propsType{
-    data: any
-    // UserAddresses[],
-    // activeAddress: number
-    // setActive: (addressId: number)=>void
+    data: UserAddress,
+    setAddress: (data: UserAddress) => void;
 }
 
 export default function DeliveryTo(prop: propsType){
     // GET USER INFOMATION
     // Get Delivery Location
+    
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
     // User Id from Redux
-    const onCloseModal = (addressId: number)=>{
-        console.log(addressId)
+    const onCloseModal = ()=>{
+        // console.log(addressId)
+        setIsOpen(!isOpen);
+    }
+    const changeDeliveryAddress = (address: UserAddress)=>{
+        prop.setAddress(address)
+        // console.log(address)
         setIsOpen(!isOpen);
     }
     
@@ -39,19 +43,19 @@ export default function DeliveryTo(prop: propsType){
             <div className="flex justify-between items-center">
                 <h2>Giao tới</h2>
                 <p className="text-blue-500 cursor-pointer" onClick={toggleModal}>Thay đổi</p>
-                <DeliveryUpdateModal isOpen={isOpen} onClose={onCloseModal} />
+                <DeliveryUpdateModal isOpen={isOpen} onClose={onCloseModal} setAddress={changeDeliveryAddress} />
             </div>
             <div className="font-semibold flex ">
                 {/* Redux*/}
-                <p className="border-r-2  pr-2">{prop.data.contactName}</p>
+                <p className="border-r-2  pr-2">{prop.data.contact_name}</p>
                 {/* Redux */}
-                <p className="pl-2">{prop.data.contactPhone}</p>
+                <p className="pl-2">{prop.data.contact_mobile}</p>
             </div>
             <div>
                 {/* Type */}
                  
-                <span className="text-green-400 p-1 bg-green-100 rounded-sm" rel={prop.data.type.id}>{prop.data.type.name}</span>
-                <span className="mx-1">{prop.data.location}</span>
+                <span className="text-green-400 p-1 bg-green-100 rounded-sm" >{prop.data.type}</span>
+                <span className="mx-1">{prop.data.address}</span>
 
             </div>
         </ContentBox>

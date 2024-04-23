@@ -3,35 +3,56 @@ import { useEffect, useState } from "react";
 import productApi from "../../../services/buyer.services";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
+interface UserAddress{
+  id: number,
+  type: string,
+  address: string,
+  contact_name: string,
+  contact_mobile: string,
+  default: string
+}
+interface propsType{
+  
+  setAddress: (data: UserAddress) => void
+  isOpen: boolean,
+  onClose: () => void
+}
 
-
-
-export default function DeliveryUpdateModal({ isOpen, onClose }){
-
+export default function DeliveryUpdateModal(prop :propsType){
+  const [addressess, setAddresses] = useState<UserAddress[]> ()
   const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
   const user = useSelector((state: RootState)=>state.auth.user)
-
+  const [currentAddress, setCurrentAddress] = useState<UserAddress> ()
   useEffect(()=>{
     productApi.getAddress( {userId: user?.id as number, default: false})
         .then(res=>{
-            // setActiveAddress(res.data)
-            // console.log(res.data)
-            // res.data.forEach((item,index)=>{
-            //     if(item.default == true){
-            //         setActiveAddress(index)
-            //     }
-            // })
-            console.log(res.data)
+
+            setAddresses(res.data)
+            res.data.forEach(item => {
+              if(item.default == true){
+                setActiveDeliveryId(item.id)
+              }
+            })
         })
         .catch(err =>{
             console.log(err.message)
         })
 },[])
   const handleSelection = (id: number)=>{
+    // console.log("hi")
     setActiveDeliveryId(id)
-    console.log(id)
   }
-  if (!isOpen) return null;
+
+  useEffect(()=>{
+    if(addressess != undefined){
+      addressess.forEach(item=>{
+        if(item.id === activeDeliveryId){
+          setCurrentAddress(item)
+        }
+      })
+    }
+  },[activeDeliveryId])
+  if (!prop.isOpen) return null;
     
 
      return (
@@ -40,7 +61,7 @@ export default function DeliveryUpdateModal({ isOpen, onClose }){
           {/* Background overlay */}
           <div
             className="fixed inset-0 transition-opacity"
-            onClick={onClose}
+            onClick={prop.onClose}
             aria-hidden="true"
           >
             <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
@@ -65,28 +86,29 @@ export default function DeliveryUpdateModal({ isOpen, onClose }){
                   <div className="mt-2">
 
                     <ul className="flex flex-col gap-2">
-                        {sampleData.map(item=>{
+                        {addressess.map(item=>{
                             return(
-                                <li key={item.id}>
+                                <li key={item.id} >
                                 <input type="checkbox" 
-                                    // id={item.id}
-                                    
-                                   
                                     checked={activeDeliveryId===item.id}
+                                    id={item.id.toString()}
                                     className="hidden peer" 
-                                    onChange={()=>handleSelection(item.id)}
+                                    // onChange={()=>handleSelection(item.id)}
+                                    onChange={() => handleSelection(item.id)}
+                                    // onChange={handleTest}
+
                                 />
-                                <label 
-                                    className="inline-flex items-center justify-between w-full p-5 text-gray-400 bg-white border-2 border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-black peer-checked:text-gray-200 hover:bg-gray-50 "
+                                <label htmlFor={item.id.toString()}
+                                    className="inline-flex items-center justify-between w-full p-5 opacity-40 bg-white border-2  border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 hover:text-gray-600 peer-checked:opacity-100 peer-checked:text-gray-200 hover:bg-gray-100 "
                                 >                           
                                     <div className="block w-full">
                                         <div className="flex gap-3 justify-between">
-                                            <span className="text-green-400 p-1 bg-green-100 rounded-sm" >{item.type}</span>
-                                            <span className="w-full text-lg font-semibold">{item.contactName}</span>
-                                            <span className="w-full text-lg font-semibold text-blue-500">{item.contactPhone}</span>
+                                            <span className="text-green-400 p-1 bg-green-100 rounded-sm " >{item.type}</span>
+                                            <span className="w-full text-lg font-semibold text-black">{item.contact_name}</span>
+                                            <span className="w-full text-lg font-semibold text-blue-500 ">{item.contact_mobile}</span>
                                         </div>
                                         
-                                        <div className="w-full text-md">{item.location}</div>
+                                        <div className="w-full text-md text-black">{item.address}</div>
                                     </div>
                                 </label>
                             </li>
@@ -103,14 +125,14 @@ export default function DeliveryUpdateModal({ isOpen, onClose }){
               <button
                 type="button"
                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-base font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                onClick={()=>onClose(activeDeliveryId)}
+                onClick={()=>prop.setAddress(currentAddress as UserAddress)}
               >
                 Xác nhận
               </button>
               <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={()=>onClose(activeDeliveryId)}
+                  onClick={()=>prop.onClose()}
                 >
                   Huỷ
                 </button>
@@ -120,27 +142,3 @@ export default function DeliveryUpdateModal({ isOpen, onClose }){
       </div>
     );
 }
-const sampleData = [
-    {
-        id: 1,
-        type: "Nhà",
-        contactName: "Tien",
-        contactPhone: "9123",
-        location : "dia chi 1 dia chi 1dia chi 1dia chi 1dia chi 1dia chi 1dia chi 1dia chi 1dia chi 1",
-    },
-    {
-        id: 2,
-        type: "Nhà",
-        contactName: "Tien1218",
-        contactPhone: "9123",
-        location : "dia chi 1",
-    },
-    {
-        id: 3,
-        type: "Nhà",
-        contactName: "Tien3333",
-        contactPhone: "9123",
-        location : "dia chi 1",
-    },
-    
-]
