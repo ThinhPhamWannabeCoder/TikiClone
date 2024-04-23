@@ -14,9 +14,10 @@ interface UserAddresses{
     default: string
 }
 interface propsType{
-    data: UserAddresses[],
-    activeAddress: number
-    setActive: (addressId: number)=>void
+    data: any
+    // UserAddresses[],
+    // activeAddress: number
+    // setActive: (addressId: number)=>void
 }
 
 export default function DeliveryTo(prop: propsType){

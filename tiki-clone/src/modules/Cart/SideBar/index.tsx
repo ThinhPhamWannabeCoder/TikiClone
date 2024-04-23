@@ -62,15 +62,16 @@ export default function SideBar(prop: propsType){
 
     },[prop.selectedCarts])
     useEffect(()=>{
-        productApi.getAddress(user?.id)
+        productApi.getAddress( {userId: user?.id as number, default: true})
             .then(res=>{
-                setActiveAddress(res.data)
+                // setActiveAddress(res.data)
                 // console.log(res.data)
-                res.data.forEach((item,index)=>{
-                    if(item.default == true){
-                        setActiveAddress(index)
-                    }
-                })
+                // res.data.forEach((item,index)=>{
+                //     if(item.default == true){
+                //         setActiveAddress(index)
+                //     }
+                // })
+                console.log(res.data)
             })
             .catch(err =>{
                 console.log(err.message)
@@ -79,7 +80,7 @@ export default function SideBar(prop: propsType){
 
     return(
         <div className="flex flex-col gap-3 w-1/5">
-            <DeliveryTo data={addresses as UserAddresses[]} activeAddress={activeAddress as number} setActive={activeAddressHanlder}/>
+            <DeliveryTo data={sampleData}/>
             {/* [{ProductPrice & Produce Quantity}] */}
             <SumPrice
                 sumPrice={sumPrice}

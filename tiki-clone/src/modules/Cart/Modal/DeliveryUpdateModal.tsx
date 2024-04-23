@@ -1,13 +1,32 @@
 import { useEffect, useState } from "react";
 
 import productApi from "../../../services/buyer.services";
+import { RootState } from "../../../redux/store";
+import { useSelector } from "react-redux";
 
 
 
 export default function DeliveryUpdateModal({ isOpen, onClose }){
 
   const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
- 
+  const user = useSelector((state: RootState)=>state.auth.user)
+
+  useEffect(()=>{
+    productApi.getAddress( {userId: user?.id as number, default: false})
+        .then(res=>{
+            // setActiveAddress(res.data)
+            // console.log(res.data)
+            // res.data.forEach((item,index)=>{
+            //     if(item.default == true){
+            //         setActiveAddress(index)
+            //     }
+            // })
+            console.log(res.data)
+        })
+        .catch(err =>{
+            console.log(err.message)
+        })
+},[])
   const handleSelection = (id: number)=>{
     setActiveDeliveryId(id)
     console.log(id)
@@ -48,16 +67,16 @@ export default function DeliveryUpdateModal({ isOpen, onClose }){
                     <ul className="flex flex-col gap-2">
                         {sampleData.map(item=>{
                             return(
-                                <li>
+                                <li key={item.id}>
                                 <input type="checkbox" 
-                                    id={item.id}
-                                    key={item.id}
+                                    // id={item.id}
+                                    
                                    
                                     checked={activeDeliveryId===item.id}
                                     className="hidden peer" 
                                     onChange={()=>handleSelection(item.id)}
                                 />
-                                <label for={item.id}
+                                <label 
                                     className="inline-flex items-center justify-between w-full p-5 text-gray-400 bg-white border-2 border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-black peer-checked:text-gray-200 hover:bg-gray-50 "
                                 >                           
                                     <div className="block w-full">
