@@ -10,6 +10,7 @@ import { RootState } from "../../redux/store";
 
 export default function Cart(){
     const carts = useSelector((state:RootState)=>state.cart)
+    const user = useSelector((state:RootState) => state.auth.user)
     const dispatch = useDispatch();
     const handleAddActiveCart=()=>{
         dispatch(
@@ -37,8 +38,18 @@ export default function Cart(){
 
     // 
     useEffect(()=>{
+        // GET CART HERE
+        // productApi.getUserCart({userId:user?.id as number})
+        //     .then(response =>{
+        //         setAllCart(processCart(response.data))
+        //         console.log(response.data)
 
-        setAllCart(processCart(sampleData))
+        //     })
+        //     .catch(error => {
+        //         console.log(error.message)
+        //     })
+            setAllCart(processCart(sampleData))
+
     },[])
     const handleSelectedCart = (CartId : number) =>{
         if(selectedCarts.includes(CartId)){

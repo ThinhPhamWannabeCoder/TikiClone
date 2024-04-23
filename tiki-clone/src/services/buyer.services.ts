@@ -47,6 +47,8 @@ const productApi ={
     getStoreShortById: async (storeId: number) => await axiosAdmin.get(`/stores/short/${storeId}`),
 
     // =============== CART =============== //
+    getUserCart: async (data: {userId : number}) => await axiosAdmin.get(`carts/user/${data.userId}`),
+
     // updateCartByCartId: async (data: {cartId: number, newQuantity: number}) => await axiosAdmin.patch(`carts/products/${}`)
     // deleteCartByProductId: async (data: {cartId: number}) => await axiosAdmin.delete(`/carts/products/${data.productId}`),
     // deleteCartAll: async (data:{userId: number}) => await axiosAdmin.delete(`carts/user/${data.userId}`),

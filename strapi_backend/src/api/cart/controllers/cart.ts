@@ -8,29 +8,28 @@ import { useId } from 'react';
 export default factories.createCoreController('api::cart.cart',({strapi})=>({
     async getByUserId(ctx,next){
         const {id} = ctx.params; 
-        console.log(id)
-        if(id){
-            const data = await strapi.service('api::cart.cart').getCartsByUserId(id);
-            // console.log(payload);
-            const payload = data.map(item=>{
-                return{
-                    id: item.id,
-                    quantity: item.quantity,
-                    product:{
-                        id: item.product.id,
-                        name: item.product.name,
-                        price: item.product.price,
-                        primaryImage: item.product.primary_image.url,
-                    },
-                    store:{
-                        id: item.product.store.id,
-                        name: item.product.store.name
-                    }
+        
+        const data = await strapi.service('api::cart.cart').getCartsByUserId(id);
+        // console.log(data);
+        const payload = data.map(item=>{
+            return{
+                id: item.id,
+                quantity: item.quantity,
+                product:{
+                    id: item.product.id,
+                    name: item.product.name,
+                    price: item.product.price,
+                    primaryImage: item.product.primary_image.url,
+                },
+                store:{
+                    id: item.product.store.id,
+                    name: item.product.store.name
                 }
-            })
-            ctx.body=payload 
+            }
+        })  
+        ctx.body=payload 
 
-        }
+        
     },
     async addCart(ctx, next){
         // Sanitize request

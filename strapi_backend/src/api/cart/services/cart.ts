@@ -5,7 +5,7 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::cart.cart',({strapi})=>({
-    getCartsByUserId: async (userId: string) => {
+    getCartsByUserId: async (userId: number) => {
         const data = await strapi.entityService.findMany('api::cart.cart',{
             fields: ["id","quantity"],
             filters:{
