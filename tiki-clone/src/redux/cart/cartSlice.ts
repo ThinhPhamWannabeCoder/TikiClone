@@ -12,7 +12,8 @@ const cartSlice = createSlice({
         },
         remove: (state, action: PayloadAction<number>)=>{
             return state.filter(item=>item.id!=action.payload);
-        }
+        },
+        // update: (state, action)
     }
 })
 export const{add, remove} = cartSlice.actions;

@@ -18,6 +18,7 @@ interface productCart{
     
 }
 export default function CartCard(prop: productCart){
+    // const 
     const [finalPrice, setFinalPrice] = useState<number>(prop.price*prop.quantity)
     const [productQuantity, setProductQuantity] = useState<number>(prop.quantity);
     useEffect(()=>{

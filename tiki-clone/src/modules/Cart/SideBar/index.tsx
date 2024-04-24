@@ -43,7 +43,6 @@ export default function SideBar(prop: propsType){
     };
 
     const OrderHandler = ()=>{
-
         const orderData = prop.data.filter(item=>prop.selectedCarts.includes(item.id)).map(item=> {
             return {
                 id: item.id,
@@ -52,7 +51,6 @@ export default function SideBar(prop: propsType){
             }
         })
 
-        console.log(orderData)
         toggleModal()
     }
 
@@ -73,7 +71,6 @@ export default function SideBar(prop: propsType){
                 return productApi.getDelivery()
             })
             .then(res=>{
-                console.log(res.data[0])
                 setDelivery(res.data[0])
             })
             // .then()

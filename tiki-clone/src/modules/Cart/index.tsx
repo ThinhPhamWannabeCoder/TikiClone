@@ -20,7 +20,7 @@ export default function Cart(){
     const dispatch = useDispatch();
     const handleAddActiveCart=()=>{
         dispatch(
-            add(allCart)
+            add(unProcessedCart)
         )
     }
     const handleCheckcart=()=>{
@@ -30,6 +30,7 @@ export default function Cart(){
         dispatch(
             remove(cartId)
         )
+
     }
     
     useEffect(()=>{
@@ -39,6 +40,7 @@ export default function Cart(){
                 setAllCart(processCart(response.data))
                 // console.log(response.data)
                 setUnProcessedCart(response.data)
+                handleAddActiveCart()
 
             })
             .catch(error => {
@@ -105,16 +107,56 @@ export default function Cart(){
         
     }
     const handleDeleteCart = (cartId: number)=>{
-        // API DELETE CART
-        // UPDATE STATE
-        console.log(`delete cart ${cartId}`)
 
+        setAllCart(processCart(unProcessedCart.filter(item=>item.id != cartId)))
+        setUnProcessedCart(unProcessedCart.filter(item=>item.id != cartId))
+        productApi.deleteByIds({ids: [cartId]})
+            .then(res=>{
+                if(res.data.status === 200){
+                    console.log("good bro")
+                }
+            })
+            .catch(err =>{
+                console.log(err.message)
+            })
+        // DELETE
     }
     const handleDeleteStore = (storeId: number)=>{
-        console.log(`delete store ${storeId}`)
+        setAllCart(processCart(unProcessedCart.filter(item=>item.store.id != storeId)))
+        setUnProcessedCart(unProcessedCart.filter(item=>item.store.id != storeId))
+        // const cartIds = unProcessedCart.map(item => {
+        //     if(item.store.id == storeId) return item.id
+        // })
+        const cartIds = unProcessedCart.reduce((acc, item)=>{
+            if(item.store.id == storeId) acc.push(item.id)
+            return acc
+        },[])
+        productApi.deleteByIds({ids: [...cartIds]})
+        .then(res=>{
+            if(res.data.status === 200){
+                console.log("good bro")
+            }
+        })
+        .catch(err =>{
+            console.log(err.message)
+        })
+        // console.log(`delete store ${storeId}`)
     }
     const hanldeDeleteAll = ()=>{
-        console.log("Delete All");
+        // set
+        // console.log("Delete All");
+        setAllCart([])
+        setUnProcessedCart([])
+        const cartIds = unProcessedCart.map(item => item.id)
+        productApi.deleteByIds({ids: [...cartIds]})
+        .then(res=>{
+            if(res.data.status === 200){
+                console.log("good bro")
+            }
+        })
+        .catch(err =>{
+            console.log(err.message)
+        })
         // API 
         // UDPATE STATE
         // UPDATE REDUX
@@ -201,68 +243,9 @@ export default function Cart(){
                     selectedCarts={selectedCarts}
                 />
             </div>
-            <button type="button" className="p-3 bg-red-500" onClick={()=>handleAddActiveCart()}>Test Add Cart</button>
-            <button type="button" className="p-3 bg-green-500" onClick={()=>handleCheckcart()}>Test check Cart</button>
-            <button type="button" className="p-3 bg-green-500" onClick={()=>handleRemoveCart(2)}>Test check Cart</button>
+            
         </div>
     )
 }
 // PHAI PROCESS LAI DU LIEU CHO DE LAM VIEC ? 
-const sampleData:CartType[] = [
-    {
-        id: 1,
-        store:{
-            id:1,
-            name: "Apple",
-        },
-        product:{
-            id:1,
-            name: "Iphone",
-            price: 555954445,
-            primaryImage: "",
-        },
-        quantity: 1
-    },
-    {
-        id: 2,
-        store:{
-            id:1,
-            name: "Apple",
-        },
-        product:{
-            id:3,
-            name: "Ipad",
-            price: 555945,
-            primaryImage: "",
-        },
-        quantity: 100
-    },
-    {
-        id: 3,
-        store:{
-            id:2,
-            name: "Samsung",
-        },
-        product:{
-            id:4,
-            name: "Tablet",
-            price: 887654,
-            primaryImage: "",
-        },
-        quantity: 200
-    },
-    {
-        id: 4,
-        store:{
-            id:2,
-            name: "Samsung",
-        },
-        product:{
-            id:4,
-            name: "Tablet",
-            price: 887654,
-            primaryImage: "",
-        },
-        quantity: 200
-    }
-]
+  

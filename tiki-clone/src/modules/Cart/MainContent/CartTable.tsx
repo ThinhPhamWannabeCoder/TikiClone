@@ -4,6 +4,8 @@ import CartCard from "./StoreCart/CartCard";
 import { useEffect, useState } from "react";
 import OrderStoreCard from "../../../components/Order/OrderStoreCard";
 import StoreCart from "./StoreCart";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 
 interface propsType{
     handleSelectedStore: (storeId: number) => void,
@@ -17,11 +19,10 @@ interface propsType{
 }
 export default function CartTable(prop:propsType){
     
-    useEffect(()=>{
-        
-    },[])
+    // const carts = useSelector((state:RootState)=>state.cart)
+
     
-  
+    // console.log(carts)
     return (
 
         <>
