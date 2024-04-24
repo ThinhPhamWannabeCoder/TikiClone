@@ -8,8 +8,8 @@ export default {
         },
         {
             method: 'GET',
-            path: '/deliveries/:id',
-            handler: 'delivery.getById',
+            path: '/deliveries/default',
+            handler: 'delivery.getDefault',
             config:{}
         },
         {

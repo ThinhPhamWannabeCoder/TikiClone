@@ -29,6 +29,10 @@
       "relation": "oneToMany",
       "target": "api::order.order",
       "mappedBy": "delivery"
+    },
+    "default": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

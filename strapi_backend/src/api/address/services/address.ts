@@ -19,7 +19,6 @@ export default factories.createCoreService('api::address.address',({strapi})=>({
             queryOptions.filters["default"] = option
             
         }
-        console.log(queryOptions)
         const data  = await strapi.entityService.findMany('api::address.address',queryOptions)
         return data
     },

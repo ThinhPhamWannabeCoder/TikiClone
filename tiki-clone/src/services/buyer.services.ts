@@ -59,7 +59,7 @@ const productApi ={
 
 
     // =============== DELIVERY =============== //
-    getDeliveries: async () => await axiosAdmin.get(`/deliveries`),
+    getDelivery: async () => await axiosAdmin.get(`/deliveries/default`),
     // =============== USER ADDRESSS =============== //
     getAddress: async (data: {userId : number, default: boolean }) => await axiosAdmin.get(`/addresses/user/${data.userId}?main=${data.default}`)
 

@@ -7,7 +7,7 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreService('api::delivery.delivery',({strapi})=>({
     getAll:async ()=>{
         const data = await strapi.entityService.findMany('api::delivery.delivery',{
-            fields: ["name","description","base_price","duration"]
+            fields: ["name","description","base_price","duration","default"]
           
         })
         // const res = data.map(item=> {
@@ -21,9 +21,12 @@ export default factories.createCoreService('api::delivery.delivery',({strapi})=>
         // })
         return data
     },
-    getById:async (id:number)=>{
-        const data = await strapi.entityService.findOne('api::delivery.delivery',id, {
-                fields: ["name","description","base_price","duration"]
+    getDefault:async ()=>{
+        const data = await strapi.entityService.findMany('api::delivery.delivery',{
+                fields: ["name","description","base_price","duration","default"],
+                filters:{
+                    default: true
+                }
             })
         // const res = data.map(item=> {
         //     return {

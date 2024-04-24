@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import PrimaryButton from "../../../components/Button/PrimaryButton";
 import DeliveryTo from "./DeliveryTo";
 import SumPrice from "./SumPrice";
-import { useNavigate } from "react-router-dom";
 import OrderModal from "../Modal/OrderModal";
 import productApi from "../../../services/buyer.services";
 import { RootState } from "../../../redux/store";
@@ -22,13 +21,22 @@ interface UserAddress{
     contact_mobile: string,
     default: string
 }
+interface Delivery{
+    id: number,
+    name: string
+    address: string,
+    description: string,
+    base_price: number,
+    duration: string,
+    default: boolean
+
+}
 export default function SideBar(prop: propsType){
     const user = useSelector((state: RootState)=>state.auth.user)
-
     const [sumPrice, setSumPrice] = useState<number>(0)
-    // const [activeDeliveryId, setActiveDeliveryId] = useState<number>(2);
     const [isOpen, setIsOpen] = useState(false);
     const [address, setAddress] = useState<UserAddress|undefined>(undefined)
+    const [delivery, setDelivery] = useState<Delivery|undefined>(undefined)
 
     const toggleModal = () => {
       setIsOpen(!isOpen);
@@ -47,12 +55,10 @@ export default function SideBar(prop: propsType){
         console.log(orderData)
         toggleModal()
     }
-    const handleAddress = (data: UserAddress) =>{
-        setAddress(data)
-    }
-    useEffect(()=>{
-        let sum = 0;
 
+    useEffect(()=>{
+
+        let sum = 0;
         prop.data.filter(item=>prop.selectedCarts.includes(item.id)).forEach(item=>{
             sum+= item.quantity * item.product.price
         })
@@ -64,22 +70,27 @@ export default function SideBar(prop: propsType){
         productApi.getAddress( {userId: user?.id as number, default: true})
             .then(res=>{  
                 setAddress(res.data[0])
+                return productApi.getDelivery()
             })
+            .then(res=>{
+                console.log(res.data[0])
+                setDelivery(res.data[0])
+            })
+            // .then()
             .catch(err =>{
                 console.log(err.message)
             })
     },[])
-    if(address === undefined){
+    if(address === undefined || delivery?.base_price === undefined){
         return "waiting" 
     }
     return(
         <div className="flex flex-col gap-3 w-1/5">
             <DeliveryTo data={address as UserAddress} setAddress={setAddress}/>
-            {/* [{ProductPrice & Produce Quantity}] */}
             <SumPrice
-                sumPrice={sumPrice}
+                sumProductPrice={sumPrice}
+                deliveryPrice={delivery.base_price}
             />
-            {/* List activate product -> to set order Package */}
             <PrimaryButton 
                 name="Mua hàng"
                 fnc={OrderHandler}
@@ -87,30 +98,4 @@ export default function SideBar(prop: propsType){
             <OrderModal isOpen={isOpen} onClose={toggleModal}/>
         </div>
     )
-}
-const sampleData = {
-    id: 1,
-    type: {
-        id:1,
-        name: "Nhà"
-    },
-    user_id:2,
-    contactName: "Phạm Tiến Thịnh",
-    contactPhone: "0971933424",
-    address:{
-        city: {
-            id: 1,
-            name: "Hà Nội"
-        },
-        district: {
-            id: 1,
-            name: "Hoàn Kiếm"
-        },
-        ward: {
-            id: 1,
-            name: "Chương Dương"
-        },
-    },
-    location: "Ngõ 210 bạch Đằng, Phường Chương Dương Độ, Quận Hoàn Kiếm, Hà Nội, Phường Chương Dương Độ, Quận Hoàn Kiếm, Hà Nội",
-    
 }

@@ -9,12 +9,18 @@ import { add, remove } from "../../redux/cart/cartSlice";
 import { RootState } from "../../redux/store";
 
 export default function Cart(){
+    // for calculating price
+    const [allState, setAllState] = useState<boolean>(false);
+    const [selectedCarts, setSelectedCarts] = useState<number[]>([])
+    const [selectedStores, setSelectedStores] = useState<number[]>([])
+    const [allCart, setAllCart] = useState<object[]>([])
+    const [unProcessedCart, setUnProcessedCart] = useState<object[]>([])
     const carts = useSelector((state:RootState)=>state.cart)
     const user = useSelector((state:RootState) => state.auth.user)
     const dispatch = useDispatch();
     const handleAddActiveCart=()=>{
         dispatch(
-            add(sampleData)
+            add(allCart)
         )
     }
     const handleCheckcart=()=>{
@@ -25,33 +31,23 @@ export default function Cart(){
             remove(cartId)
         )
     }
-    // for calculating price
-    const [allState, setAllState] = useState<boolean>(false);
-    const [selectedCarts, setSelectedCarts] = useState<number[]>([])
-    const [selectedStores, setSelectedStores] = useState<number[]>([])
-    const [allCart, setAllCart] = useState<object[]>([])
-
-
-    // // State  Selected ID -> het
-    // const [CartQ]
-    // State Quantity
-
-    // 
+    
     useEffect(()=>{
         // GET CART HERE
-        // productApi.getUserCart({userId:user?.id as number})
-        //     .then(response =>{
-        //         setAllCart(processCart(response.data))
-        //         console.log(response.data)
+        productApi.getUserCart({userId:user?.id as number})
+            .then(response =>{
+                setAllCart(processCart(response.data))
+                // console.log(response.data)
+                setUnProcessedCart(response.data)
 
-        //     })
-        //     .catch(error => {
-        //         console.log(error.message)
-        //     })
-            setAllCart(processCart(sampleData))
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
 
     },[])
     const handleSelectedCart = (CartId : number) =>{
+        console.log(CartId)
         if(selectedCarts.includes(CartId)){
             const updateCarts = selectedCarts.filter(id => id !== CartId);
             setSelectedCarts(updateCarts)
@@ -62,7 +58,6 @@ export default function Cart(){
     }
     const handleSelectedStore = (storeId: number)=>{
         if(selectedStores.includes(storeId)){
-            console.log("test1")
 
             const updateStores = selectedStores.filter(id => id !== storeId);
             setSelectedStores(updateStores)
@@ -124,9 +119,9 @@ export default function Cart(){
         // UDPATE STATE
         // UPDATE REDUX
     }
-    const handleQuantity = (data:{cartId: number, quantity: number})=>{
-        // API UPDATE CART
-    }
+    // const handleQuantity = (data:{cartId: number, quantity: number})=>{
+    //     // API UPDATE CART
+    // }
     useEffect(()=>{
         // TO-DO: API FETCH Cart IN CATCH
         // console.log(selectedCarts)
@@ -202,7 +197,7 @@ export default function Cart(){
                 {/* Cart */}
                 {/* Calculating price */}
                 <SideBar
-                    data={sampleData}
+                    data={unProcessedCart}
                     selectedCarts={selectedCarts}
                 />
             </div>
