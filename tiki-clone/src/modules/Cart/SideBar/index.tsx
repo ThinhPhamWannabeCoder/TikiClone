@@ -37,19 +37,13 @@ export default function SideBar(prop: propsType){
     const [isOpen, setIsOpen] = useState(false);
     const [address, setAddress] = useState<UserAddress|undefined>(undefined)
     const [delivery, setDelivery] = useState<Delivery|undefined>(undefined)
-
+    const selectedCart = useSelector((state:RootState)=>state.cart.selectedCarts)
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
 
     const OrderHandler = ()=>{
-        const orderData = prop.data.filter(item=>prop.selectedCarts.includes(item.id)).map(item=> {
-            return {
-                id: item.id,
-                productId: item.product.id,
-                quantity: item.quantity,
-            }
-        })
+    
 
         toggleModal()
     }
@@ -57,13 +51,13 @@ export default function SideBar(prop: propsType){
     useEffect(()=>{
 
         let sum = 0;
-        prop.data.filter(item=>prop.selectedCarts.includes(item.id)).forEach(item=>{
+        prop.data.filter(item=>selectedCart.includes(item.id)).forEach(item=>{
             sum+= item.quantity * item.product.price
         })
 
         setSumPrice(sum)
 
-    },[prop.selectedCarts])
+    },[selectedCart])
     useEffect(()=>{
         productApi.getAddress( {userId: user?.id as number, default: true})
             .then(res=>{  

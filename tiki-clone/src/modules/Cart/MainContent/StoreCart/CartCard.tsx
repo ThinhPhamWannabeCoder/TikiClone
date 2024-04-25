@@ -5,6 +5,10 @@ import OrderProductPrice from "../../../../components/Order/OrderDetail/OrderPro
 import OrderProductQuantity from "../../../../components/Order/OrderDetail/OrderProductQuantity";
 import OrderProductFinalSection from "../../../../components/Order/OrderDetail/OrderProductFinalSection";
 import { useEffect, useState } from "react";
+import productApi from "../../../../services/buyer.services";
+import { useDispatch, useSelector } from "react-redux";
+import { update, selectCart } from "../../../../redux/cart/cartSlice";
+import { RootState } from "../../../../redux/store";
 interface productCart{
     id: number,
     name: string,
@@ -12,29 +16,41 @@ interface productCart{
     price: number,
     handleSelectedCart: (cartdId: number) => void,
     handleDeleteCart: (cartId: number) => void,
-    selectedCarts: number[],
+
 
 
     
 }
 export default function CartCard(prop: productCart){
     // const 
+    const dispatch = useDispatch();
+    const selectedCarts = useSelector((state: RootState) => state.cart.selectedCarts)
     const [finalPrice, setFinalPrice] = useState<number>(prop.price*prop.quantity)
-    const [productQuantity, setProductQuantity] = useState<number>(prop.quantity);
     useEffect(()=>{
-        setFinalPrice(prop.price*productQuantity)
-        // SetNewQuantity
-        // productApi.updateCartQuantityByProductBy({cartId, quantity})
-    },[productQuantity])
-    
+        setFinalPrice(prop.price*prop.quantity)
+    },[prop.quantity])
+
+    const handleQuantity = (data:{cartId: number, quantity: number})=>{
+        productApi.updateCartByCartId({cartId: data.cartId, quantity: data.quantity})
+        .then(res=>{
+            if(res.data.status === 200){
+                dispatch(update({cardId: data.cartId, quantity: data.quantity}))
+
+            }
+        })
+        .catch(err =>{
+            console.log(err.message)
+        })
+    }
     return (
         <div className="py-4 grid grid-cols-9 items-center">
 
             <OrderProductFirstSection class="flex gap-1">
                 <input 
                     type="checkbox" 
-                    checked={(prop.selectedCarts.includes(prop.id))?true:false} 
-                    onChange={()=>prop.handleSelectedCart(prop.id)}
+                    checked={(selectedCarts.includes(prop.id))?true:false} 
+                    // onChange={()=>prop.handleSelectedCart(prop.id)}
+                    onChange={()=>dispatch(selectCart(prop.id))}
                     className="cursor-pointer" />
                 <p>{prop.name}</p>
             </OrderProductFirstSection>
@@ -45,23 +61,26 @@ export default function CartCard(prop: productCart){
             <OrderProductQuantity>
                 <div className="flex items-center gap-1">
                     <button className={`border-2  p-1 rounded-lg 
-                                        ${productQuantity===1 ? 'bg-slate-200':' border-slate-400'}
+                                        ${prop.quantity===1 ? 'bg-slate-200':' border-slate-400'}
                                     `}
-                            onClick={()=>{setProductQuantity(productQuantity-1)}}
-                            disabled={productQuantity===1}
+                            // onClick={()=>{setProductQuantity(productQuantity-1)}}
+                            onClick={()=>handleQuantity({cartId: prop.id, quantity: prop.quantity-1})}
+                            disabled={prop.quantity===1}
                             
                     >
                         <MinusIcon className="w-6"/>
 
                     </button>
                     <p className="border-2 p-1 rounded-lg w-10 flex justify-center items-center border-slate-400">
-                        {productQuantity}
+                        {prop.quantity}
                     </p>
 
                     
                     
                     <button className="border-2 p-1 rounded-lg border-slate-400"
-                            onClick={()=>{setProductQuantity(productQuantity+1)}}
+                            // onClick={()=>{setProductQuantity(productQuantity+1)}}
+                            onClick={()=>handleQuantity({cartId: prop.id, quantity: prop.quantity+1})}
+
                     >
                         <PlusIcon className="w-6"/>
 

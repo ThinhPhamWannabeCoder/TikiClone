@@ -47,7 +47,21 @@ export default factories.createCoreController('api::cart.cart',({strapi})=>({
                 quantity: parseInt(quantity as string)
             }
         })
-        ctx.body = entry
+        if(entry){
+            ctx.body = {
+                status: 200,
+                data: entry,
+                message: "good"
+            }
+
+        }
+        else{
+            ctx.body = {
+                status: 500,
+                // data: entry,
+                message: "Failed"
+            }
+        }
     },
     async deleteByIds(ctx, next){
         // Sanitize request

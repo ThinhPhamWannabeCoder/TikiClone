@@ -52,3 +52,20 @@ export interface CartType{
     },
     quantity: number,
 }
+export interface ProcessedCarts{
+    cart:{
+        id: number,
+        quantity: number,
+        product: {
+            id: number,
+            name: string,
+            price: number,
+            primaryImage: string,
+        }[] 
+    }[],
+    store:{
+        id: number,
+        name: string
+    }
+    
+}

@@ -7,22 +7,25 @@ import OrderLayout from "../../../../components/Order/OrderLayout"
 import OrderProductPrice from "../../../../components/Order/OrderDetail/OrderProductPrice"
 import OrderProductQuantity from "../../../../components/Order/OrderDetail/OrderProductQuantity"
 import OrderProductFinalSection from "../../../../components/Order/OrderDetail/OrderProductFinalSection"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../../../redux/store"
+import { selectAll } from "../../../../redux/cart/cartSlice"
 
 interface propsType{
     hanldeDeleteAll: ()=>void,
-    handleSelectAll: () => void,
-    allState: boolean,
 
 }
 export default function CartMainHeader(prop: propsType){
+    const allState = useSelector((state:RootState)=> state.cart.all)
+    const dispatch = useDispatch()
     return(
         <OrderLayout class="text-slate-500">
             {/* <OrderProductName name="Tất Cả"/> */}
             <OrderProductFirstSection class="flex gap-1">
                 <input 
                     type="checkbox"
-                    checked={prop.allState}
-                    onChange={prop.handleSelectAll}
+                    checked={allState}
+                    onChange={()=>dispatch(selectAll())}
                     className="cursor-pointer" 
                 />
                 <p>Tất cả</p>

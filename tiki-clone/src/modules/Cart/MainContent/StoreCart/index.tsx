@@ -1,24 +1,23 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import OrderProductFinalSection from "../../../../components/Order/OrderDetail/OrderProductFinalSection";
 import OrderLayout from "../../../../components/Order/OrderLayout";
-import { producPageData } from "../../../../components/Product/sampleData";
 import CartCard from "./CartCard";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import { selectStore } from "../../../../redux/cart/cartSlice";
 
 interface propsType{
     storeId: number,
     storeName: string,
-    handleSelectedCart: (cartdId: number) => void,
-    handleSelectedStore: (storeId:number)=> void,
     handleDeleteStore: (storeId: number) => void,
     handleDeleteCart: (cartId: number) => void,
-    selectedCarts: number[],
-    selectedStores: number[],
-    
     data: object[]
     // data
 }
 // data: cartByStore
 export default function StoreCart(prop: propsType){
+    const selectedStoreds = useSelector((state:RootState) => state.cart.selectedStores)
+    const dispatch = useDispatch()
     return(
         <OrderLayout>
             <>
@@ -27,8 +26,10 @@ export default function StoreCart(prop: propsType){
                         <input 
                             type="checkbox"  
                             className="cursor-pointer"
-                            checked={(prop.selectedStores.includes(prop.storeId))?true:false} 
-                            onChange={()=>prop.handleSelectedStore(prop.storeId)}
+                            // checked={(prop.selectedStores.includes(prop.storeId))?true:false} 
+                            checked={(selectedStoreds.includes(prop.storeId))?true:false} 
+                            // onChange={()=>prop.handleSelectedStore(prop.storeId)}
+                            onChange={()=>dispatch(selectStore(prop.storeId))}
                         />
                         <p className="font-semibold" >
                             {prop.storeName}
@@ -54,8 +55,8 @@ export default function StoreCart(prop: propsType){
                                     quantity= {item.quantity}
                                     price={item.product.price}
                                     handleSelectedCart={prop.handleSelectedCart}
-                                    selectedCarts={prop.selectedCarts}
                                     handleDeleteCart={prop.handleDeleteCart}
+
                                 />
                             )
                         })

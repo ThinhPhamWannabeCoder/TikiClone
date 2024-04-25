@@ -49,7 +49,7 @@ const productApi ={
     // =============== CART =============== //
     getUserCart: async (data: {userId : number}) => await axiosAdmin.get(`carts/user/${data.userId}`),
     deleteByIds: async (data: {ids: number[]}) => await axiosAdmin.post(`carts/delete`,data),
-    updateCartByCartId: async (data: {cartId: number, quantity: number}) => await axiosAdmin.post(`carts/update?id=${data.cartId}$quantity=${data.quantity}`)
+    updateCartByCartId: async (data: {cartId: number, quantity: number}) => await axiosAdmin.post(`carts/update?id=${data.cartId}&quantity=${data.quantity}`),
     // deleteCartAll: async (data:{userId: number}) => await axiosAdmin.delete(`carts/user/${data.userId}`),
     // deleteCartAllStore: async (data:{userId:number, storeId: number}) => await axiosAdmin.patch(`carts/user/${userId}/store/${storeId})
     // =============== ORDER =============== //
