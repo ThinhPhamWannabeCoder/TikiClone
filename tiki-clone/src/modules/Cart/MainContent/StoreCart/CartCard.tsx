@@ -1,5 +1,4 @@
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
-import ContentBox from "../../../../components/Common/ContentBox";
 import OrderProductFirstSection from "../../../../components/Order/OrderDetail/OrderProductFirstSection";
 import OrderProductPrice from "../../../../components/Order/OrderDetail/OrderProductPrice";
 import OrderProductQuantity from "../../../../components/Order/OrderDetail/OrderProductQuantity";
@@ -7,19 +6,13 @@ import OrderProductFinalSection from "../../../../components/Order/OrderDetail/O
 import { useEffect, useState } from "react";
 import productApi from "../../../../services/buyer.services";
 import { useDispatch, useSelector } from "react-redux";
-import { update, selectCart } from "../../../../redux/cart/cartSlice";
+import { update, selectCart, deleteCart } from "../../../../redux/cart/cartSlice";
 import { RootState } from "../../../../redux/store";
 interface productCart{
     id: number,
     name: string,
     quantity: number,
     price: number,
-    handleSelectedCart: (cartdId: number) => void,
-    handleDeleteCart: (cartId: number) => void,
-
-
-
-    
 }
 export default function CartCard(prop: productCart){
     // const 
@@ -41,6 +34,20 @@ export default function CartCard(prop: productCart){
         .catch(err =>{
             console.log(err.message)
         })
+    }
+    const handleDeleteCart = (cartId: number)=>{
+
+        productApi.deleteByIds({ids: [cartId]})
+            .then(res=>{
+                if(res.data.status === 200){
+                    console.log("good bro")
+                    dispatch(deleteCart(cartId))
+                }
+            })
+            .catch(err =>{
+                console.log(err.message)
+            })
+        // DELETE
     }
     return (
         <div className="py-4 grid grid-cols-9 items-center">
@@ -89,7 +96,7 @@ export default function CartCard(prop: productCart){
             </OrderProductQuantity>
             <OrderProductFinalSection class="flex justify-between items-center">
                 <p>{finalPrice}</p>
-                <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{prop.handleDeleteCart(prop.id)}}/>
+                <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{handleDeleteCart(prop.id)}}/>
 
             </OrderProductFinalSection>
             

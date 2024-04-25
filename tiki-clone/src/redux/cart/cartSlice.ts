@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { CartType, ProcessedCarts } from "../../types/user.types";
 
-
+// PRECAUTION: I'M USING AUTOMATIC RETURNING NEW STATE iN REDUX IMMER, THE CODE BELLOW IS NOT RECOMMEDED
 const initialState:{
     view: ProcessedCarts[],
     raw: CartType[],
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
     reducers:{
         init:(state, action: PayloadAction<CartType[]>)=>{
             const holder:CartType[] = action.payload
-            state.raw =action.payload
+            state.raw = action.payload
             state.view = processCart(holder)
 
         },
@@ -71,19 +71,24 @@ const cartSlice = createSlice({
             // console.log(state.view)
             // state.view.forEach(item=>console.log(item))
             if(newAllState){
-                const allStoreId = state.view.map(item => item.store.id)
-                const allProduct = state.raw.map(item => item.id)
-                console.log(allStoreId)
-                console.log(allProduct)
-                state.selectedCarts=allProduct
-                state.selectedStores=allStoreId
+                if(state.raw.length>0){
+                    console.log(state.raw.length)
+                    const allStoreId = state.view.map(item => item.store.id)
+                    const allProduct = state.raw.map(item => item.id)
+                    state.selectedCarts=allProduct
+                    state.selectedStores=allStoreId
+                    state.all = newAllState
+
+                }
+                
             }
             else{
                 state.selectedCarts=[];
                 state.selectedStores=[]
+                state.all = newAllState
+
             }
             
-            state.all = newAllState
 
         },
         update: (state, action:PayloadAction<{cardId: number, quantity: number}>)=>{
@@ -97,17 +102,88 @@ const cartSlice = createSlice({
             state.raw =holder
             state.view = processCart(holder)
         },
-        // remove: (state, action: PayloadAction<number>)=>{
-        //     return state.filter(item=>item.id!=action.payload);
-        // },
-        // // update: (state, action)
-        // updateQuantity: (state, action: PayloadAction<{cartId: number, quantity: number}>)=>{
-        //     // return state.filter(item=>item.id!=action.payload);
-        //     console.log(action.payload)
-        // },
+        deleteCart: (state, action:PayloadAction<number>)=>{
+            const cartId = action.payload;
+
+            // DELETE SELECTED CART, DELETED SELECTED STORE 
+            const newSeletedCarts = state.selectedCarts.filter(id => id != cartId)
+
+            const rawHolder = state.raw.filter(item=>item.id!=cartId)
+            const viewHolder =processCart(rawHolder)
+            // if()
+            // const newStoreId = s
+            viewHolder.forEach(item=>{
+                if(item.cart.every(cart=>newSeletedCarts.includes(cart.id))){
+                    if(!state.selectedStores.includes(item.store.id)){
+                        state.selectedStores.push(item.store.id)
+                    }
+                }
+                else{
+                    state.selectedStores = state.selectedStores.filter(id => id != item.store.id)
+                }
+            })
+            if(rawHolder.every(item=>newSeletedCarts.includes(item.id))){
+                state.all = true
+            }
+            else{
+                state.all=false
+            }
+            if(rawHolder.length==0){
+                state.all=false
+            }
+            state.selectedCarts = newSeletedCarts
+            state.raw=rawHolder
+            state.view= viewHolder
+            
+        },
+        deleteCartByStore: (state, action:PayloadAction<number>)=>{
+            const storeId = action.payload;
+
+            const rawHolder = state.raw.filter(item=>item.store.id!=storeId)
+            const viewHolder = processCart(rawHolder)
+
+            const newSelectedStore = state.selectedStores.filter(id => id != storeId)
+            const discardCards = (state.raw.filter(item=>item.store.id==storeId)).map(item=>item.id)
+
+            // const newSelectedStore = state.selectedStores.filter(id => id != storeId)
+            const newSeletedCarts = state.selectedCarts.filter(id=>!discardCards.includes(id))
+            if(rawHolder.every(item=>newSeletedCarts.includes(item.id))){
+                state.all = true
+            }
+            else{
+                state.all=false
+            }
+            if(rawHolder.length==0){
+                state.all=false
+            }
+            state.selectedCarts = newSeletedCarts
+            state.selectedStores=newSelectedStore
+            state.raw=rawHolder
+            state.view= viewHolder
+
+        },
+        deleteAll: (state)=>{
+            return {
+                ...state,
+                view: [],
+                raw: [],
+                selectedCarts: [],
+                selectedStores: [],
+                all: false,
+              };
+        },
+
     }
 })
-export const{init, update, selectCart,selectStore,selectAll} = cartSlice.actions;
+export const {   init, 
+                update, 
+                selectCart,
+                selectStore,
+                selectAll,
+                deleteCart,
+                deleteCartByStore,
+                deleteAll
+            } = cartSlice.actions;
 export default cartSlice.reducer;
 
 

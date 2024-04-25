@@ -4,20 +4,34 @@ import OrderLayout from "../../../../components/Order/OrderLayout";
 import CartCard from "./CartCard";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
-import { selectStore } from "../../../../redux/cart/cartSlice";
+import { deleteCartByStore, selectStore } from "../../../../redux/cart/cartSlice";
+import productApi from "../../../../services/buyer.services";
 
 interface propsType{
     storeId: number,
     storeName: string,
-    handleDeleteStore: (storeId: number) => void,
-    handleDeleteCart: (cartId: number) => void,
     data: object[]
-    // data
 }
-// data: cartByStore
 export default function StoreCart(prop: propsType){
-    const selectedStoreds = useSelector((state:RootState) => state.cart.selectedStores)
+    const carts = useSelector((state:RootState) => state.cart)
     const dispatch = useDispatch()
+    const handleDeleteStore = (storeId: number)=>{
+
+        const cartIds = carts.raw.reduce((acc, item)=>{
+            if(item.store.id == storeId) acc.push(item.id)
+            return acc
+        },[])
+        productApi.deleteByIds({ids: [...cartIds]})
+        .then(res=>{
+            if(res.data.status === 200){
+                console.log("good bro")
+                dispatch(deleteCartByStore(storeId))
+            }
+        })
+        .catch(err =>{
+            console.log(err.message)
+        })
+    }
     return(
         <OrderLayout>
             <>
@@ -27,7 +41,7 @@ export default function StoreCart(prop: propsType){
                             type="checkbox"  
                             className="cursor-pointer"
                             // checked={(prop.selectedStores.includes(prop.storeId))?true:false} 
-                            checked={(selectedStoreds.includes(prop.storeId))?true:false} 
+                            checked={(carts.selectedStores.includes(prop.storeId))?true:false} 
                             // onChange={()=>prop.handleSelectedStore(prop.storeId)}
                             onChange={()=>dispatch(selectStore(prop.storeId))}
                         />
@@ -38,13 +52,13 @@ export default function StoreCart(prop: propsType){
                     
                     <OrderProductFinalSection class="flex justify-between items-center">
                        
-                        <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{prop.handleDeleteStore(prop.storeId)}} />
+                        {/* <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{prop.handleDeleteStore(prop.storeId)}} /> */}
+                        <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{handleDeleteStore(prop.storeId)}} />
 
                     </OrderProductFinalSection>
                 </div>
                 <div className="flex flex-col col-span-9">
 
-                    {/* Handle quantity Change and selected, delete */}
                     {
                         prop.data.map(item => {
                             return (
@@ -54,9 +68,6 @@ export default function StoreCart(prop: propsType){
                                     name= {item.product.name}
                                     quantity= {item.quantity}
                                     price={item.product.price}
-                                    handleSelectedCart={prop.handleSelectedCart}
-                                    handleDeleteCart={prop.handleDeleteCart}
-
                                 />
                             )
                         })
@@ -65,18 +76,5 @@ export default function StoreCart(prop: propsType){
             </>
         </OrderLayout>
     )
-}
-
-interface cartByStore{
-    store_id: number,
-    name: string,
-    product:
-        {
-            id: number,
-            name: string,
-            quantity: number,
-            price: number
-        }[]
-    
 }
 

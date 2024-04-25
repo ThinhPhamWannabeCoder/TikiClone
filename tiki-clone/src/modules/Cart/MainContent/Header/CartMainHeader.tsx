@@ -9,22 +9,37 @@ import OrderProductQuantity from "../../../../components/Order/OrderDetail/Order
 import OrderProductFinalSection from "../../../../components/Order/OrderDetail/OrderProductFinalSection"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../redux/store"
-import { selectAll } from "../../../../redux/cart/cartSlice"
+import { deleteAll, selectAll } from "../../../../redux/cart/cartSlice"
+import productApi from "../../../../services/buyer.services"
 
-interface propsType{
-    hanldeDeleteAll: ()=>void,
 
-}
-export default function CartMainHeader(prop: propsType){
-    const allState = useSelector((state:RootState)=> state.cart.all)
+export default function CartMainHeader(){
+    const carts = useSelector((state:RootState) => state.cart)
+
     const dispatch = useDispatch()
+    const hanldeDeleteAll = ()=>{
+
+        const cartIds = carts.raw.map(item => item.id)
+        productApi.deleteByIds({ids: [...cartIds]})
+        .then(res=>{
+            if(res.data.status === 200){
+                console.log("good bro")
+                dispatch(deleteAll())
+            }
+        })
+        .catch(err =>{
+            console.log(err.message)
+        })
+      
+        // UPDATE REDUX
+    }
     return(
         <OrderLayout class="text-slate-500">
             {/* <OrderProductName name="Tất Cả"/> */}
             <OrderProductFirstSection class="flex gap-1">
                 <input 
                     type="checkbox"
-                    checked={allState}
+                    checked={carts.all}
                     onChange={()=>dispatch(selectAll())}
                     className="cursor-pointer" 
                 />
@@ -39,7 +54,7 @@ export default function CartMainHeader(prop: propsType){
             </OrderProductQuantity>
             <OrderProductFinalSection class="flex justify-between items-center">
                 <p>Thành tiền</p>
-                <TrashIcon className="w-6 h-6 cursor-pointer" onClick={prop.hanldeDeleteAll} />
+                <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>hanldeDeleteAll()} />
 
             </OrderProductFinalSection>
         </OrderLayout>

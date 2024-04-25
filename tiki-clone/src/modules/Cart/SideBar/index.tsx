@@ -8,10 +8,7 @@ import productApi from "../../../services/buyer.services";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
 
-interface propsType{
-    data: object[],
-    selectedCarts: number[],
-}
+
 // DON'T DO IT LIKE THIS -> FILTER -> GET DEFAULT THEN  SET
 interface UserAddress{
     id: number,
@@ -31,13 +28,13 @@ interface Delivery{
     default: boolean
 
 }
-export default function SideBar(prop: propsType){
+export default function SideBar(){
     const user = useSelector((state: RootState)=>state.auth.user)
     const [sumPrice, setSumPrice] = useState<number>(0)
     const [isOpen, setIsOpen] = useState(false);
     const [address, setAddress] = useState<UserAddress|undefined>(undefined)
     const [delivery, setDelivery] = useState<Delivery|undefined>(undefined)
-    const selectedCart = useSelector((state:RootState)=>state.cart.selectedCarts)
+    const carts = useSelector((state:RootState)=>state.cart)
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
@@ -51,13 +48,13 @@ export default function SideBar(prop: propsType){
     useEffect(()=>{
 
         let sum = 0;
-        prop.data.filter(item=>selectedCart.includes(item.id)).forEach(item=>{
+        carts.raw.filter(item=>carts.selectedCarts.includes(item.id)).forEach(item=>{
             sum+= item.quantity * item.product.price
         })
 
         setSumPrice(sum)
 
-    },[selectedCart])
+    },[carts.selectedCarts])
     useEffect(()=>{
         productApi.getAddress( {userId: user?.id as number, default: true})
             .then(res=>{  
