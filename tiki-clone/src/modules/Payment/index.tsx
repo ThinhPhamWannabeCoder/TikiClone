@@ -2,7 +2,16 @@ export default function Payment(){
     //Lay thong tin van chuyen trong nay
     return(
         <>
-            This is payment
+            
+            {/* MainContent 
+                Delivery    
+                Store - Products List
+                Payment List  
+            */}
+            {/* SideBar 
+                Delivery to
+                Sum Price
+            */}
         </>
     )
 }
