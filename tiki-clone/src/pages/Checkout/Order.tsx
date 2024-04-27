@@ -2,6 +2,10 @@ import Payment from "../../modules/Payment";
 
 export default function Order(){
     return(
-        <><Payment/></>
+        <div className="w-10/12">
+         <><Payment/></>
+
+        </div>
+
     )
 }

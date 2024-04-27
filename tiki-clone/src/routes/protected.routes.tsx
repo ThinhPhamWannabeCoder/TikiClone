@@ -24,7 +24,7 @@ const publicRoutes = createBrowserRouter(
                     SubCategory
                       Product*/}
           </Route>
-          <Route path='checkout/payment' element={<CommingSoon/>}></Route>
+          <Route path='checkout/payment' element={<Order/>}></Route>
           <Route path='checkout/cart' element={<CartPage/>}></Route>
           <Route path='checkout/paymnent' element={<Order/>}></Route>
 

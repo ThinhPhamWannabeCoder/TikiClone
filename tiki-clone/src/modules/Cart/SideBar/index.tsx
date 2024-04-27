@@ -7,17 +7,11 @@ import OrderModal from "../Modal/OrderModal";
 import productApi from "../../../services/buyer.services";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 // DON'T DO IT LIKE THIS -> FILTER -> GET DEFAULT THEN  SET
-interface UserAddress{
-    id: number,
-    type: string,
-    address: string,
-    contact_name: string,
-    contact_mobile: string,
-    default: string
-}
+
 interface Delivery{
     id: number,
     name: string
@@ -29,20 +23,19 @@ interface Delivery{
 
 }
 export default function SideBar(){
-    const user = useSelector((state: RootState)=>state.auth.user)
     const [sumPrice, setSumPrice] = useState<number>(0)
     const [isOpen, setIsOpen] = useState(false);
-    const [address, setAddress] = useState<UserAddress|undefined>(undefined)
     const [delivery, setDelivery] = useState<Delivery|undefined>(undefined)
     const carts = useSelector((state:RootState)=>state.cart)
+    const navigate = useNavigate()
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
 
     const OrderHandler = ()=>{
     
-
-        toggleModal()
+        navigate("/checkout/payment")
+        // toggleModal()
     }
 
     useEffect(()=>{
@@ -56,28 +49,24 @@ export default function SideBar(){
 
     },[carts.selectedCarts])
     useEffect(()=>{
-        productApi.getAddress( {userId: user?.id as number, default: true})
+        productApi.getDelivery()
             .then(res=>{  
-                setAddress(res.data[0])
-                return productApi.getDelivery()
-            })
-            .then(res=>{
                 setDelivery(res.data[0])
             })
+
             // .then()
             .catch(err =>{
                 console.log(err.message)
             })
     },[])
-    if(address === undefined || delivery?.base_price === undefined){
+    if(delivery?.base_price === undefined){
         return "waiting" 
     }
     return(
-        <div className="flex flex-col gap-3 w-1/5">
-            <DeliveryTo data={address as UserAddress} setAddress={setAddress}/>
+        <div className="flex flex-col gap-3 w-1/4">
+            <DeliveryTo />
             <SumPrice
                 sumProductPrice={sumPrice}
-                deliveryPrice={delivery.base_price}
             />
             <PrimaryButton 
                 name="Mua hàng"

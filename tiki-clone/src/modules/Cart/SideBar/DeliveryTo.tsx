@@ -13,16 +13,14 @@ interface UserAddress{
     contact_mobile: string,
     default: string
 }
-interface propsType{
-    data: UserAddress,
-    setAddress: (data: UserAddress) => void;
-}
 
-export default function DeliveryTo(prop: propsType){
+export default function DeliveryTo(){
     // GET USER INFOMATION
     // Get Delivery Location
+    const user = useSelector((state: RootState)=>state.auth.user)
     
     const [isOpen, setIsOpen] = useState(false);
+    const [address, setAddress] = useState<UserAddress>()
 
     const toggleModal = () => {
       setIsOpen(!isOpen);
@@ -33,11 +31,23 @@ export default function DeliveryTo(prop: propsType){
         setIsOpen(!isOpen);
     }
     const changeDeliveryAddress = (address: UserAddress)=>{
-        prop.setAddress(address)
+        setAddress(address)
         // console.log(address)
         setIsOpen(!isOpen);
     }
-    
+    useEffect(()=>{
+        productApi.getAddress( {userId: user?.id as number, default: true})
+            .then(res=>{  
+                setAddress(res.data[0])
+            })
+
+            .catch(err =>{
+                console.log(err.message)
+            })
+    },[])
+    if(address === undefined ){
+        return "waiting" 
+    }
     return(
         <ContentBox>
             <div className="flex justify-between items-center">
@@ -47,15 +57,15 @@ export default function DeliveryTo(prop: propsType){
             </div>
             <div className="font-semibold flex ">
                 {/* Redux*/}
-                <p className="border-r-2  pr-2">{prop.data.contact_name}</p>
+                <p className="border-r-2  pr-2">{address?.contact_name}</p>
                 {/* Redux */}
-                <p className="pl-2">{prop.data.contact_mobile}</p>
+                <p className="pl-2">{address?.contact_mobile}</p>
             </div>
             <div>
                 {/* Type */}
                  
-                <span className="text-green-400 p-1 bg-green-100 rounded-sm" >{prop.data.type}</span>
-                <span className="mx-1">{prop.data.address}</span>
+                <span className="text-green-400 p-1 bg-green-100 rounded-sm" >{address?.type}</span>
+                <span className="mx-1">{address?.address}</span>
 
             </div>
         </ContentBox>

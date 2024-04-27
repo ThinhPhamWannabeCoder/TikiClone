@@ -33,7 +33,7 @@ export default function Cart(){
  
 // Khu vuc lam viec chinh
     return (
-        <div className="w-full flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
             <PrimaryTitle name="GIỎ HÀNG" />
             <div className="w-full flex gap-3">
                 <CartMainContent/>
