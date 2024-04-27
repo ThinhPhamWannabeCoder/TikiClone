@@ -14,9 +14,8 @@
   "attributes": {
     "user": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "orders"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     },
     "oder_detail": {
       "type": "relation",
@@ -26,21 +25,18 @@
     },
     "address": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::address.address",
-      "inversedBy": "orders"
+      "relation": "oneToOne",
+      "target": "api::address.address"
     },
     "store": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::store.store",
-      "inversedBy": "orders"
+      "relation": "oneToOne",
+      "target": "api::store.store"
     },
     "delivery": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::delivery.delivery",
-      "inversedBy": "orders"
+      "relation": "oneToOne",
+      "target": "api::delivery.delivery"
     },
     "deliveryTotalCost": {
       "type": "decimal"

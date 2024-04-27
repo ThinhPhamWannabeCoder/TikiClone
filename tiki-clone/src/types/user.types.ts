@@ -84,3 +84,16 @@ export interface OrderPayload{
     deliveryId: number,
     orders: Order[]
 }
+export interface DeliveryOptionsType{
+    id: number,
+    name: string,
+    short_description: string
+    description: string,
+    base_price: number,
+    duration: string,
+    default: boolean,
+    icon: {
+        id: number,
+        url: string
+    }
+}

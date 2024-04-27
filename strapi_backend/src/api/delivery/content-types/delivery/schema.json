@@ -24,15 +24,20 @@
     "duration": {
       "type": "string"
     },
-    "orders": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::order.order",
-      "mappedBy": "delivery"
-    },
     "default": {
       "type": "boolean",
       "default": false
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "short_description": {
+      "type": "string"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "payment-option",
     "pluralName": "payment-options",
-    "displayName": "PaymentOption"
+    "displayName": "PaymentOption",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,14 @@
     },
     "description": {
       "type": "text"
+    },
+    "Icon": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }
