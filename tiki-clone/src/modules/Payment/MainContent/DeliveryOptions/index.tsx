@@ -5,6 +5,8 @@ import DeliveryOptionList from "./DeliveryOptionList";
 import ProductOrderList from "./ProductOrderList";
 import productApi from "../../../../services/buyer.services";
 import { DeliveryOptionsType } from "../../../../types/user.types";
+import { useDispatch } from "react-redux";
+import { updateDelivery } from "../../../../redux/order/orderSlice";
 
 interface Delivery{
     name: string,
@@ -21,7 +23,7 @@ export default function DeliveryOptions(){
      const [delivery, setDelivery] = useState<Delivery>();
      // DISPATCH REDUX
  
-     
+     const dispatch = useDispatch();
  
      // HANDLE DELIVERY CHANGE
      
@@ -50,6 +52,12 @@ export default function DeliveryOptions(){
                     description: item.description,
                     base_price: item.base_price
                 })
+                dispatch(updateDelivery({
+                    data:{
+                        id: item.id,
+                        price: item.base_price
+                    }
+                }))
             }
         })
      },[selectedOption])

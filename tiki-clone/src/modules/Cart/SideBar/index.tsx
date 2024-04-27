@@ -6,8 +6,9 @@ import SumPrice from "./SumPrice";
 import OrderModal from "../Modal/OrderModal";
 import productApi from "../../../services/buyer.services";
 import { RootState } from "../../../redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { init } from "../../../redux/order/orderSlice";
 
 
 // DON'T DO IT LIKE THIS -> FILTER -> GET DEFAULT THEN  SET
@@ -27,13 +28,31 @@ export default function SideBar(){
     const [isOpen, setIsOpen] = useState(false);
     const [delivery, setDelivery] = useState<Delivery|undefined>(undefined)
     const carts = useSelector((state:RootState)=>state.cart)
+    const user = useSelector((state:RootState)=>state.auth.user)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const toggleModal = () => {
       setIsOpen(!isOpen);
     };
 
     const OrderHandler = ()=>{
-    
+        // dispatch(init(carts.raw))
+        // PROCESSED AND REMOVED EVERY UNSELECTED
+        const order = carts.raw.filter(item => carts.selectedCarts.includes(item.id))
+        console.log(order)
+        console.log(user?.id)
+        dispatch(init( {
+            data:{
+                userId: user?.id,
+                carts: order,
+                
+            } 
+            
+        }))
+
+
+
+
         navigate("/checkout/payment")
         // toggleModal()
     }
@@ -76,3 +95,4 @@ export default function SideBar(){
         </div>
     )
 }
+

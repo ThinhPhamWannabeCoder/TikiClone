@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import { CartType } from "../../../../../types/user.types"
 import OrderProduct from "./OrderProduct"
 
 import { CalendarIcon } from "@heroicons/react/24/solid";
+import { RootState } from "../../../../../redux/store";
 
 interface propTypes{
     delivery: {
@@ -17,8 +19,7 @@ export default function ProductOrderList(props: propTypes ){
     // REDUX ORDER DISPATCH
     // REDUX ORDER USE SELECTOR
     const data = Array.from({length: 5},(_,index)=> index+1)
-    const deliveryType = "Giao hàng tiết kiệm";
-    const price = 15000;
+    const orders = useSelector((state:RootState) => state.order)
 
     return(
         <div className="border rounded-md flex flex-col  mt-10 relative">
@@ -38,8 +39,8 @@ export default function ProductOrderList(props: propTypes ){
                     </div>
                     <div className="flex flex-col gap-3">
                         {
-                            data.map(item=>{
-                                return <OrderProduct key={item}/>
+                            orders.carts.map(item=>{
+                                return <OrderProduct product={item.product} quantity={item.quantity}/>
                             })
                         }
                     </div >

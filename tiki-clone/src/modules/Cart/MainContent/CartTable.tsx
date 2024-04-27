@@ -6,7 +6,6 @@ import { RootState } from "../../../redux/store";
 export default function CartTable(){
     
     const carts = useSelector((state:RootState)=>state.cart.view)
-    console.log(carts)
     return (
 
         <>

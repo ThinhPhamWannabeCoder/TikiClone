@@ -5,15 +5,17 @@ interface OrderState{
     carts: CartType[],
     orders: Order[],
     deliveryId: number|undefined,
+    deliveryPrice: number| undefined,
     addressId: number|undefined,
     paymentId: number|undefined,
     userId: number|undefined
 }
-
+// DELIVERY TYPE -> FOR CALCULATING DELIVERY PRICE
 const initialState:OrderState = {
     userId: undefined, 
     paymentId: undefined,
     deliveryId:undefined, 
+    deliveryPrice: undefined,
     addressId: undefined, 
     carts:[], 
     orders: [], 
@@ -21,20 +23,23 @@ const initialState:OrderState = {
     
 }
 
+
 const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers:{
-        init:(state, action: PayloadAction<{ data: OrderState}>)=>{
+        init:(state, action: PayloadAction<{ data: {userId: number, carts: CartType[]}}>)=>{
             state.userId = action.payload.data.userId;
-            state.deliveryId = action.payload.data.deliveryId;
-            state.addressId = action.payload.data.addressId;
-            state.paymentId = action.payload.data.paymentId;
+            // state.deliveryId = action.payload.data.deliveryId;
+            // state.addressId = action.payload.data.addressId;
+            // state.paymentId = action.payload.data.paymentId;
             state.carts = action.payload.data.carts;
             state.orders = processOrder(action.payload.data.carts);
+            // console.log(action.payload.data)
         },
-        updateDelivery:(state, action: PayloadAction<number>)=>{
-            state.deliveryId = action.payload;
+        updateDelivery:(state, action: PayloadAction<{data:{id: number, price: number}}>)=>{
+            state.deliveryId = action.payload.data.id;
+            state.deliveryPrice = action.payload.data.price;
         },
         updateAddress: (state, action: PayloadAction<number>) =>{
             state.addressId = action.payload;

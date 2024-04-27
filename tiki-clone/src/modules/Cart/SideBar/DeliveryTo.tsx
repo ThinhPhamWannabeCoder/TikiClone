@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import ContentBox from "../../../components/Common/ContentBox";
 import DeliveryUpdateModal from "../Modal/DeliveryUpdateModal";
 import productApi from "../../../services/buyer.services";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { updateAddress } from "../../../redux/order/orderSlice";
 
 interface UserAddress{
     id: number,
@@ -18,7 +19,7 @@ export default function DeliveryTo(){
     // GET USER INFOMATION
     // Get Delivery Location
     const user = useSelector((state: RootState)=>state.auth.user)
-    
+    const dispatch = useDispatch()
     const [isOpen, setIsOpen] = useState(false);
     const [address, setAddress] = useState<UserAddress>()
 
@@ -45,6 +46,9 @@ export default function DeliveryTo(){
                 console.log(err.message)
             })
     },[])
+    useEffect(()=>{
+        dispatch(updateAddress(address?.id))
+    },[address])
     if(address === undefined ){
         return "waiting" 
     }

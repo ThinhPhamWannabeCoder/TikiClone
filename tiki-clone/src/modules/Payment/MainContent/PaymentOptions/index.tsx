@@ -3,12 +3,14 @@ import ContentBox from "../../../../components/Common/ContentBox";
 import PrimaryTitle from "../../../../components/Title/PrimaryTitle";
 import productApi from "../../../../services/buyer.services";
 import { PaymentOptionsType } from "../../../../types/user.types";
+import { useDispatch } from "react-redux";
+import { updatePayment } from "../../../../redux/order/orderSlice";
 const ASSET_API = import.meta.env.VITE_ASSETS_URL
 
 export default function PaymentOptions() {
     // REDUX
-    const data = Array.from({ length: 5 }, (_, index) => index + 1);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const dispatch = useDispatch();
+    const [selectedOption, setSelectedOption] = useState<number>();
     const [paymentOptions, setPaymentOptions] = useState<PaymentOptionsType[]>()
     const handleRadioChange = (e) => {
         setSelectedOption(Number(e.target.value)); // Convert value to a number if needed
@@ -28,6 +30,11 @@ export default function PaymentOptions() {
                 console.log(err.message)
             })
     },[])
+
+    useEffect(()=>{
+        dispatch(updatePayment(selectedOption as number))
+    },[selectedOption])
+
     if(!paymentOptions){
         return "waiting"
     }

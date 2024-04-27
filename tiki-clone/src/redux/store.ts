@@ -3,15 +3,17 @@ import authReducer from './authentication/authSlice';
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import cartSlice from "./cart/cartSlice";
+import orderSlice from "./order/orderSlice";
   
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth','cart']
+  whitelist: ['auth','cart','order']
 }
 const rootReducer = combineReducers({
     auth: authReducer,
-    cart: cartSlice
+    cart: cartSlice,
+    order: orderSlice
     
 },);
 

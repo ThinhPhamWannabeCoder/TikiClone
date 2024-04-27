@@ -1,15 +1,27 @@
-export default function OrderProduct(){
+const ASSET_API = import.meta.env.VITE_ASSETS_URL
+
+interface propType{
+    product:{
+        id: number,
+        name: string,
+        price: number,
+        primaryImage: string
+    },
+    quantity: number,
+    
+}
+export default function OrderProduct(props: propType){
     return(
-        <div className="flex text-slate-600">
-            <img src="https://placehold.co/50x50/png" alt="" className="object-cover pr-3" />
+        <div className="flex text-slate-600 items-center">
+            <img src={`${ASSET_API}${props.product.primaryImage}`} alt="" className="object-cover mr-3 w-12 h-12" />
             <div className="w-full"> 
-                <div>Name</div>
+                <div>{props.product.name}</div>
                 <div className="flex justify-between">
                     <div>
-                        <span>SL X</span>
+                        <span>SL: {props.quantity}</span>
                     </div>
                     <div>
-                        <span className="text-bold"> Price</span>    
+                        <span className="font-bold">{props.product.price} ₫</span>    
                     </div>      
                 </div>
             </div>
