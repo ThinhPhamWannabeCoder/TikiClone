@@ -68,6 +68,7 @@ export default function StoreCart(prop: propsType){
                                     name= {item.product.name}
                                     quantity= {item.quantity}
                                     price={item.product.price}
+                                    image={item.product.primaryImage}
                                 />
                             )
                         })

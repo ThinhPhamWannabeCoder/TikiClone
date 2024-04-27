@@ -7,12 +7,15 @@ import { useEffect, useState } from "react";
 import productApi from "../../../../services/buyer.services";
 import { useDispatch, useSelector } from "react-redux";
 import { update, selectCart, deleteCart } from "../../../../redux/cart/cartSlice";
+const ASSET_API = import.meta.env.VITE_ASSETS_URL
+
 import { RootState } from "../../../../redux/store";
 interface productCart{
     id: number,
     name: string,
     quantity: number,
     price: number,
+    image: string
 }
 export default function CartCard(prop: productCart){
     // const 
@@ -50,15 +53,16 @@ export default function CartCard(prop: productCart){
         // DELETE
     }
     return (
-        <div className="py-4 grid grid-cols-9 items-center">
+        <div className="py-4 grid grid-cols-9 items-center text-lg">
 
-            <OrderProductFirstSection class="flex gap-1">
+            <OrderProductFirstSection class="flex gap-1 items-center">
                 <input 
                     type="checkbox" 
                     checked={(selectedCarts.includes(prop.id))?true:false} 
                     // onChange={()=>prop.handleSelectedCart(prop.id)}
                     onChange={()=>dispatch(selectCart(prop.id))}
                     className="cursor-pointer" />
+                <img src={`${ASSET_API}${prop.image}`} alt=""  className="w-14 h-14 object-cover rounded-md mr-3" />
                 <p>{prop.name}</p>
             </OrderProductFirstSection>
             <OrderProductPrice>

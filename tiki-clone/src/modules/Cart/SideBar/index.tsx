@@ -47,7 +47,7 @@ export default function SideBar(){
 
         setSumPrice(sum)
 
-    },[carts.selectedCarts])
+    },[carts])
     useEffect(()=>{
         productApi.getDelivery()
             .then(res=>{  
