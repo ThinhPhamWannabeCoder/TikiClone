@@ -19,12 +19,16 @@
       "type": "text"
     },
     "Icon": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "default": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

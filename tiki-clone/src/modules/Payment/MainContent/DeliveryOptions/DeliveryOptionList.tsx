@@ -28,14 +28,14 @@ export default function DeliveryOptionList(props: propsType){
         <div key={item.id} className="flex gap-4 items-center ">
             <input
                 type="radio"
-                id={`payment-option-${item.id}`}
-                name="payment-option"
+                id={`delivery-option-${item.id}`}
+                name="delivery-option"
                 value={item.id}
                 checked={props.selectedOption === item.id}
                 onChange={handleRadioChange}
                 className="rounded-full h-5 w-5"
             />
-            <label htmlFor={`payment-option-${item.id}`} className="flex items-center">
+            <label htmlFor={`delivery-option-${item.id}`} className="flex items-center">
                 {item.icon ? (
                     <img src={`${ASSET_API}${item.icon.url}`} alt="" className="object-cover mr-3 rounded-full w-10" />
                 ) : null}

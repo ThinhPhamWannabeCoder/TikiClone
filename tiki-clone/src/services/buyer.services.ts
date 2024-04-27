@@ -61,7 +61,10 @@ const productApi ={
     getDelivery: async () => await axiosAdmin.get(`/deliveries/default`),
     getDeliveries: async () => await axiosAdmin.get(`/deliveries`),
     // =============== USER ADDRESSS =============== //
-    getAddress: async (data: {userId : number, default: boolean }) => await axiosAdmin.get(`/addresses/user/${data.userId}?main=${data.default}`)
+    getAddress: async (data: {userId : number, default: boolean }) => await axiosAdmin.get(`/addresses/user/${data.userId}?main=${data.default}`),
+
+    // =============== USER ADDRESSS =============== //
+    getPayments: async () => await axiosAdmin.get(`/payment-options`),
 
 
     

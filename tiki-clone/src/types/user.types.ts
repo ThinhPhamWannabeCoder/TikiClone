@@ -97,3 +97,13 @@ export interface DeliveryOptionsType{
         url: string
     }
 }
+export interface PaymentOptionsType{
+    id: number,
+    name: string,
+    description: string,
+    default: boolean,
+    Icon: {
+        id: number,
+        url: string
+    }
+}

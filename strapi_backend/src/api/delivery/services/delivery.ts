@@ -15,15 +15,6 @@ export default factories.createCoreService('api::delivery.delivery',({strapi})=>
             }
           
         })
-        // const res = data.map(item=> {
-        //     return {
-        //         id: item.id,
-        //         name: item.name,
-        //         description: item.description,
-        //         base_price: item.base_price,
-        //         duration: item.duration
-        //     }
-        // })
         return data
     },
     getDefault:async ()=>{
