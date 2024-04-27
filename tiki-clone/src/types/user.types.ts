@@ -69,3 +69,18 @@ export interface ProcessedCarts{
     }
     
 }
+export interface Order{
+    storeId: number,
+    deliveryCost: number|undefined,
+    products: {
+        id: number,
+        quantity: number,
+        price: number,
+    }[],
+}
+export interface OrderPayload{
+    userId: number,
+    addressId: number,
+    deliveryId: number,
+    orders: Order[]
+}

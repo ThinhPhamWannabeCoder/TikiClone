@@ -203,6 +203,3 @@ const processCart = (data:CartType[]):ProcessedCarts[]=>{
       return Object.values(groupedData);
       
 }
-const checkSelected = () =>{
-    
-}
