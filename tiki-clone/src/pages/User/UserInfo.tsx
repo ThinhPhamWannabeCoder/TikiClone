@@ -1,4 +1,5 @@
 
+import ContentBox from "../../components/Common/ContentBox";
 import UserBox from "../../components/User/UserBox";
 import UserInformation from "../../modules/User/Information/UserInformation";
 
@@ -6,9 +7,9 @@ import UserInformation from "../../modules/User/Information/UserInformation";
 export default function UserInfo(){
 
     return(
-        <UserBox>
+        <ContentBox class="flex p-5">
             <UserInformation/>      
-        </UserBox>
+        </ContentBox>
 
     )
 }
