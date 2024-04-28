@@ -1,29 +1,26 @@
 export default{
-    routes:[
+    routes: [
         {
-            method: 'GET',
-            path: '/addresses/user/:id',
-            handler: 'address.getByUserId',
+            method:'GET',
+            path: '/addresses/user/:userId',
+            handler :'address.getByUserId'
         },
         {
-            method: 'GET',
-            path: '/addresses/:id',
-            handler: 'address.getById',
+            method:'POST',
+            path: '/addresses/user/:userId',
+            handler :'address.create'
         },
         {
-            method: 'POST',
-            path: '/addresses',
-            handler: 'address.create',
+            method:'POST',
+            path: '/addresses/user/update/:userId',
+            handler :'address.updateByUserId'
         },
         {
-            method: 'PUT',
-            path: '/addresses',
-            handler: 'address.update',
+            method:'DELETE',
+            path: '/addresses/user/:userId/:id',
+            handler :'address.deleteById'
         },
-        {
-            method: 'DELETE',
-            path: '/addresses/:id',
-            handler: 'address.delete',
-        }
+        
+        
     ]
 }
