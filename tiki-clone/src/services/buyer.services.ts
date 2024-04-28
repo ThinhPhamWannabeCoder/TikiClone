@@ -3,6 +3,7 @@
 
 import { axiosAdmin } from "../config/axios.admin";
 import axiosPublic from "../config/axios.public";
+import { OrderPayload } from "../types/user.types";
 type BooleanLiteral = "true" | "false";
 
 // Xong roi filter tren day
@@ -50,10 +51,9 @@ const productApi ={
     getUserCart: async (data: {userId : number}) => await axiosAdmin.get(`carts/user/${data.userId}`),
     deleteByIds: async (data: {ids: number[]}) => await axiosAdmin.post(`carts/delete`,data),
     updateCartByCartId: async (data: {cartId: number, quantity: number}) => await axiosAdmin.post(`carts/update?id=${data.cartId}&quantity=${data.quantity}`),
-    // deleteCartAll: async (data:{userId: number}) => await axiosAdmin.delete(`carts/user/${data.userId}`),
-    // deleteCartAllStore: async (data:{userId:number, storeId: number}) => await axiosAdmin.patch(`carts/user/${userId}/store/${storeId})
+   
     // =============== ORDER =============== //
-    // postOrder => Tao order moi
+    createOrders: async (data:OrderPayload) => await axiosAdmin.post(`orders`,data),
 
 
 
@@ -65,6 +65,8 @@ const productApi ={
 
     // =============== USER ADDRESSS =============== //
     getPayments: async () => await axiosAdmin.get(`/payment-options`),
+
+    // =============== ORDER =============== //
 
 
     

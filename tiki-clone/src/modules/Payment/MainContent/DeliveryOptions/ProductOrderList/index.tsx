@@ -40,7 +40,7 @@ export default function ProductOrderList(props: propTypes ){
                     <div className="flex flex-col gap-3">
                         {
                             orders.carts.map(item=>{
-                                return <OrderProduct product={item.product} quantity={item.quantity}/>
+                                return <OrderProduct key={item.id} product={item.product} quantity={item.quantity}/>
                             })
                         }
                     </div >

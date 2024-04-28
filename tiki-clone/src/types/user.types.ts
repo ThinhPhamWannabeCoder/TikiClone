@@ -82,6 +82,7 @@ export interface OrderPayload{
     userId: number,
     addressId: number,
     deliveryId: number,
+    paymentId: number,
     orders: Order[]
 }
 export interface DeliveryOptionsType{

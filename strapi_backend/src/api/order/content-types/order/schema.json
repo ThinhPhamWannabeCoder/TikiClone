@@ -72,6 +72,11 @@
         "Chưa thanh toán"
       ],
       "default": "Chưa thanh toán"
+    },
+    "payment_option": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::payment-option.payment-option"
     }
   }
 }

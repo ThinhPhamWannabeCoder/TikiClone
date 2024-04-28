@@ -8,7 +8,7 @@ import product from '../../product/controllers/product';
 export default factories.createCoreService('api::order.order',({strapi})=>({
  
     createNewOrder: async (body) =>{
-        const {userId, addressId, deliveryId, orders} = body
+        const {userId, addressId, paymentId, deliveryId, orders} = body
         try {
             const promises = orders.map(async(order)=>{
                 //  Chuan bi thong tin product
@@ -22,6 +22,7 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
                         user: userId,
                         address: addressId,
                         store: order.storeId,
+                        payment_option: paymentId, 
                         delivery: deliveryId,
                         deliveryTotalCost: order.deliveryCost,
                         productTotalCost: totalProductCost,
@@ -51,7 +52,7 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
                 }))
                 return orderId
             })
-            // console.log("check orderDetail")
+
             const ids = await Promise.all(promises);
             const response = {
                 status: 204,

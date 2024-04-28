@@ -40,6 +40,9 @@ const orderSlice = createSlice({
         updateDelivery:(state, action: PayloadAction<{data:{id: number, price: number}}>)=>{
             state.deliveryId = action.payload.data.id;
             state.deliveryPrice = action.payload.data.price;
+            state.orders.forEach(item => {
+                item.deliveryCost = action.payload.data.price
+            })
         },
         updateAddress: (state, action: PayloadAction<number>) =>{
             state.addressId = action.payload;

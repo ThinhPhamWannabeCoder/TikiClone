@@ -8,12 +8,18 @@ import { useEffect, useState } from "react";
 export default function PaymentSumPrice(){
     const order = useSelector((state: RootState) => state.order)
     const [total, setTotal] = useState<number>(0)
+    const [deliveryCost, setDeliveryCost] = useState<number>(0)
     useEffect(()=>{
         let temp = 0
         order.carts.forEach(item=>{
             temp += item.quantity * item.product.price
         })
         setTotal(temp)
+        let deliveryTemp = 0
+        order.orders.forEach(item => {
+            deliveryTemp += order.deliveryPrice
+        })
+        setDeliveryCost(deliveryTemp)
     },[order])
     return(
         <ContentBox class="flex flex-col gap-2 ">
@@ -30,7 +36,7 @@ export default function PaymentSumPrice(){
             </div>
             <div className="flex justify-between">
                 <div className="font-semibold">Tổng tiền</div>
-                <div className="font-bold text-lg text-red-500">{(order.deliveryPrice + total).toLocaleString('de-DE')} ₫</div>
+                <div className="font-bold text-lg text-red-500">{(deliveryCost + total).toLocaleString('de-DE')} ₫</div>
             </div>
         </ContentBox>
     )
