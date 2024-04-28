@@ -66,7 +66,11 @@ const productApi ={
     // =============== USER ADDRESSS =============== //
     getPayments: async () => await axiosAdmin.get(`/payment-options`),
 
-    // =============== ORDER =============== //
+    // =============== PAST ORDER =============== //
+    getPastOrderHeader: async () => await axiosAdmin.get(`order-statuses`),
+    getAlPastOrderItems: async (data: {userId: number}) => await axiosAdmin.get(`orders/buyer/${data.userId}`),
+    getAlPastOrderItemsByStatus: async (data: {userId: number, status: number}) => await axiosAdmin.get(`orders/buyer/${data.userId}?status=${data.status}`),
+
 
 
     

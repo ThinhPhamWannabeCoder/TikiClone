@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import productApi from "../../../../services/buyer.services";
+
 import { DeliveryOptionsType } from "../../../../types/user.types";
 const ASSET_API = import.meta.env.VITE_ASSETS_URL
 

@@ -15,13 +15,28 @@ export default factories.createCoreController('api::order.order',({strapi})=>({
         const {status} = ctx.request.query;
         const payload = await strapi.service('api::order.order').getAllOrderByOrderStatus({userId: userId, status: status});
         ctx.body = {
-            data: payload
+            data: payload.map(item => {
+                return{
+                    id: item.id,
+                    status: item.status.name,
+                    totalPrice: item.deliveryTotalCost + item.productTotalCost,
+                    orders: item.oder_details.map(orderDetail => {
+                        return {
+                            id: orderDetail.id,
+                            image: orderDetail.product.primary_image.url,
+                            name: orderDetail.product.name,
+                            totalProductPrice: orderDetail.totalPrice,
+                            store: item.store.name,
+                        }
+                    })
+                }
+            })
         }
     },
 
     async updateOrder(ctx, next){
         const payload = await strapi.service('api::order.order').updateOrder();
-        ctx.body = payload;
+        ctx.body = payload
     },
     async updateDeliveryStatus(ctx, next){
         const body = ctx.request.body;

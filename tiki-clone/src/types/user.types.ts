@@ -108,3 +108,19 @@ export interface PaymentOptionsType{
         url: string
     }
 }
+export interface PastOrderItemType{
+    id: number,
+    status: string,
+    orders: {
+        id: number,
+        image: string,
+        name: string,
+        totalProductPrice: number
+        store: string,
+    }[]
+    totalPrice: number
+}
+export interface PastOrderHeader{
+    id: number,
+    name: string,
+}

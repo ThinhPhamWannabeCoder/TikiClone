@@ -1,32 +1,28 @@
-import { useState } from "react";
-import ContentBox from "../../../components/Common/ContentBox";
 
-export default function Header(){
-    const [selectedItem, setSelectedItem] = useState<number>()
-    // const handle
+import { PastOrderHeader } from "../../../types/user.types";
+
+
+interface propType{
+    header: PastOrderHeader[],
+    selectedItem : number,
+    setSelectedItem: (data: number) => void
+}
+export default function Header( prop: propType){
+
     return(
-        <div className={`bg-white rounded-lg grid grid-cols-${orderStatuses.length}`}>
+        <div className={`bg-white rounded-lg grid grid-cols-6`}>
 
-            {orderStatuses.map((item,index)=>(
+            {prop.header?.map((item)=>(
                 <div 
-                    key={index}
+                    key={item.id}
                     className={`text-nowrap text-center cursor-pointer p-5
-                        ${selectedItem == index ? 'text-blue-500 border-b-2 border-blue-500' : " text-slate-500"}
+                        ${prop.selectedItem == item.id ? 'text-blue-500 border-b-2 border-blue-500' : " text-slate-500"}
                     `}
-                    onClick={()=> setSelectedItem(index)}
+                    onClick={()=> prop.setSelectedItem(item.id)}
                 >
-                    <span>{item}</span>
+                    <span>{item.name}</span>
                 </div>
             ))}
         </div>
     )
 }
-const orderStatuses = [
-    "Tất cả",
-    "Đã đặt hàng",
-    "Đang xử lý",
-    "Đang vận chuyển",
-    "Đã giao",
-    "Đã huỷ"
-  ];
-  
