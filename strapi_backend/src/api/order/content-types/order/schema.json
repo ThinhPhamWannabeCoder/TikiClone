@@ -17,12 +17,6 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "oder_detail": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::oder-detail.oder-detail",
-      "mappedBy": "order"
-    },
     "address": {
       "type": "relation",
       "relation": "oneToOne",
@@ -44,19 +38,6 @@
     "productTotalCost": {
       "type": "decimal"
     },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "Đã đặt hàng",
-        "Đã nhận đơn",
-        "Đang chuẩn bị hàng",
-        "Đang vận chuyển",
-        "Đang giao",
-        "Giao hàng thành công",
-        "Giao hàng thất bại"
-      ],
-      "default": "Đã đặt hàng"
-    },
     "seller_status": {
       "type": "enumeration",
       "enum": [
@@ -77,6 +58,17 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::payment-option.payment-option"
+    },
+    "status": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order-status.order-status"
+    },
+    "oder_details": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::oder-detail.oder-detail",
+      "mappedBy": "order"
     }
   }
 }

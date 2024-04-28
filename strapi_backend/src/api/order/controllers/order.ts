@@ -11,15 +11,14 @@ export default factories.createCoreController('api::order.order',({strapi})=>({
         ctx.body = payload;
     },
     async getByUserId(ctx, next){
-        
-        const payload = await strapi.service('api::order.order').getAllOrder();
-        ctx.body = payload
+        const {userId} = ctx.params;
+        const {status} = ctx.request.query;
+        const payload = await strapi.service('api::order.order').getAllOrderByOrderStatus({userId: userId, status: status});
+        ctx.body = {
+            data: payload
+        }
     },
-    async buyerGetById(ctx, next){
-        const {id} = ctx.params
-        const payload = await strapi.service('api::order.order').buyerGetOrderById(id);
-        ctx.body = payload;
-    },
+
     async updateOrder(ctx, next){
         const payload = await strapi.service('api::order.order').updateOrder();
         ctx.body = payload;

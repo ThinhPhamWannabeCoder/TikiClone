@@ -14,9 +14,9 @@
   "attributes": {
     "order": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::order.order",
-      "inversedBy": "oder_detail"
+      "inversedBy": "oder_details"
     },
     "product": {
       "type": "relation",

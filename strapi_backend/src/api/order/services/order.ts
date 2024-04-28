@@ -23,6 +23,7 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
                         address: addressId,
                         store: order.storeId,
                         payment_option: paymentId, 
+                        status: 2,
                         delivery: deliveryId,
                         deliveryTotalCost: order.deliveryCost,
                         productTotalCost: totalProductCost,
@@ -72,54 +73,55 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
         
 
     },
-    getAllOrder:async ()=>{
-        return "Hello"
-        try {
-            const id = [1, 2];
-            const promises = id.map(async (item) => {
-                return await strapi.entityService.findOne('api::product.product', item);
+    getAllOrderByOrderStatus:async (para : {userId: number, status: number})=>{
 
-            });
-    
-            const data = await Promise.all(promises);
-            return data;
-        } catch (error) {
-            console.error('Error fetching orders:', error);
-            throw error; // Throw the error for handling elsewhere if needed
+        let filters = {
+            user:{
+                id: para.userId
+            }
+            
         }
-
-        
-    },
-    buyerGetOrderById: async(orderId: number)=>{
-        const data = await strapi.entityService.findOne('api::order.order',orderId,{
-            fields:["deliveryTotalCost","productTotalCost","status","seller_status"],
-            populate: {
-                oder_detail:{
-                    fields:["quantity", "totalPrice"],
+        if(para.status){
+            filters["status"] = {
+                id: para.status
+            }
+        }
+        const data = strapi.entityService.findMany('api::order.order',{
+            // popu
+            // fields
+            
+            fields:["id","deliveryTotalCost","productTotalCost"],
+            populate:{
+                store:{
+                    fields: ["id", "name"]
+                },
+                status:{
+                    fields: ["id", "name"]
+                },
+                oder_details:{
+                    fields: ["quantity, totalPrice"],
                     populate: {
-                        product: {
-                            fields: ["name"],
-                            populate: {
+                        product:{
+                            fields: ["id", "name"],
+                            populate:{
                                 primary_image: {
-                                    fields: ["url"]
+                                    fields: ['id', 'url']
                                 }
                             }
                         }
-                    }
-                }
-            }
-            // populate: "*"
-        })
-        return {
-            status: 200,
-            data: data,
-            message: "Fetch successfully"
-        }
-    },
-    // updateOrder: async (body)=>{
-    //     return "Hello"
+                    },
+                },
+                
+            },
+            filters: filters
 
-    // }
+        })
+
+        return data
+
+        
+    },
+
     updateDeliveryStatus: async(body)=>{
         const {id, status} = body;
         const data = await strapi.entityService.update('api::order.order',id,{

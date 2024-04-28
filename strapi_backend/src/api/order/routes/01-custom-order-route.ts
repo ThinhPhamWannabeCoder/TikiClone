@@ -2,7 +2,7 @@ export default{
     routes:[
         {
             method: 'GET',
-            path: '/orders',
+            path: '/orders/buyer/:userId',
             handler: 'order.getByUserId',
             config:{}
         },
@@ -21,12 +21,7 @@ export default{
             handler: 'order.updateOrder',
             config:{}
         },
-        { 
-            method: 'GET',
-            path: '/orders/buyer/:id',
-            handler: 'order.buyerGetById',
-            config:{}
-        },
+ 
         { 
             method: 'PATCH',
             path: '/orders/delivery',
