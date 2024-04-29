@@ -40,6 +40,18 @@ export default factories.createCoreService('api::address.address',({strapi})=>({
 
     createNew: async(body)=>{
         const {userId, wardId, districtId, cityId, address, name, mobile, type, option} = body;
+        if(option=="true"){
+            console.log("TO DO")
+            const ids = await strapi.db.query("api::address.address").updateMany({
+                // where: {
+                //     user: userId,
+                // },
+                data: {
+                    default: "false"
+                },
+              });
+            console.log(ids)
+        }
         const newAddressId = await strapi.entityService.create("api::address.address", {
             data:{
                 user: userId,
@@ -54,9 +66,7 @@ export default factories.createCoreService('api::address.address',({strapi})=>({
             },
             fields: ["id"]
         })
-        if(option=="true"){
-            console.log("TO DO")
-        }
+        
         return newAddressId
 
     },
@@ -67,6 +77,18 @@ export default factories.createCoreService('api::address.address',({strapi})=>({
     },
     updateById: async (id: number, body)=>{
         const {userId, wardId, districtId, cityId, address, name, mobile, type, option} = body;
+        if(option=="true"){
+            console.log("TO DO")
+            const ids = await strapi.db.query("api::address.address").updateMany({
+                // where: {
+                //     user: userId,
+                // },
+                data: {
+                    default: "false"
+                },
+              });
+            console.log(ids)
+        }
         const updatedId = await strapi.entityService.update("api::address.address", id, {
             data:{
                 user: userId,
@@ -76,14 +98,12 @@ export default factories.createCoreService('api::address.address',({strapi})=>({
                 ward: wardId,
                 type: type,
                 default: option
-                // publishedAt: Date.now()
+                // publishedAt: Date.now(
 
             },
             fields: ["id"]
         })
-        if(option=="true"){
-            console.log("TO DO")
-        }
+
         return updatedId
 
     }
