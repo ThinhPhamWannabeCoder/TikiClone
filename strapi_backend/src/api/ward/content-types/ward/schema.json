@@ -20,12 +20,6 @@
       "relation": "manyToOne",
       "target": "api::district.district",
       "inversedBy": "wards"
-    },
-    "addresses": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::address.address",
-      "mappedBy": "ward"
     }
   }
 }

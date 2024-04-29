@@ -7,17 +7,17 @@ export default{
         },
         {
             method:'POST',
-            path: '/addresses/user/:userId',
+            path: '/addresses',
             handler :'address.create'
         },
         {
             method:'POST',
-            path: '/addresses/user/update/:userId',
+            path: '/addresses/update/:id',
             handler :'address.updateByUserId'
         },
         {
             method:'DELETE',
-            path: '/addresses/user/:userId/:id',
+            path: '/addresses/:id',
             handler :'address.deleteById'
         },
         

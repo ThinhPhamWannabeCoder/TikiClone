@@ -14,9 +14,8 @@
   "attributes": {
     "ward": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::ward.ward",
-      "inversedBy": "addresses"
+      "relation": "oneToOne",
+      "target": "api::ward.ward"
     },
     "type": {
       "type": "enumeration",
@@ -40,7 +39,8 @@
     },
     "default": {
       "type": "boolean",
-      "required": false
+      "required": false,
+      "default": false
     },
     "user": {
       "type": "relation",

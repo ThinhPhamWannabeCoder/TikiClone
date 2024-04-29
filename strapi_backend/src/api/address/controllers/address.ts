@@ -13,20 +13,31 @@ export default factories.createCoreController('api::address.address',({strapi})=
         const option = main as string ==="true";
         console.log(option)
         const data = await strapi.service('api::address.address').getByUserId(userId, option);
-        ctx.body=data;
+        ctx.body={
+            data: data
+        };
     },
-    async updateByUserId(ctx, next){
-        const {userId} = ctx.params;
-       
-        const data = await strapi.service('api::address.address').getById(userId);
-        ctx.body=data;
-    },
+    
     async create(ctx, next){
-        const data = await strapi.service('api::address.address').createNew();
-        ctx.body=data;
+        const body = ctx.request.body
+        const data = await strapi.service('api::address.address').createNew(body);
+        ctx.body={
+            data: data
+        };
     },
     async deleteById(ctx, next){
-        const data = await strapi.service('api::address.address').updateById();
+        const {id} = ctx.params;
+        const data = await strapi.service('api::address.address').deleteById(id);
+        ctx.body={
+            data: data
+        };
+    },
+    async updateByUserId(ctx, next){
+        const {id} = ctx.params;
+        const body = ctx.request.body
+
+       
+        const data = await strapi.service('api::address.address').updateById(id, body);
         ctx.body=data;
     },
 
