@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import productApi from "../../../services/buyer.services";
 import { RootState } from "../../../redux/store";
 import { useSelector } from "react-redux";
+
 interface UserAddress{
   id: number,
   type: string,
@@ -117,6 +118,7 @@ export default function DeliveryUpdateModal(prop :propsType){
                         })}
                        
                     </ul>
+                    
                   </div>
                 </div>
               </div>

@@ -14,6 +14,7 @@ export default factories.createCoreController('api::address.address',({strapi})=
         console.log(option)
         const data = await strapi.service('api::address.address').getByUserId(userId, option);
         ctx.body={
+            status: 200,
             data: data
         };
     },
@@ -22,6 +23,7 @@ export default factories.createCoreController('api::address.address',({strapi})=
         const body = ctx.request.body
         const data = await strapi.service('api::address.address').createNew(body);
         ctx.body={
+            status: 200,
             data: data
         };
     },
@@ -29,6 +31,7 @@ export default factories.createCoreController('api::address.address',({strapi})=
         const {id} = ctx.params;
         const data = await strapi.service('api::address.address').deleteById(id);
         ctx.body={
+            status: 200,
             data: data
         };
     },
@@ -38,7 +41,10 @@ export default factories.createCoreController('api::address.address',({strapi})=
 
        
         const data = await strapi.service('api::address.address').updateById(id, body);
-        ctx.body=data;
+        ctx.body={
+            status: 200,
+            data: data
+        };
     },
 
 

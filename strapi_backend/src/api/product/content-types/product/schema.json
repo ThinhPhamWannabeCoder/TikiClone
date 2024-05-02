@@ -44,12 +44,6 @@
       "required": true,
       "default": 0
     },
-    "product_sub_category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::product-sub-category.product-sub-category",
-      "inversedBy": "products"
-    },
     "store": {
       "type": "relation",
       "relation": "manyToOne",
@@ -171,6 +165,11 @@
       "relation": "oneToMany",
       "target": "api::oder-detail.oder-detail",
       "mappedBy": "product"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
     }
   }
 }

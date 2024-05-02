@@ -52,14 +52,14 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                product_sub_category: {
-                    fields: ['id', 'name'],
-                    populate: {
-                        product_category: {
-                            fields: ['id', 'name']
-                        }
-                    }
-                },
+                // product_sub_category: {
+                //     fields: ['id', 'name'],
+                //     populate: {
+                //         product_category: {
+                //             fields: ['id', 'name']
+                //         }
+                //     }
+                // },
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -98,11 +98,11 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             Inventory: {
                 $gt: 0
             },
-            product_sub_category: {
-                product_category:{
-                    id: options.category_id
-                }
-            }
+            // product_sub_category: {
+            //     product_category:{
+            //         id: options.category_id
+            //     }
+            // }
         };
         if(options.price_range){
             const priceArray = options.price_range.split('-');
@@ -114,14 +114,14 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                product_sub_category: {
-                    fields: ['id', 'name'],
-                    populate: {
-                        product_category: {
-                            fields: ['id', 'name']
-                        }
-                    }
-                },
+                // product_sub_category: {
+                //     fields: ['id', 'name'],
+                //     populate: {
+                //         product_category: {
+                //             fields: ['id', 'name']
+                //         }
+                //     }
+                // },
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -157,23 +157,23 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             Inventory: {
                 $gt: 0
             },
-            product_sub_category: {
-                product_category:{
-                    id: options.category_id
-                }
-            }
+            // product_sub_category: {
+            //     product_category:{
+            //         id: options.category_id
+            //     }
+            // }
         };
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                product_sub_category: {
-                    fields: ['id', 'name'],
-                    populate: {
-                        product_category: {
-                            fields: ['id', 'name']
-                        }
-                    }
-                },
+                // product_sub_category: {
+                //     fields: ['id', 'name'],
+                //     populate: {
+                //         product_category: {
+                //             fields: ['id', 'name']
+                //         }
+                //     }
+                // },
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -202,9 +202,9 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             Inventory: {
                 $gt: 0
             },
-            product_sub_category: {
-                id: 2
-            }
+            // product_sub_category: {
+            //     id: 2
+            // }
         };
         if(options.price_range){
             const priceArray = options.price_range.split('-');
@@ -215,14 +215,14 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                product_sub_category: {
-                    fields: ['id', 'name'],
-                    populate: {
-                        product_category: {
-                            fields: ['id', 'name']
-                        }
-                    }
-                },
+                // product_sub_category: {
+                //     fields: ['id', 'name'],
+                //     populate: {
+                //         product_category: {
+                //             fields: ['id', 'name']
+                //         }
+                //     }
+                // },
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -256,14 +256,14 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                product_sub_category: {
-                    fields: ['id', 'name'],
-                    populate: {
-                        product_category: {
-                            fields: ['id', 'name']
-                        }
-                    }
-                },
+                // product_sub_category: {
+                //     fields: ['id', 'name'],
+                //     populate: {
+                //         product_category: {
+                //             fields: ['id', 'name']
+                //         }
+                //     }
+                // },
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -277,9 +277,9 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 Inventory: {
                     $gt: 0
                 },
-                product_sub_category: {
-                    id: options.subcategory_id
-                }
+                // product_sub_category: {
+                //     id: options.subcategory_id
+                // }
             },
         };
         // console.log(await strapi.entityService.findMany('api::product.product', queryOptions));
@@ -313,9 +313,9 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             populate: '*'
         });
         // console.log(data.product_images.map(image => image.url))
-        const subcategory = await strapi.entityService.findOne('api::product-sub-category.product-sub-category',data.product_sub_category.id,{
-            populate : '*'
-        })
+        // const subcategory = await strapi.entityService.findOne('api::product-sub-category.product-sub-category',data.product_sub_category.id,{
+        //     populate : '*'
+        // })
         // primary_image: data.primary_image.url,
         const secondary_images =  data.product_images.map(image => image.url);
         secondary_images.unshift(data.primary_image.url)
@@ -360,14 +360,14 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
 
 
             product_images:secondary_images,
-            product_sub_category:{
-                id: data.product_sub_category.id,
-                name: data.product_sub_category.name,
-                product_category:{
-                    id: subcategory.product_category.id,
-                    name: subcategory.product_category.name,
-                }
-            }
+            // product_sub_category:{
+            //     id: data.product_sub_category.id,
+            //     name: data.product_sub_category.name,
+            //     product_category:{
+            //         id: subcategory.product_category.id,
+            //         name: subcategory.product_category.name,
+            //     }
+            // }
 
         }
         return payload;
