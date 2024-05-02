@@ -124,3 +124,34 @@ export interface PastOrderHeader{
     id: number,
     name: string,
 }
+export  interface PostAddress{
+    userId: number,
+    wardId: number,
+    districtId: number,
+    cityId: number,
+    address: string,
+    name: string,
+    mobile: string,
+    type: 'Nhà' | 'Công ty',
+    option: boolean
+}
+export interface GetAddressList{
+    id: number,
+    type: string,
+    address: string,
+    contact_name: string,
+    contact_mobile: string,
+    default: boolean,
+    ward: {
+        id: number,
+        name: string,
+        district:{
+            id: number,
+            name: string,
+            city:{
+                id: number,
+                name: string,
+            }
+        }
+    },
+}

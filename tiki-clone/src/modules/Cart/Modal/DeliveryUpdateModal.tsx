@@ -27,7 +27,8 @@ export default function DeliveryUpdateModal(prop :propsType){
     productApi.getAddress( {userId: user?.id as number, default: false})
         .then(res=>{
 
-            setAddresses(res.data)
+            setAddresses(res.data.data)
+            // console.log(res.data)
             res.data.forEach(item => {
               if(item.default == true){
                 setActiveDeliveryId(item.id)
@@ -86,7 +87,7 @@ export default function DeliveryUpdateModal(prop :propsType){
                   <div className="mt-2">
 
                     <ul className="flex flex-col gap-2">
-                        {addressess.map(item=>{
+                        {addressess?.map(item=>{
                             return(
                                 <li key={item.id} >
                                 <input type="checkbox" 

@@ -12,7 +12,7 @@ interface UserAddress{
     address: string,
     contact_name: string,
     contact_mobile: string,
-    default: string
+    default: boolean
 }
 
 export default function DeliveryTo(){
@@ -39,7 +39,8 @@ export default function DeliveryTo(){
     useEffect(()=>{
         productApi.getAddress( {userId: user?.id as number, default: true})
             .then(res=>{  
-                setAddress(res.data[0])
+                console.log(res.data)
+                setAddress(res.data.data[0])
             })
 
             .catch(err =>{

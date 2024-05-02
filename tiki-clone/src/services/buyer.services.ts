@@ -3,7 +3,7 @@
 
 import { axiosAdmin } from "../config/axios.admin";
 import axiosPublic from "../config/axios.public";
-import { OrderPayload } from "../types/user.types";
+import { OrderPayload, PostAddress } from "../types/user.types";
 type BooleanLiteral = "true" | "false";
 
 // Xong roi filter tren day
@@ -60,8 +60,18 @@ const productApi ={
     // =============== DELIVERY =============== //
     getDelivery: async () => await axiosAdmin.get(`/deliveries/default`),
     getDeliveries: async () => await axiosAdmin.get(`/deliveries`),
+
     // =============== USER ADDRESSS =============== //
     getAddress: async (data: {userId : number, default: boolean }) => await axiosAdmin.get(`/addresses/user/${data.userId}?main=${data.default}`),
+    createAddress: async(data: PostAddress)=> await axiosAdmin.post('/addresses', data),
+    deleteAddress: async(data : number)=> await axiosAdmin.delete(`/addresses/${data}`),
+    updateAddress: async(data :{addressId: number, body: PostAddress}) => await axiosAdmin.post(`/addresses/update/${data.addressId}`, data.body),
+
+    // FOR CREATE NEW AND UPDATE ADDRESS
+    getDistricts: async() => await axiosAdmin.get('/districts'),
+    getWards: async() => await axiosAdmin.get('/wards'),
+    getCities: async() => await axiosAdmin.get('/cities'),
+
 
     // =============== USER ADDRESSS =============== //
     getPayments: async () => await axiosAdmin.get(`/payment-options`),
