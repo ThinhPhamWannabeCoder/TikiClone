@@ -132,7 +132,7 @@ export  interface PostAddress{
     address: string,
     name: string,
     mobile: string,
-    type: 'Nhà' | 'Công ty',
+    type: 'Nhà' | 'Công ty' | 'Khác',
     option: boolean | string
 }
 export interface GetAddressList{

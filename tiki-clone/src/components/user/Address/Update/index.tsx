@@ -4,29 +4,31 @@ import ContentBox from "../../../Common/ContentBox"
 import PrimaryTitle from "../../../Title/PrimaryTitle"
 import { PostAddress } from "../../../../types/user.types"
 import { LockClosedIcon, XCircleIcon } from "@heroicons/react/24/outline"
+import { useSelector } from "react-redux"
+import { RootState } from "../../../../redux/store"
 
 interface propsType{
     // isOpen: boolean,
     onClose: () => void,
-    data: PostAddress,
-    addressId: number
+    data?: PostAddress,
+    addressId?: number
   }
 
 
 export default function UserAddressUpdate(props: propsType){
-
+    const user = useSelector((state:RootState) => state.auth.user)
     const [cityList, setCityList] = useState<{name: string, id: number}[]>([])
     const [districtList, setDistrictList] = useState<{name: string, id: number}[]>([])
     const [wardList, setWardList] = useState<{name: string, id: number}[]>([])
 
-    const [name, setName] = useState<string>(props.data.name);
-    const [mobile, setMobile] = useState<string>(props.data.mobile);
-    const [address, setAddress] = useState<string>(props.data.address);
-    const [city, setCity] = useState<number>(props.data.cityId);
-    const [district, setDistrict] = useState<number>(props.data.districtId);
-    const [ward, setWard] = useState<number>(props.data.wardId);
-    const [type, setType] = useState<'Nhà' | 'Công ty'>(props.data.type)
-    const [option , setOption] = useState<boolean>(props.data.option)
+    const [name, setName] = useState<string >(props.data?.name ?? "" );
+    const [mobile, setMobile] = useState<string >(props.data?.mobile ?? "");
+    const [address, setAddress] = useState<string >(props.data?.address ?? "");
+    const [city, setCity] = useState<number >(props.data?.cityId ?? 0);
+    const [district, setDistrict] = useState<number >(props.data?.districtId ?? 0);
+    const [ward, setWard] = useState<number >(props.data?.wardId ?? 0);
+    const [type, setType] = useState<'Nhà' | 'Công ty' | 'Khác'>(props.data?.type ?? "Khác") 
+    const [option , setOption] = useState<boolean>(props.data?.option as boolean ?? false)
 
     useEffect(()=>{
         productApi.getCities({})
@@ -67,35 +69,60 @@ export default function UserAddressUpdate(props: propsType){
         setMobile(e.target.value)
     }
     const handleSubmitChange = ()=>{
-        const changePayload:PostAddress = {
-            userId: props.data.userId,
-            wardId: ward,
-            districtId: district,
-            cityId: city,
-            address: address,
-            name: name,
-            mobile: mobile,
-            type: type,
-            option: option ? "true"  :"false"
+        if(name && mobile && address && district && ward &&  city){
+            const changePayload:PostAddress = {
+                userId: user?.id as number,
+                wardId: ward,
+                districtId: district,
+                cityId: city,
+                address: address,
+                name: name,
+                mobile: mobile,
+                type: type,
+                option: option ? "true"  :"false"
+            }
+            console.log(changePayload)
+            if(props.addressId){
+                
+                productApi.updateAddress( {body: changePayload, addressId: props.addressId})
+                    .then(res => {
+                        // console.log(res.data)
+                        alert("Thành công")
+                        window.location.reload()
+                    })
+                    .catch(err =>{
+                        console.log(err.message)
+                        alert("Fail")
+                    })
+            
+            }
+            else{
+                console.log(changePayload)
+                productApi.createAddress(changePayload)
+                    .then(res => {
+                        // console.log(res.data)
+                        alert("Thành công")
+                        window.location.reload()
+                    })
+                    .catch(err =>{
+                        console.log(err.message)
+                        alert("Fail")
+                    })
+            }
         }
-        console.log(changePayload)
-        productApi.updateAddress({body: changePayload, addressId: props.addressId})
-            .then(res => {
-                // console.log(res.data)
-                alert("Thành công")
-                window.location.reload()
-            })
-            .catch(err =>{
-                console.log(err.message)
-                alert("Fail")
-            })
+        else{
+            alert("Phải bổ sung ít nhất thông tin địa chỉ, người nhận và số điện thoại người nhận")
+        }
+        
+        
+        
     }
     return (
   
         <>
         <ContentBox class="p-3 flex flex-col gap-4 ">
             <div className="flex justify-between items-center">
-                <PrimaryTitle name="Cập nhật thông tin dịa chỉ" />
+                <PrimaryTitle name="Cập nhật thông tin địa chỉ" />
                 <XCircleIcon 
                     className="w-6 h-6 text-red-500 font-bold cursor-pointer"
                     onClick={()=> {props.onClose()}}
@@ -108,7 +135,7 @@ export default function UserAddressUpdate(props: propsType){
                     <input 
                         type="text" 
                         id="name" 
-                        value={name}
+                        value={name ? name : ""}
                         placeholder="Nhập tên người liên hệ"
                         className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         onChange={handleName}
@@ -121,7 +148,7 @@ export default function UserAddressUpdate(props: propsType){
                     <input 
                         type="text" 
                         id="mobile" 
-                        value={mobile}
+                        value={mobile ? mobile : ""}
                         placeholder="Nhập số điện thoại liên hệ"
                         className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         onChange={(handleMobile)}
@@ -133,7 +160,7 @@ export default function UserAddressUpdate(props: propsType){
                     <label className="w-28">Thành phố</label>
                     <select 
                         name="city" 
-                        value={city} 
+                        value={city ? city : ""} 
                         onChange={handleCitySelect} 
                         className="py-3 px-5 mr-4 cursor-pointer rounded-md bg-gradient-to-b from-gray-200 to-gray-400 shadow-md"
                     >
@@ -148,7 +175,7 @@ export default function UserAddressUpdate(props: propsType){
                     <label className="w-28">Quận</label>
                     <select 
                         name="district" 
-                        value={district} 
+                        value={district ? district : ""} 
                         onChange={handleDistrictSelect} 
                         className="py-3 px-5 mr-4 cursor-pointer rounded-md bg-gradient-to-b from-gray-200 to-gray-400 shadow-md"
                     >
@@ -164,7 +191,7 @@ export default function UserAddressUpdate(props: propsType){
                     <select 
                         name="ward" 
                         onChange={handleWardSelect} 
-                        value={ward}
+                        value={ward ? ward : ""}
                         className="py-3 px-5 mr-4 cursor-pointer rounded-md bg-gradient-to-b from-gray-200 to-gray-400 shadow-md"
                     >
                         <option value="">Lựa chọn phường</option>
@@ -181,7 +208,7 @@ export default function UserAddressUpdate(props: propsType){
                         className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         placeholder="Nhập địa chỉ nhận hàng"
                         onChange={handleAddress}
-                        value={address}
+                        value={address ? address : ""}
                     />
                 </div>
                 <div className="flex gap-3">
@@ -208,6 +235,17 @@ export default function UserAddressUpdate(props: propsType){
                             checked={type == 'Công ty'}
 
                             onChange={()=>{setType("Công ty")}}
+                            
+                            className="w-5 h-5 rounded-full cursor-pointer border border-gray-300 focus:ring-1 focus:ring-primary-500 focus:outline-none"
+                        />
+                        <label>Công ty</label><br />
+                        <input
+                            type="radio"
+                            name="type"
+                            value="other"
+                            checked={type == 'Khác'}
+
+                            onChange={()=>{setType("Khác")}}
                             
                             className="w-5 h-5 rounded-full cursor-pointer border border-gray-300 focus:ring-1 focus:ring-primary-500 focus:outline-none"
                         />

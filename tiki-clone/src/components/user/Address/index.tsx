@@ -5,10 +5,16 @@ import UserAddressItem from "./UserAddressItem";
 import productApi from "../../../services/buyer.services";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import UserAddressUpdate from "./Update";
 
 export default function UserAddressModule(){
     const user = useSelector((state: RootState)=>state.auth.user)
-
+    const [isUpdateOpen, setIsUpdateOpen] = useState(false)
+    const handleUpdate = () => {
+        // console.log(id)
+        setIsUpdateOpen(!isUpdateOpen)
+        
+    }
     const [addressList, setAddressList] = useState<GetAddressList[]>([])
     useEffect(()=>{
         productApi.getAddress( {userId: user?.id as number, default: false})
@@ -20,79 +26,25 @@ export default function UserAddressModule(){
                 console.log(err.message)
             })
     },[])
-    return(
-        <div className="flex flex-col gap-3 ">
-            <ContentBox class="p-5 text-center rounded-none hover:bg-slate-400 cursor-pointer hover:text-white">
-                THÊM ĐỊA CHỈ
-            </ContentBox>
+    if(isUpdateOpen){
+        return(
+            <UserAddressUpdate 
+                onClose={handleUpdate}
+            />
+        )
+    }
+    else{
+        return(
+            <div className="flex flex-col gap-3 ">
+                <div onClick={handleUpdate}>
+                    <ContentBox class="p-5 text-center rounded-none hover:bg-slate-400 cursor-pointer hover:text-white" >
+                        THÊM ĐỊA CHỈ
+                    </ContentBox>
+                </div>
+                
 
-            {addressList?.map(item => (<UserAddressItem data={item} key={item.id}/>))}
-        </div>
-    )
+                {addressList?.map(item => (<UserAddressItem data={item} key={item.id}/>))}
+            </div>
+        )
+    }
 }
-// const sampleData = {
-//     status: 200,
-//     data: [
-//         {
-//             id: 1,
-//             type: "Nhà",
-//             address: "210 Bạch Đằng",
-//             contact_name: "Thịnh",
-//             contact_mobile: "0971933424",
-//             default: false,
-//             ward: {
-//                 id: 3,
-//                 name: "Bạch Đằng",
-//                 district: {
-//                     id: 3,
-//                     name: "Hai Bà Trưng",
-//                     city: {
-//                         id: 1,
-//                         name: "Hà Nội"
-//                     }
-//                 }
-//             }
-//         },
-//         {
-//             id: 2,
-//             type: "Nhà",
-//             address: "210 Bạch Đằng",
-//             contact_name: "Thịnh",
-//             contact_mobile: "0971933424",
-//             default: false,
-//             ward: {
-//                 id: 3,
-//                 name: "Bạch Đằng",
-//                 district: {
-//                     id: 3,
-//                     name: "Hai Bà Trưng",
-//                     city: {
-//                         id: 1,
-//                         name: "Hà Nội"
-//                     }
-//                 }
-//             }
-//         },
-//         {
-//             id: 3,
-//             type: "Nhà",
-//             address: "210 Bạch Đằng",
-//             contact_name: "Thịnh",
-//             contact_mobile: "0971933424",
-//             default: false,
-//             ward: {
-//                 id: 3,
-//                 name: "Bạch Đằng",
-//                 district: {
-//                     id: 3,
-//                     name: "Hai Bà Trưng",
-//                     city: {
-//                         id: 1,
-//                         name: "Hà Nội"
-//                     }
-//                 }
-//             }
-//         },
-//         // ... (other objects)
-//     ]
-// }
