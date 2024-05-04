@@ -9,6 +9,7 @@ interface propsType{
     // isOpen: boolean,
     onClose: () => void,
     data: PostAddress,
+    addressId: number
   }
 
 
@@ -67,7 +68,7 @@ export default function UserAddressUpdate(props: propsType){
     }
     const handleSubmitChange = ()=>{
         const changePayload:PostAddress = {
-            id: props.data.id,
+            userId: props.data.userId,
             wardId: ward,
             districtId: district,
             cityId: city,
@@ -78,6 +79,16 @@ export default function UserAddressUpdate(props: propsType){
             option: option
         }
         console.log(changePayload)
+        productApi.updateAddress({body: changePayload, addressId: props.addressId})
+            .then(res => {
+                // console.log(res.data)
+                alert("Thành công")
+                window.location.reload()
+            })
+            .catch(err =>{
+                console.log(err.message)
+                alert("Fail")
+            })
     }
     return (
   

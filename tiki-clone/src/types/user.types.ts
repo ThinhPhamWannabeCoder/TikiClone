@@ -125,7 +125,7 @@ export interface PastOrderHeader{
     name: string,
 }
 export  interface PostAddress{
-    id: number,
+    userId: number,
     wardId: number,
     districtId: number,
     cityId: number,

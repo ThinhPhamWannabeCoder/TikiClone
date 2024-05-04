@@ -4,6 +4,8 @@ import ContentBox from "../../Common/ContentBox";
 import { useState } from "react";
 import productApi from "../../../services/buyer.services";
 import UserAddressUpdate from "./Update";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import { Dropdown } from "react-bootstrap";
 
@@ -12,6 +14,7 @@ interface propType{
     // setAddressList: (data:) => void
 }
 export default function UserAddressItem(prop: propType){
+    const user = useSelector((state:RootState) => state.auth.user)
     const [isOpen, setIsOpen] = useState(false);
     const [isUpdateOpen, setIsUpdateOpen] = useState(false)
     const onClose = () =>{
@@ -66,7 +69,8 @@ export default function UserAddressItem(prop: propType){
         return(
             <UserAddressUpdate 
                 data={{
-                    id: prop.data.id,
+                    // id: prop.data.id,
+                    userId: user?.id as number,
                     wardId: prop.data.ward.id,
                     districtId: prop.data.ward.district.id,
                     cityId: prop.data.ward.district.city.id,
@@ -77,6 +81,7 @@ export default function UserAddressItem(prop: propType){
                     option: prop.data.default
                 }}
                 onClose={handleUpdate}
+                addressId={prop.data.id}
             />
         )
     }

@@ -74,9 +74,8 @@ const productApi ={
     // getFilterDistricts: async(data: {city: number,}) => await axiosAdmin.get('/districts'),
     getWards: async(data:{district?:number}) => await axiosAdmin.get(`/wards${data.district? `?district=${data.district}`:''}`),
 
-
-
-    // =============== USER ADDRESSS =============== //
+    // updateAddress: async(data: {body: PostAddress, id: number}) => await axiosAdmin.post(`/addresses/update/${data.id}`,data.body),
+    // =============== USER PAYMENT =============== //
     getPayments: async () => await axiosAdmin.get(`/payment-options`),
 
     // =============== PAST ORDER =============== //
