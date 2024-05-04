@@ -76,7 +76,7 @@ export default function UserAddressUpdate(props: propsType){
             name: name,
             mobile: mobile,
             type: type,
-            option: option
+            option: option ? "true"  :"false"
         }
         console.log(changePayload)
         productApi.updateAddress({body: changePayload, addressId: props.addressId})
