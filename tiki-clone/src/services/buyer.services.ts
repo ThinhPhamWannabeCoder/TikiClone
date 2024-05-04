@@ -69,9 +69,10 @@ const productApi ={
 
     // FOR CREATE NEW AND UPDATE ADDRESS
         // FILTERING
-    getDistricts: async() => await axiosAdmin.get('/districts'),
-    getWards: async() => await axiosAdmin.get('/wards'),
-    getCities: async() => await axiosAdmin.get('/cities'),
+    getCities: async(data: {district?: number}) => await axiosAdmin.get(`/cities${data.district? `?district=${data.district}`:''}`),
+    getDistricts: async(data: {ward?: number, city?: number}) => await axiosAdmin.get(`/districts${(data.ward && data.city) ? `?city=${data.city}&ward=${data.ward}`:  (data.city ? `?city=${data.city}`: (data.ward ? `?ward=${data.city}`:''))}`),
+    // getFilterDistricts: async(data: {city: number,}) => await axiosAdmin.get('/districts'),
+    getWards: async(data:{district?:number}) => await axiosAdmin.get(`/wards${data.district? `?district=${data.district}`:''}`),
 
 
 

@@ -17,35 +17,21 @@ export default function UserAddressUpdate(){
     const [districtList, setDistrictList] = useState<{name: string, id: number}[]>([])
     const [wardList, setWardList] = useState<{name: string, id: number}[]>([])
     useEffect(()=>{
-        productApi.getCities()
+        productApi.getCities({})
             .then(res =>{
                 // console.log(res.data)
-                setCityList(res.data.data.map(item=>{
-                    return{
-                        id: item.id,
-                        name: item.attributes.name
-                    }
-                }))
-                return productApi.getDistricts()
+                setCityList(res.data.data)
+                // console.log(res.data.data)
+                return productApi.getDistricts({})
             })
             .then(res =>{
                 // console.log(res.data)
-                setDistrictList(res.data.data.map(item=>{
-                    return{
-                        id: item.id,
-                        name: item.attributes.name
-                    }
-                }))
-                return productApi.getWards()
+                setDistrictList(res.data.data)
+                // console.log(res.data.data)
+                return productApi.getWards({})
             })
             .then(res => {
-                // console.log(res.data)
-                setWardList(res.data.data.map(item=>{
-                    return{
-                        id: item.id,
-                        name: item.attributes.name
-                    }
-                }))
+                setWardList(res.data.data)
             })
             .catch()
     },[])
