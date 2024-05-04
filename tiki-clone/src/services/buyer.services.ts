@@ -68,9 +68,11 @@ const productApi ={
     updateAddress: async(data :{addressId: number, body: PostAddress}) => await axiosAdmin.post(`/addresses/update/${data.addressId}`, data.body),
 
     // FOR CREATE NEW AND UPDATE ADDRESS
+        // FILTERING
     getDistricts: async() => await axiosAdmin.get('/districts'),
     getWards: async() => await axiosAdmin.get('/wards'),
     getCities: async() => await axiosAdmin.get('/cities'),
+
 
 
     // =============== USER ADDRESSS =============== //
