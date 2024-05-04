@@ -53,16 +53,31 @@ export default function UserAddressItem(prop: propType){
     }
 
   }
-  const handleUpdate = (id: number) => {
+  const handleUpdate = () => {
     // console.log(id)
     setIsUpdateOpen(!isUpdateOpen)
+    if(isUpdateOpen){
+        setIsOpen(!isOpen);
 
-    setIsOpen(!isOpen);
+    }
     
   }
     if(isUpdateOpen){
         return(
-            <UserAddressUpdate/>
+            <UserAddressUpdate 
+                data={{
+                    id: prop.data.id,
+                    wardId: prop.data.ward.id,
+                    districtId: prop.data.ward.district.id,
+                    cityId: prop.data.ward.district.city.id,
+                    address: prop.data.address,
+                    name: prop.data.contact_name,
+                    mobile: prop.data.contact_mobile,
+                    type: prop.data.type,
+                    option: prop.data.default
+                }}
+                onClose={handleUpdate}
+            />
         )
     }
     else{

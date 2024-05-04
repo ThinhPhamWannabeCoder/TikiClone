@@ -125,7 +125,7 @@ export interface PastOrderHeader{
     name: string,
 }
 export  interface PostAddress{
-    userId: number,
+    id: number,
     wardId: number,
     districtId: number,
     cityId: number,
@@ -137,7 +137,7 @@ export  interface PostAddress{
 }
 export interface GetAddressList{
     id: number,
-    type: string,
+    type: 'Nhà' | 'Công ty',
     address: string,
     contact_name: string,
     contact_mobile: string,
