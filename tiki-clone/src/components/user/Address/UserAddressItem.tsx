@@ -1,3 +1,4 @@
+import React from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { GetAddressList } from "../../../types/user.types";
 import ContentBox from "../../Common/ContentBox";
@@ -8,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 // import Dropdown from 'react-bootstrap/Dropdown';
 // import { Dropdown } from "react-bootstrap";
-
+// import { Button, Flex } from 'antd';
 interface propType{
     data: GetAddressList,
     // setAddressList: (data:) => void
@@ -90,7 +91,7 @@ export default function UserAddressItem(prop: propType){
         
             <ContentBox class="p-5">
                 {/* <UserAddressUpdate isOpen={isUpdateOpen} onClose={onClose}/> */}
-    
+
                 <div className="flex flex-col gap-3">
                     <div  className="flex justify-between">
                         <div className="flex gap-3">

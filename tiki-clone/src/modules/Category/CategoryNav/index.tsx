@@ -44,7 +44,7 @@ export default function CategoryNav(){
         console.log(isLoading)
         return (
             <NavBox class="sticky top-2">
-                <div>Loading</div>
+                <div>Loading </div>
             </NavBox>
         )
     }

@@ -22,7 +22,8 @@ const productApi ={
     getHomeBestProductByCategory: async (data: {category_id: number, limit: number,current_page:number}) => await axiosAdmin.get(`products/getAll?category_id=${data.category_id}&limit=${data.limit}&current_page=${data.current_page}`),
 
     // =============== CATEGORY =============== //
-    getCategory: async (category_id: number,) => await axiosAdmin.get(`/product-categories/${category_id}`),
+    getCategory: async (parent?: number,) => await axiosAdmin.get(`/categories${parent ? `?parent=${parent}`:''}`),
+
     getCategoryNav : async () => await axiosAdmin.get("/product-categories/nav"),
     getCategoryBestFilter: async () => await axiosAdmin.get("/product-categories/best"),
     getCategoryTopFilter: async () => await axiosAdmin.get("/product-categories/top"),

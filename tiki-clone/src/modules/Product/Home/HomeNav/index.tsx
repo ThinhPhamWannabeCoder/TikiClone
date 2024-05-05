@@ -124,7 +124,6 @@ interface navItem{
 }
 export default function HomeNav(){
     const [data, setData] = useState<navItem[]|undefined>(undefined);
-    const [isLoading, setLoading] = useState<boolean>(true)
     const convertToSlug = (text:string) => {
         return unidecode(text)
           .toLowerCase() // Convert text to lowercase
@@ -136,11 +135,25 @@ export default function HomeNav(){
      
 
     useEffect(()=>{
-      productApi.getCategoryNav()
-        .then(x => {setData(x.data); setLoading(false)})
-        .catch(e => console.log(e.message))
+      // productApi.getCategoryNav()
+      //   .then(x => {setData(x.data); setLoading(false)})
+      //   .catch(e => console.log(e.message))
+      productApi.getCategory()
+        .then(res => {
+          console.log(res.data)
+          setData(res.data.data.map(item => {
+            return {
+              id: item.id,
+              name: item.name,
+              image: item.image.url
+            }
+          }))
+        })
+        .catch(err =>{
+          console.log(err.message)
+        })
     },[])
-    if(isLoading){
+    if(!data){
       return (<div>Loading</div>)
     }
     return (
@@ -152,7 +165,7 @@ export default function HomeNav(){
                       <Link
                         key={item.id}
                         to={`${convertToSlug(item.name)}?category_id=${item.id}`} // Convert title to slug
-                        className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2"
+                        className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2 items-center"
                         >
                         {/* <div className="flex"> */}
                           <img src={`http://localhost:1337${item.image}`} alt="categry iamge"  className="w-10 h-10"/>

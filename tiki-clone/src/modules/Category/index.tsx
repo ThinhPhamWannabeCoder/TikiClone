@@ -18,12 +18,12 @@ export default function CategoryContent(){
     if(!category_id){
         navigate("/")
     }
-    useEffect(()=>{
-        productApi.getCategory(parseInt(category_id as string))
-            .then(x => {setTitle(x.data.data.attributes.name); console.log(x.data.data.attributes.name)})
-            .catch(e => console.log(e.message));
+    // useEffect(()=>{
+    //     productApi.getCategory(parseInt(category_id as string))
+    //         .then(x => {setTitle(x.data.data.attributes.name); console.log(x.data.data.attributes.name)})
+    //         .catch(e => console.log(e.message));
 
-    },[])
+    // },[])
     if(title === undefined){
         return <div>Please contect Admin for information</div>
     }
