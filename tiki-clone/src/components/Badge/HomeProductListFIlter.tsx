@@ -11,22 +11,23 @@ export default function HomeProductListFilter(data: props){
             
                         <div
                             onClick={data.all} 
-                            className={`h-full flex flex-col justify-center items-center rounded-md
+                            className={`h-full flex flex-col justify-center items-center rounded-md cursor-pointer
                                 ${data.state === "false" ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-slate-200' }
                             `}
+
                         >
                             <UserCircleIcon className="w-10 h-10 text-blue-700"/>
-                            <h3>"Dành cho bạn"</h3>
+                            <h3>Dành cho bạn</h3>
                         </div>
                         <div
                             onClick={data.best} 
-                            className={`h-full  flex flex-col justify-center items-center rounded-md
-                             ${data.state === "true" ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-slate-200' }
+                            className={`h-full  flex flex-col justify-center items-center rounded-md cursor-pointer
+                             ${data.state === "true" ? 'bg-blue-200 hover:bcursor-pointerg-blue-300' : 'hover:bg-slate-200' }
 
                             `}
                         >
                             <FireIcon className="w-10 h-10 text-red-500"/>
-                            <h3>"Top Deal bán chạy"</h3>
+                            <h3>Top Deal bán chạy</h3>
                         </div>
 
             

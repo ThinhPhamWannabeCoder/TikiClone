@@ -5,10 +5,12 @@ import PaymentSumPrice from "./PaymentSumPrice";
 import { RootState } from "../../../redux/store";
 import { OrderPayload } from "../../../types/user.types";
 import productApi from "../../../services/buyer.services";
+import { useNavigate } from "react-router-dom";
 
 export default function PaymentSideBar(){
     //  ORDER USE SELECTOR
     const order = useSelector((state:RootState) => state.order)
+    const navigate = useNavigate()
     const handleOrder = ()=>{
         // console.log("hi")
         const requestBody:OrderPayload = {
@@ -22,7 +24,8 @@ export default function PaymentSideBar(){
         productApi.createOrders(requestBody)
             .then(res =>{
                 if(res.data.status == 204){
-                    console.log("good")
+                    alert("Dat hang thanh cong")
+                    navigate("/user/order")
                 }
                 else{
                     console.log("Something went wrong")

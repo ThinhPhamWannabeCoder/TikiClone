@@ -11,13 +11,14 @@ import { PlusIcon, MinusIcon} from "@heroicons/react/24/solid";
 const data = {
     productPrice: 198.000
 }
-export default function OrderOption(prop: {price: number}){
+interface propType{
+    price: number, 
+    setOrderNumber: (val : number)=>void, 
+    quantity:number
+}
+export default function OrderOption(prop: propType){
     const [orderNumber, setOrderNumber] = useState<number>(1);
-    const [finalPrice, setFinalPrice] = useState<string>(prop.price.toFixed(3))
-    useEffect(()=>{
-        setFinalPrice((prop.price*orderNumber).toFixed(3))
-    },[orderNumber])
-    const regex = /^[0-9]$/
+ 
     // const inputHanlder= (event)=>{
 
         // setOrderNumber(parseInt(e.target.value))
@@ -40,17 +41,18 @@ export default function OrderOption(prop: {price: number}){
                 <h3 className="font-semibold text-lg py-4">Số lượng</h3>
                 <div className="flex items-center gap-1">
                     <button className={`border-2  p-1 rounded-lg 
-                                        ${orderNumber===1 ? 'bg-slate-200':' border-slate-400'}
+                                        ${prop.quantity===1 ? 'bg-slate-200':' border-slate-400'}
                                     `}
-                            onClick={()=>{setOrderNumber(orderNumber-1)}}
-                            disabled={orderNumber===1}
+                            // onClick={()=>{setOrderNumber(orderNumber-1)}}
+                            onClick={()=>{prop.setOrderNumber(prop.quantity-1)}}
+                            disabled={prop.quantity===1}
                             
                     >
                         <MinusIcon className="w-6"/>
 
                     </button>
                     <p className="border-2 p-1 rounded-lg w-10 flex justify-center items-center border-slate-400">
-                        {orderNumber}
+                        {prop.quantity}
                     </p>
                     {/* <input className="border-2 p-1 rounded-lg w-10 flex justify-center items-center border-slate-400"
                             value={orderNumber}
@@ -61,7 +63,7 @@ export default function OrderOption(prop: {price: number}){
                     
                     
                     <button className="border-2 p-1 rounded-lg border-slate-400"
-                            onClick={()=>{setOrderNumber(orderNumber+1)}}
+                            onClick={()=>{prop.setOrderNumber(prop.quantity+1)}}
                     >
                         <PlusIcon className="w-6"/>
 
@@ -71,7 +73,7 @@ export default function OrderOption(prop: {price: number}){
             </div>
             <div>
                 <h3 className="font-semibold text-lg">Tạm tính</h3>
-                <p className="text-xl font-bold py-4">{finalPrice}</p>
+                <p className="text-xl font-bold py-4">{prop.price * prop.quantity}</p>
             </div>
 
         </>

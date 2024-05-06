@@ -14,7 +14,7 @@ export default function CategoryNav(){
     const navigate = useNavigate();
 
     
-    const [data, setData] = useState<navItem[]|undefined>(undefined);
+    const [data, setData] = useState<navItem[]|undefined>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     
     const convertToSlug = (text:string) => {
@@ -31,20 +31,31 @@ export default function CategoryNav(){
     }
     useEffect(()=>{
         
-        productApi.getSubCategoryNav(parseInt(searchParams.get('category_id') as string))
-            .then(x => {
-                if(x.data.length){
-                    setData(x.data); setLoading(false)
+        productApi.getCategory(parseInt(searchParams.get('category_id') as string))
+            .then(res => {
+                
+                if(res.data.data.length>0){
+                    console.log(res.data.data)
+                    setData(res.data.data.map(item => {
+                        return {
+                          id: item.id,
+                          name: item.name,
+                        //   image: item.image.url
+                        }
+                      }))
                 }
+                // else{
+                //     navigate("/")
+                    
+                // }
             })
             .catch(e => console.log(e.message))
     },[])
-
-    if(isLoading){
-        console.log(isLoading)
+    
+    if(data?.length<=0){
         return (
             <NavBox class="sticky top-2">
-                <div>Loading </div>
+                <div>Day se chi la co filter khong thoi </div>
             </NavBox>
         )
     }
@@ -55,7 +66,7 @@ export default function CategoryNav(){
                 {data.map((item) => (
                     <Link
                       key={item.id}
-                      to={`${convertToSlug(item.name)}?subcategory_id=${item.id}`} // Convert title to slug
+                      to={`/check/?subcategory_id=${item.id}`} // Convert title to slug
                       className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2"
                       >
                       {/* <div className="flex"> */}

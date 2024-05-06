@@ -52,7 +52,7 @@ const productApi ={
     getUserCart: async (data: {userId : number}) => await axiosAdmin.get(`carts/user/${data.userId}`),
     deleteByIds: async (data: {ids: number[]}) => await axiosAdmin.post(`carts/delete`,data),
     updateCartByCartId: async (data: {cartId: number, quantity: number}) => await axiosAdmin.post(`carts/update?id=${data.cartId}&quantity=${data.quantity}`),
-   
+    addToCart: async(data:{userId: number, productId: number, quantity: number}) => await axiosAdmin.post(`carts`, data),
     // =============== ORDER =============== //
     createOrders: async (data:OrderPayload) => await axiosAdmin.post(`orders`,data),
 

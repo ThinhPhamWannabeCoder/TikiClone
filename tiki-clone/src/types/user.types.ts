@@ -39,7 +39,7 @@ export interface UserNotification{
     date: string,
 }
 export interface CartType{
-    id: number,
+    id?: number,
     store:{
         id: number,
         name: string,

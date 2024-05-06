@@ -25,7 +25,12 @@ export default function HeroSection(){
             .catch(err => console.log(err.message))
     },[])
     if(isLoading){
-        return(<div>Is loading</div>)
+        return(
+            <ContentBox class="w-full">
+            
+                Hero Secion 
+            </ContentBox>
+        )
     }
     return(
         

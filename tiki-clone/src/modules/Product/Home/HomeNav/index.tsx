@@ -140,7 +140,6 @@ export default function HomeNav(){
       //   .catch(e => console.log(e.message))
       productApi.getCategory()
         .then(res => {
-          console.log(res.data)
           setData(res.data.data.map(item => {
             return {
               id: item.id,
@@ -167,11 +166,9 @@ export default function HomeNav(){
                         to={`${convertToSlug(item.name)}?category_id=${item.id}`} // Convert title to slug
                         className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2 items-center"
                         >
-                        {/* <div className="flex"> */}
                           <img src={`http://localhost:1337${item.image}`} alt="categry iamge"  className="w-10 h-10"/>
                           <p>{item.name}</p>
 
-                        {/* </div> */}
                       </Link>
                   ))} 
           </div>

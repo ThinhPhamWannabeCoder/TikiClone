@@ -11,11 +11,12 @@ interface navItem{
   }
 export default function SubCategoryNavFilter(){
     const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
     const navigate = useNavigate();
     if(!searchParams.get('subcategory_id')){
         navigate("/")
     }
-    const searchParams = new URLSearchParams(location.search);
 //    GET PRICE
 //    GET EVERY THING
     return(

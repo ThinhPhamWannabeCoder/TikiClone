@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ProductBagde from "../../components/Badge/ProductBadge";
 import OrderForm from "../Order/OrderForm";
 import ProductDescription from "./Description";
@@ -49,25 +49,35 @@ interface productShape{
 }
 interface Order{
     
-        product_id: number
+        // product_id: number
+        // price: number,
+        // store_id: number
+    store:{
+        id: number,
+        name: string
+    },
+    product:{
+        id: number,
+        name: string,
         price: number,
-        store_id: number
+        primaryImage: string,
+    },
+    // quantity: number,
 }
 export default function Product(){
     // Get all those ....
     // const location = useLocation();
     // const searchParams = new URLSearchParams(location.search);
-    // const navigate = useNavigate();
-    const [data, SetData] = useState();
+    // const searchParams = new URLSearchParams(location.search);
+    const {productId} = useParams()
     
     const [mainBadge, setMainBadge] =useState<MainBadge|undefined>(undefined)
     const [description, setDescription]=useState<Description|undefined>(undefined)
     const [lastBadge, setLastBadge] = useState<Order|undefined>(undefined)
-    const [productShape, setProductShape] =  useState<productShape|undefined>(undefined)
+  
     useEffect(()=>{
-        productApi.getProductById(1)
+        productApi.getProductById(productId)
             .then(x=>{
-                // console.log(x.data)
                 setMainBadge(
                     {
                         productImages: x.data.product_images,
@@ -81,9 +91,20 @@ export default function Product(){
                     desc: x.data.desc.desc
                 })
                 setLastBadge({
-                    product_id: x.data.id,
-                    price: x.data.price,
-                    store_id: x.data.store_id
+                    // product_id: x.data.id,
+                    // price: x.data.price,
+                    // store_id: x.data.store_id
+                    store:{
+                        id: x.data.store.id,
+                        name: x.data.store.name,
+                    },
+                    product:{
+                        id: x.data.id,
+                        name: x.data.name,
+                        price: x.data.price,
+                        primaryImage: x.data.product_images[0],
+                    },
+                    // quantity: 1
                 })
             })
             .catch(err => {

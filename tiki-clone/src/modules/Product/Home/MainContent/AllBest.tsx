@@ -71,7 +71,12 @@ export default function AllBest(){
         
     },[curCategoryId])
     if(isLoading){
-        return 'loading'
+        return (
+            <ContentBox class="w-full">
+            
+                All best Product List
+            </ContentBox>
+        )
     }
     return(
         <ContentBox class="flex flex-col gap-3">

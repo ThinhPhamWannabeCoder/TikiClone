@@ -43,7 +43,7 @@ export default function SideBar(){
         console.log(user?.id)
         dispatch(init( {
             data:{
-                userId: user?.id,
+                userId: user?.id as number,
                 carts: order,
                 
             } 

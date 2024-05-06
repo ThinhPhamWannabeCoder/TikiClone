@@ -28,7 +28,7 @@ interface product{
     }
 }
 export default function ProductList(){
-    const [productData, setProductData] = useState<product[]|undefined>(undefined)
+    const [productData, setProductData] = useState<product[]>([])
     const [isLoading, setLoading] = useState<boolean>(true)
     const [currentPage, setCurentPage] = useState<number>(1)
     const [bestSeller, setBestSeller] = useState<"true"|"false">("false")
@@ -82,6 +82,7 @@ export default function ProductList(){
                                 product_url={item.primary_image.url} 
                                 name={item.name}
                                 price={item.price}
+                                id={item.id}
                             />
                         )
                     }

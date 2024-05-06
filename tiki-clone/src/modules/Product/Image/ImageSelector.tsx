@@ -15,10 +15,7 @@ interface propsType{
     // OutstandingDesc: string[],
 }
 export default function  ImageSelector(prop:propsType){
-    // prop.productImages.unshift(prop.primaryImage);
-
-    console.log(prop)
-    // productImages.unshift(primaryImage);
+ 
 
     const [selectedImage, setSelectedImage] = useState(prop.productImages[0]);
     const imageHanlder = (image:any)=>{

@@ -71,7 +71,12 @@ export default function YouMayLike(){
         
     },[curCategoryId])
     if(isLoading){
-        return 'loading'
+        return (
+            <ContentBox class="w-full">
+            
+                You may like
+            </ContentBox>
+        )
     }
     return(
         <ContentBox class="flex flex-col gap-3">

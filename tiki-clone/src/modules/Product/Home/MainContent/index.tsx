@@ -41,8 +41,8 @@ export default function MainHomeContent(){
     )
 }
 
-const fakeFetchResult ={
-    heroResult : [{id: 1, imgUrl:''},{id:2, imgUrl:''}],
-    AllBestResult: [{id: 1, title:'',categoryId:1},{id:2, title:'',categoryId:1}],
-    YouMayLikeResult: [{id: 1, title:'',subCategoryId:1},{id:2, title:'',subCategoryId:1}],
-}
+// const fakeFetchResult ={
+//     heroResult : [{id: 1, imgUrl:''},{id:2, imgUrl:''}],
+//     AllBestResult: [{id: 1, title:'',categoryId:1},{id:2, title:'',categoryId:1}],
+//     YouMayLikeResult: [{id: 1, title:'',subCategoryId:1},{id:2, title:'',subCategoryId:1}],
+// }

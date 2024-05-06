@@ -37,7 +37,7 @@ export default function Header(){
                             <FaceSmileIcon className="w-6"/>
                             <h3>Tài khoản</h3>
                         </NavLink>
-                        <NavLink to="/cart" className="border-l border-slate-400 px-2 flex">
+                        <NavLink to="/checkout/cart" className="border-l border-slate-400 px-2 flex">
                             <ShoppingCartIcon className="borde-slate-400 w-6"/>
                         </NavLink>
                     </div>

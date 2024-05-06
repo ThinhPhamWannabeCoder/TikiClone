@@ -14,6 +14,9 @@ import HomePage from "../pages/Home";
 import CommingSoon from "../pages/CommingSoon";
 import CartPage from "../pages/Checkout/Cart";
 import Order from "../pages/Checkout/Order";
+import CategoryPage from "../pages/Buyer/CategoryPage";
+import SubCategoryPage from "../pages/Buyer/SubCategoryPage";
+import ProductPage from "../pages/Buyer/ProductPage";
 
 const publicRoutes = createBrowserRouter(
     createRoutesFromElements(
@@ -27,6 +30,10 @@ const publicRoutes = createBrowserRouter(
           <Route path='checkout/payment' element={<Order/>}></Route>
           <Route path='checkout/cart' element={<CartPage/>}></Route>
           <Route path='checkout/paymnent' element={<Order/>}></Route>
+          <Route path=':category' element={<CategoryPage/>}></Route>
+          <Route path=':category/:subcategory' element={<SubCategoryPage/>}></Route>
+          {/* <Route path=':category/:subcategory/:product' element={<ProductPage/>}></Route> */}
+          <Route path='product/:productId' element={<ProductPage/>}></Route>
 
           <Route path='login' element={<LoginPage/>} ></Route>
           <Route path='register' element= {<RegisterPage/>}></Route>
