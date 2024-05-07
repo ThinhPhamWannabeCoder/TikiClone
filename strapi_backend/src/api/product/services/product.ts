@@ -321,13 +321,15 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         secondary_images.unshift(data.primary_image.url)
         // const product_images 
 
-
         // Bo sung thong tin store
         const payload = {
             id: data.id,
             name: data.name,
             price: data.price,
-            store_id: data.store.id,
+            store: {
+                id: data.store.id,
+                name: data.store.name
+            },
             // STORE
             // store_id:{
             //     store_id,

@@ -17,6 +17,8 @@ export default function CategoryNav(){
     const [data, setData] = useState<navItem[]|undefined>([]);
     const [isLoading, setLoading] = useState<boolean>(true)
     
+    const [curCategory, setCurCategory] = useState<number>(parseInt(searchParams.get('category_id') as string))
+
     const convertToSlug = (text:string) => {
         const x =  unidecode(text)
             .toLowerCase() // Convert text to lowercase
@@ -26,32 +28,36 @@ export default function CategoryNav(){
             .trim(); // Trim leading and trailing spaces
         return x
       };    
+    // console.log(convertToSlug(item.name))
     if(!searchParams.get('category_id')){
+
         navigate("/")
     }
+
     useEffect(()=>{
+      console.log("check")
         
         productApi.getCategory(parseInt(searchParams.get('category_id') as string))
             .then(res => {
                 
                 if(res.data.data.length>0){
-                    console.log(res.data.data)
                     setData(res.data.data.map(item => {
                         return {
                           id: item.id,
                           name: item.name,
-                        //   image: item.image.url
                         }
                       }))
                 }
-                // else{
-                //     navigate("/")
-                    
-                // }
+ 
             })
             .catch(e => console.log(e.message))
     },[])
-    
+
+    const handleNavigation = (item) => {
+      const path = `/${convertToSlug(item.name)}?category_id=${item.id}`;
+      navigate(path);
+      window.location.reload()
+    };
     if(data?.length<=0){
         return (
             <NavBox class="sticky top-2">
@@ -59,14 +65,17 @@ export default function CategoryNav(){
             </NavBox>
         )
     }
+  
     return(
         <NavBox class="sticky top-2">
         <div className=" flex flex-col max-h-screen overflow-y-scroll no-scrollbar">
             <h1 className="font-semibold px-3">Danh mục</h1>
                 {data.map((item) => (
-                    <Link
+                  
+                    <div
                       key={item.id}
-                      to={`/check/?subcategory_id=${item.id}`} // Convert title to slug
+                      onClick={()=>{handleNavigation(item)}}
+                      // to={`/${convertToSlug(item.name)}?category_id=${item.id}`} // Convert title to slug
                       className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2"
                       >
                       {/* <div className="flex"> */}
@@ -74,7 +83,7 @@ export default function CategoryNav(){
                         <p>{item.name}</p>
 
                       {/* </div> */}
-                    </Link>
+                    </div>
                 ))} 
         </div>
       </NavBox>

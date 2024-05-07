@@ -72,12 +72,20 @@ export default factories.createCoreService('api::cart.cart',({strapi})=>({
                 }
             })
             if(data.length>0){
-                return {
-                    status: 400,
-                    msg: "User already has this cart"
+              
+                const entry = await strapi.entityService.update('api::cart.cart',data[0].id, {
+                    data:{
+                        user: body.userId,
+                        product: body.productId,
+                        quantity: body.quantity + data[0].quantity,
+                    }
+                })
+                return{
+                    bug: 0,
+                    msg: "Them hang vao gio thanh cong",
                 }
             }
-            console.log(data)
+            
             const entry = await strapi.entityService.create('api::cart.cart',{
                 data:{
                     user: body.userId,
@@ -87,7 +95,7 @@ export default factories.createCoreService('api::cart.cart',({strapi})=>({
             })
             return{
                 bug: 0,
-                msg: entry,
+                msg: "Them hang vao gio thanh cong",
             }
         }
         catch(e){

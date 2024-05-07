@@ -14,9 +14,9 @@ export default function SubCategoryNavFilter(){
     const searchParams = new URLSearchParams(location.search);
 
     const navigate = useNavigate();
-    if(!searchParams.get('subcategory_id')){
-        navigate("/")
-    }
+    // if(!searchParams.get('subcategory_id')){
+    //     navigate("/")
+    // }
 //    GET PRICE
 //    GET EVERY THING
     return(
