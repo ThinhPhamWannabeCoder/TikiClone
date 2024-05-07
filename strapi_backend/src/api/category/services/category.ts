@@ -29,6 +29,16 @@ export default factories.createCoreService('api::category.category',({strapi})=>
             }
         })
         return res
-    }
+    },
+    getNav: async ()=>{
+        return"hello Nav"
+    },
+    getBest: async ()=>{
+        return"hello Best"
+    },
+    getTop: async ()=>{
+        return"hello Top"
+    },
+
 }));
 
