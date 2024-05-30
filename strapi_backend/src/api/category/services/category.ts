@@ -26,7 +26,8 @@ export default factories.createCoreService('api::category.category',({strapi})=>
                 image:{
                     select: ["url"]
                 },
-            }
+            },
+            orderBy: {id: "ASC"}
         })
         return res
     },
