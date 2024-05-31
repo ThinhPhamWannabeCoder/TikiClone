@@ -24,9 +24,10 @@ const productApi ={
     // =============== CATEGORY =============== //
     getCategory: async (parent?: number,) => await axiosAdmin.get(`/categories${parent ? `?parent=${parent}`:''}`),
 
-    getCategoryNav : async () => await axiosAdmin.get("/product-categories/nav"),
-    getCategoryBestFilter: async () => await axiosAdmin.get("/product-categories/best"),
-    getCategoryTopFilter: async () => await axiosAdmin.get("/product-categories/top"),
+    //getCategoryNav : async () => await axiosAdmin.get("/product-categories/nav"),
+    getCategoryBestFilter: async () => await axiosAdmin.get("/categories/best"),
+    getCategoryTopFilter: async () => await axiosAdmin.get("/categories/top"),
+    getSubCategoryNav: async (parent: number) => await axiosAdmin.get(`categories/sub-nav/${parent}`),
 
     getCategoryProduct: async (data : {category_id: number, best_seller: BooleanLiteral, new_product: BooleanLiteral, price_range: string, limit: number,current_page:number, sort: string}) => await axiosPublic.get(`products/get-all?category_id=${data.category_id}&new_product=${data.new_product}&price_range=${data.price_range}&sort=${data.sort}&best-seller=${data.best_seller}&limit=${data.limit}}&current_page=${data.current_page}`),
     getCategoryBestProductBySubCategory: async (data :{subcategory_id: number, limit: number,current_page:number}) => await axiosAdmin.get(`products/getAll?subcategory_id=${data.subcategory_id}&limit=${data.limit}&current_page=${data.current_page}`),

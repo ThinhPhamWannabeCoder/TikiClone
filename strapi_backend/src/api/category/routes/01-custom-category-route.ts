@@ -5,11 +5,7 @@ export default{
             path: '/categories',
             handler: 'category.getAll',
         },
-        {
-            method: 'GET',
-            path: '/categories/nav',
-            handler: 'category.getNav',
-        },
+        
         {
             method: 'GET',
             path: '/categories/best',
@@ -19,6 +15,11 @@ export default{
             method: 'GET',
             path: '/categories/top',
             handler: 'category.getTop',
+        },
+        {
+            method: 'GET',
+            path: '/categories/sub-nav/:id',
+            handler: 'category.getSubNav',
         },
         
         

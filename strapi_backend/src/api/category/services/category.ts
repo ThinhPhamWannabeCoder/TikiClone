@@ -7,7 +7,6 @@ import { factories } from '@strapi/strapi';
 export default factories.createCoreService('api::category.category',({strapi})=>({
     getAll: async(data: {parent: number})=>{
         let options:any = {}
-
         if(data.parent){
             options = {parent: data.parent}
 
@@ -31,14 +30,57 @@ export default factories.createCoreService('api::category.category',({strapi})=>
         })
         return res
     },
-    getNav: async ()=>{
-        return"hello Nav"
-    },
+    
     getBest: async ()=>{
-        return"hello Best"
+        // FORMULAR: GET BEST NAVIGATION 
+        // USER: Product, Order (Transaction), ON Total Revenue
+        // DEFAULT IF CAN NOT GET PROPER LIST
+        const res = await strapi.db.query('api::category.category').findMany({
+            select:["name"],
+            //where:options,
+            populate:{
+                image:{
+                    select: ["url"]
+                },
+            },
+            orderBy: {id: "ASC"},
+            limit: 4,
+        })
+        return res;
     },
     getTop: async ()=>{
-        return"hello Top"
+        // FORMULAR: GET TOP NAVIGATION 
+        // USER: Product, Order (Transaction), ON Total Amount
+        const res = await strapi.db.query('api::category.category').findMany({
+            select:["name"],
+            //where:options,
+            populate:{
+                image:{
+                    select: ["url"]
+                },
+            },
+            orderBy: {id: "DESC"},
+            limit: 4,
+        })
+        return res;
+    },
+    getSubNav: async (parent: number)=>{
+        // FORMULAR: GET TOP NAVIGATION 
+        // USER: Product, Order (Transaction), ON Total Amount
+        let options:any = {parent: parent};
+
+        const res = await strapi.db.query('api::category.category').findMany({
+            select:["name"],
+            where:options,
+            populate:{
+                image:{
+                    select: ["url"]
+                },
+            },
+            orderBy: {id: "ASC"},
+            limit: 4,
+        })
+        return res;
     },
 
 }));
