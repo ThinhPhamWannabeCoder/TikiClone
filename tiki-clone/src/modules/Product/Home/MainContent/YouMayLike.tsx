@@ -42,11 +42,10 @@ export default function YouMayLike(){
     useEffect(()=>{
         productApi.getCategoryTopFilter()
             .then(res => {
-                console.log(res.data);
-                if(res.data.length>0){
-                    setFilterData(res.data);
+                if(res.data.data.length>0){
+                    setFilterData(res.data.data);
                     setLoading(false);
-                    setCurCategoryId(res.data[0].id)
+                    setCurCategoryId(res.data.data[0].id)
                 }
             })
             .catch(err => console.log(err.message))
@@ -92,7 +91,9 @@ export default function YouMayLike(){
             <ProductListBox >
             {
                     prouductData?.map(item=>
-                        <ProductBagde key={item.id}
+                        <ProductBagde 
+                            key={item.id}
+                            id= {item.id}
                             product_url={item.primary_image.url} 
                             name={item.name}
                             price={item.price}

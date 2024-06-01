@@ -1,11 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { thinh_avatar } from "../../assets/images/image"
-const badgeData = {
-    primaryUrl: thinh_avatar,
-    name: 'Combo 2 Sữa rửa mặt Simple giúp kiềm dầu và ngừa mụn hiệu quả - cho da mụn nhạy cảm 150ml [CHÍNH HÃNG ĐỘC QUYỀN] [DIỆN MẠO MỚI]',
-    price: 199.100,
 
-}
 interface propType{
     id: number
     product_url: string,

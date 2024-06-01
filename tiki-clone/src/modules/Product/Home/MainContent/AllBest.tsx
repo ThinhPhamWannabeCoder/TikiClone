@@ -1,5 +1,4 @@
 import ProductListBox from "../../../../components/Common/ProductListBox";
-import { thinh_avatar } from "../../../../assets/images/image";
 import SmallFilterNav from "../../SmallFilterNav";
 import { useEffect, useState } from "react";
 import productApi from "../../../../services/buyer.services";
@@ -42,10 +41,11 @@ export default function AllBest(){
     useEffect(()=>{
         productApi.getCategoryBestFilter()
             .then(res => {
-                if(res.data.length>0){
-                    setFilterData(res.data);
+                if(res.data.data.length>0){
+                    
+                    setFilterData(res.data.data);
                     setLoading(false);
-                    setCurCategoryId(res.data[0].id)
+                    setCurCategoryId(res.data.data[0].id)
                 }
             })
             .catch(err => console.log(err.message))
@@ -59,7 +59,7 @@ export default function AllBest(){
             }).then(res => 
                 {
                     if(res.data.length>0){
-                        
+          
                         setProducData(res.data)
                     }
                     else{
@@ -80,7 +80,7 @@ export default function AllBest(){
     }
     return(
         <ContentBox class="flex flex-col gap-3">
-            <SecondaryTitle name="Tiki best"/>
+            <SecondaryTitle name="Tiki Best"/>
             <SmallFilterNav class="col-span-6 flex p-0">
             {
                 filterData?.map(x=>(
@@ -93,6 +93,7 @@ export default function AllBest(){
                     productData?.map(item=>
                         <ProductBagde 
                             key={item.id}
+                            id = {item.id}
                             product_url={item.primary_image.url} 
                             name={item.name}
                             price={item.price}
@@ -105,31 +106,3 @@ export default function AllBest(){
         </ContentBox>      
     )
 }
-
-const fake = [
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-
-]

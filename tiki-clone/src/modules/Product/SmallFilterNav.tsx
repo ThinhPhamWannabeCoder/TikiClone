@@ -5,7 +5,7 @@ interface classProps{
 }
 export default function SmallFilterNav(props: classProps){
     return(
-        <div className={props.class}>
+        <div className={props.class + " cursor-pointer"}>
               {props.children}
         </div>
     )
