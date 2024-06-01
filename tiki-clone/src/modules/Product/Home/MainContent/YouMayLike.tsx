@@ -52,6 +52,7 @@ export default function YouMayLike(){
     },[])
     useEffect(()=>{
         if(curCategoryId){
+            setProducData([])
             productApi.getHomeBestProductByCategory({
                 category_id: curCategoryId as number,
                 limit: 6,

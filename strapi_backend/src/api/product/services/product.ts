@@ -145,6 +145,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
 
     },
     getBestByCategory: async (
+        
         options: 
         {
             category_id: number, 
@@ -153,10 +154,15 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         }
     ) =>{
         // DONE
+        console.log("Debugging");
+
         let filters: any = {
             Inventory: {
                 $gt: 0
             },
+            categories:{
+                id: options.category_id
+            }
             // product_sub_category: {
             //     product_category:{
             //         id: options.category_id

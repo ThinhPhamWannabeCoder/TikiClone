@@ -33,7 +33,7 @@ const productApi ={
     getCategoryBestProductBySubCategory: async (data :{subcategory_id: number, limit: number,current_page:number}) => await axiosAdmin.get(`products/getAll?subcategory_id=${data.subcategory_id}&limit=${data.limit}&current_page=${data.current_page}`),
     // =============== SUB-CATEGORY =============== //
     getSubCategory: async (subcategory_id: number,) => await axiosAdmin.get(`/product-sub-categories/${subcategory_id}`),
-    getSubCategoryNav : async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/nav`),
+    //getSubCategoryNav : async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/nav`),
     getSubCategoryBestFilter: async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/best`),
     getSubCategoryTopFilter: async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/top`),
 

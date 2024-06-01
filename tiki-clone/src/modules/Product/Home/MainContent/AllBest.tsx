@@ -52,6 +52,7 @@ export default function AllBest(){
     },[])
     useEffect(()=>{
         if(curCategoryId){
+            setProducData([])
             productApi.getHomeBestProductByCategory({
                 category_id: curCategoryId as number,
                 limit: 6,
