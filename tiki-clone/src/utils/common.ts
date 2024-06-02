@@ -14,6 +14,13 @@ function formatCurrency(amount: number|string) {
   }
   
   // Ví dụ sử dụng hàm
-
-  
-export {unidecode, formatCurrency}
+  function parseCurrency(input: number)  {
+    // Loại bỏ dấu phân cách ngàn
+    const numberString = input.replace(/\./g, '');
+    // Chuyển đổi chuỗi kết quả về dạng số
+    return numberString
+  };
+function checkPositiveNumber(input :number|string) {
+  console.log(input);
+}
+export {unidecode, formatCurrency, checkPositiveNumber, parseCurrency}
