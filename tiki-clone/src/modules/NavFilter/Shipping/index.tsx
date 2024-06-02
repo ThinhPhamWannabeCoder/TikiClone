@@ -25,7 +25,7 @@ export default function Shipping(props: PropsType){
     }
     return (
         <>
-            <SecondaryTitle name="Giao hàng"/>
+            <h1 className="font-semibold">Giao hàng</h1>
             <div className="flex flex-col gap-3">
                 {
                     props.data?.map(item=>{

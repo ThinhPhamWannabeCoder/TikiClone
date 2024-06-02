@@ -120,7 +120,8 @@ export default function PriceRange(props: PropTypes){
     }
     return(
         <>
-            <SecondaryTitle name="Giá"/>
+            <h1 className="font-semibold">Giá</h1>
+
             <div className="flex flex-col gap-3">
                 <div >
                     <span 
@@ -161,37 +162,43 @@ export default function PriceRange(props: PropTypes){
             </div>
             <SecondaryTitle name="Khoảng giá"/>
             
-            <div className="">
-                <div className="flex items-center gap-2">
-                    <input
-                        pattern="[0-9]*"
-                        inputMode="numeric"
-                        placeholder="Từ"
-                        type="text"
-                        value={props.priceOptions.from === -1 ? '' : formatCurrency(props.priceOptions.from)}                        
-                        onChange={handleFromInput} // Gọi hàm handleFromInput đúng cách
+            <div className="flex flex-col gap-2">
+                <div>
+                    <div className="flex items-center gap-2">
+                        <input
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                            placeholder="Từ"
+                            type="text"
+                            value={props.priceOptions.from === -1 ? '' : formatCurrency(props.priceOptions.from)}                        
+                            onChange={handleFromInput} // Gọi hàm handleFromInput đúng cách
 
-                        className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                    <span>₫</span>
-                    {/* <img src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"/> */}
+                            className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                        <span>₫</span>
+                        {/* <img src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"/> */}
+                    </div>
+                    <span>-</span>
+                    <div className="flex items-center gap-2">
+                        <input
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                            placeholder="Đến"
+                            type="text"
+                            value={props.priceOptions.to === -1 ? '' : formatCurrency(props.priceOptions.to)}                        
+                            onChange={handleToInput} // Gọi hàm handleFromInput đúng cách
+                            className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                        <span>₫</span>
+                        {/* <img src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"/> */}
+                    </div>
                 </div>
-                <span>-</span>
-                <div className="flex items-center gap-2">
-                    <input
-                        pattern="[0-9]*"
-                        inputMode="numeric"
-                        placeholder="Đến"
-                        type="text"
-                        value={props.priceOptions.to === -1 ? '' : formatCurrency(props.priceOptions.to)}                        
-                        onChange={handleToInput} // Gọi hàm handleFromInput đúng cách
-                        className="hover:border-slate-400 transition duration-200 focus:border-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    />
-                    <span>₫</span>
-                    {/* <img src="https://salt.tikicdn.com/ts/upload/1f/f9/28/fae2aa73d63bd27bd330055c37a74e90.png"/> */}
+                
+                <div className="flex justify-between">
+                    <span className="text-sm text-slate-600">Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau</span>
+                    <span onClick={()=>handleDeleteInputs()} className="cursor-pointer text-blue-400 hover:text-blue-600 ">Xoá</span>
                 </div>
-                <p className="text-sm text-slate-600">Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau</p>
-            <div onClick={()=>handleDeleteInputs()} className="border-2 rounded-full cursor-pointer">Xoá</div>
+                
 </div>
 
 

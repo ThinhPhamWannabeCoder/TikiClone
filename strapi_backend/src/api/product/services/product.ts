@@ -69,6 +69,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             filters: {
                 price: {
                     $gte: 0
+                    // $between: [parseFloat("0.01"), parseFloat("0.03")]
                 },
                 Inventory: {
                     $gt: 0

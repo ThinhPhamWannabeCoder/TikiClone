@@ -21,10 +21,11 @@ export default function NavFilter(){
     const [priceOptions, setPriceOptions] = useState<PriceRangeOption>({from: -1, to: -1});
 
     useEffect(()=>{
-        console.log(priceOptions)
-        console.log(selectedDeliveryOption)
-        console.log(priceRange)
+        // console.log(priceOptions)
+        // console.log(selectedDeliveryOption)
+        // console.log(priceRange)
 
+        // TO-DO
     },[priceRange, selectedDeliveryOption, priceOptions])
     useEffect(()=>{
         productApi.getDeliveries()
@@ -37,8 +38,8 @@ export default function NavFilter(){
         })
     },[])
     return(
-        <>
-            <SecondaryTitle name="Lọc"/>
+        <div className="flex flex-col px-3 gap-3">
+            <h1 className="font-semibold border-b border-slate-300 py-2">Lọc</h1>
             <Shipping
                 data={deliveryOptions}
                 selectedDeliveryOption={selectedDeliveryOption}
@@ -55,6 +56,6 @@ export default function NavFilter(){
                 fnc={()=>{console.log("xin chao ")}}
                 class="my-2"
             />
-        </>
+        </div>
     )
 }

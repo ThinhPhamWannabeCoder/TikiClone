@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { unidecode } from "../../../../utils/common";
 import NavBox from "../../../../components/Common/NavBox";
 import productApi from "../../../../services/buyer.services";
-import NavFilter from "../../../NavFilter";
 
 interface navItem{
   id: number,
@@ -59,7 +58,6 @@ export default function HomeNav(){
 
                       </Link>
                   ))} 
-                  <NavFilter/>
           </div>
         </NavBox>
     

@@ -50,6 +50,8 @@ export default function ProductList(){
             current_page: currentPage,
         })
             .then(res => {
+                    console.log(res.data)
+
                     if(currentPage>1){
                         // Append 
                         setProductData((prevData) => [...prevData, ...res.data]);
