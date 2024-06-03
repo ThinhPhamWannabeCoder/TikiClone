@@ -29,8 +29,13 @@ const productApi ={
     getCategoryTopFilter: async () => await axiosAdmin.get("/categories/top"),
     getSubCategoryNav: async (parent: number) => await axiosAdmin.get(`categories/sub-nav/${parent}`),
 
-    getCategoryProduct: async (data : {category_id: number, best_seller: BooleanLiteral, new_product: BooleanLiteral, price_range: string, limit: number,current_page:number, sort: string}) => await axiosPublic.get(`products/getAll?category_id=${data.category_id}&new_product=${data.new_product}&price_range=${data.price_range}&sort=${data.sort}&best-seller=${data.best_seller}&limit=${data.limit}}&current_page=${data.current_page}`),
+
+    
+    getCategoryProduct: async (data : {category_id: number, best_seller: BooleanLiteral, new_product: BooleanLiteral, price_range: string , limit: number,current_page:number, sort: string}) => await axiosAdmin.get(`products/getAll?category_id=${data.category_id}&new_product=${data.new_product}&price_range=${data.price_range}&sort=${data.sort}&best-seller=${data.best_seller}&limit=${data.limit}}&current_page=${data.current_page}`),
     getCategoryBestProductBySubCategory: async (data :{subcategory_id: number, limit: number,current_page:number}) => await axiosAdmin.get(`products/getAll?subcategory_id=${data.subcategory_id}&limit=${data.limit}&current_page=${data.current_page}`),
+
+
+    // TO-DELETE
     // =============== SUB-CATEGORY =============== //
     getSubCategory: async (subcategory_id: number,) => await axiosAdmin.get(`/product-sub-categories/${subcategory_id}`),
     //getSubCategoryNav : async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/nav`),

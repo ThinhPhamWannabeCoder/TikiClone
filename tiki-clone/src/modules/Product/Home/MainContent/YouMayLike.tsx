@@ -42,6 +42,7 @@ export default function YouMayLike(){
     useEffect(()=>{
         productApi.getCategoryTopFilter()
             .then(res => {
+                // console.log(res.data.data)
                 if(res.data.data.length>0){
                     setFilterData(res.data.data);
                     setLoading(false);
@@ -59,6 +60,7 @@ export default function YouMayLike(){
                 current_page: 1
             }).then(res => 
                 {
+                    // console.log(res.data)
                     if(res.data.length>0){
                         
                         setProducData(res.data)

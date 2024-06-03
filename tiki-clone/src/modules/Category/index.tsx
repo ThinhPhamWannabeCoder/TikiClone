@@ -6,6 +6,7 @@ import SubCategoryNav from "./MainContent/SubCategoryNav";
 import Title from "./MainContent/Title";
 import { useLocation, useNavigate } from 'react-router-dom';
 import productApi from "../../services/buyer.services";
+import ProductList from "../Product/ProductList";
 
 
 
@@ -24,18 +25,31 @@ export default function CategoryContent(){
     //         .catch(e => console.log(e.message));
 
     // },[])
-    if(title === undefined){
-        return <div>Please contect Admin for information</div>
-    }
+
+
+    // FILTER STATES
+
+    
+
+
+
+    // if(title === undefined){
+    //     return <div>Please contect Admin for information Alo bro</div>
+    // }
     return(
         <MainContent>
 
-            <Title name={title}/>
+            <Title name={"NAME TO CHANGE"}/>
             <SubCategoryNav/>
 
             <SubCategoryAllBest category_id={parseInt(category_id as string)}/>
-
-            <CategoryProductList category_id={parseInt(category_id as string)}/>
+            {/* USE useMemo for better performance when filtering productList
+                not the filter nav
+                */}
+                <ProductList
+                    categoryId={parseInt(category_id as string)}
+                />
+            {/* <CategoryProductList category_id={parseInt(category_id as string)}/> */}
         </MainContent>
     )
 }

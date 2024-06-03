@@ -140,7 +140,7 @@ export default function CategoryProductList(prop: propType){
                     <h1 className="bg-white font-semibold text-lg">Gợi ý ngày hôm nay</h1>
                     <SmallFilterNav class="w-full sticky top-2">
                     for products
-                </SmallFilterNav>
+                    </SmallFilterNav>
                 </div>
                 
                 {

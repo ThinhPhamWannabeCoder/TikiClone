@@ -8,6 +8,7 @@ import SecondaryTitle from "../../components/Title/SecondaryTitle";
 import ProductListPagination from "../../components/Pagination/ProductListPagination";
 import ContentBox from "../../components/Common/ContentBox";
 import HomeProductListFilter from "../../components/Badge/HomeProductListFIlter";
+import { PriceRangeOption, PriceRangeType } from "../../types/home.types";
 
 interface product{
     id: number,
@@ -27,7 +28,12 @@ interface product{
         url: string,
     }
 }
-export default function ProductList(){
+interface PropsType {
+    categoryId?: number,
+    priceRange?: string,
+}
+export default function ProductList(props: PropsType){
+    // console.log(props.categoryId)
     const [productData, setProductData] = useState<product[]>([])
     const [isLoading, setLoading] = useState<boolean>(true)
     const [currentPage, setCurentPage] = useState<number>(1)
@@ -44,24 +50,49 @@ export default function ProductList(){
     }
     useEffect(()=>{
         // console.log(bestSeller)
-        productApi.getHomeProduct({
-            best_seller: bestSeller,
-            limit: 6,
-            current_page: currentPage,
-        })
-            .then(res => {
-                    console.log(res.data)
-
-                    if(currentPage>1){
-                        // Append 
-                        setProductData((prevData) => [...prevData, ...res.data]);
-                    }
-                    else{
-                        setProductData(res.data)
-                        setLoading(false);
-                    }
-                })
-            .catch(err => console.log(err.message))
+        if(props.categoryId){
+            productApi.getCategoryProduct({
+                category_id: props.categoryId,
+                best_seller: bestSeller,
+                limit: 6,
+                current_page: currentPage,
+                new_product: "true",
+                price_range: "0-3",
+                sort: "asc"
+            })
+            .then(res=>{   
+                console.log(res.data)
+                if(currentPage>1){
+                    // Append 
+                    setProductData((prevData) => [...prevData, ...res.data]);
+                }
+                else{
+                    setProductData(res.data)
+                    setLoading(false);
+                }
+            })
+        }
+        else{
+            productApi.getHomeProduct({
+                best_seller: bestSeller,
+                limit: 6,
+                current_page: currentPage,
+            })
+                .then(res => {
+                        console.log(res.data)
+    
+                        if(currentPage>1){
+                            // Append 
+                            setProductData((prevData) => [...prevData, ...res.data]);
+                        }
+                        else{
+                            setProductData(res.data)
+                            setLoading(false);
+                        }
+                    })
+                .catch(err => console.log(err.message))
+        }
+        
     },[currentPage,bestSeller])
 
     // Place holder for doing lazy loading
@@ -98,89 +129,3 @@ export default function ProductList(){
     
     )
 }
-
-
-const data = [
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    
-
-]
