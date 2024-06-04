@@ -31,6 +31,10 @@ interface product{
 interface PropsType {
     categoryId?: number,
     priceRange?: string,
+    refresh: boolean,
+    price: string,
+    setRefresh: (input: boolean) => void
+
 }
 export default function ProductList(props: PropsType){
     // console.log(props.categoryId)
@@ -47,6 +51,53 @@ export default function ProductList(props: PropsType){
     }  
     const handleAll=()=>{
         setBestSeller("false")
+    }
+    if(props.refresh==true){
+        if(props.categoryId){
+            console.log(props.price)
+            productApi.getCategoryProduct({
+                category_id: props.categoryId,
+                best_seller: bestSeller,
+                limit: 6,
+                current_page: currentPage,
+                new_product: "true",
+                price_range: props.price,
+                sort: "asc"
+            })
+            .then(res=>{   
+                console.log(res.data)
+                if(currentPage>1){
+                    // Append 
+                    setProductData((prevData) => [...prevData, ...res.data]);
+                }
+                else{
+                    setProductData(res.data)
+                    setLoading(false);
+                }
+            })
+        }
+        else{
+            productApi.getHomeProduct({
+                best_seller: bestSeller,
+                limit: 6,
+                current_page: currentPage,
+            })
+                .then(res => {
+                        console.log(res.data)
+    
+                        if(currentPage>1){
+                            // Append 
+                            setProductData((prevData) => [...prevData, ...res.data]);
+                        }
+                        else{
+                            setProductData(res.data)
+                            setLoading(false);
+                        }
+                    })
+                .catch(err => console.log(err.message))
+        }
+        props.setRefresh(false)
+
     }
     useEffect(()=>{
         // console.log(bestSeller)
@@ -105,6 +156,9 @@ export default function ProductList(props: PropsType){
             <ContentBox class="col-span-6 z-10 sticky top-0 flex flex-col gap-2">
                 <SecondaryTitle name="Gợi ý ngày hôm nay"/>
                 <HomeProductListFilter best={handleBestSeller} all={handleAll} state={bestSeller}/>
+                 {/* IF CATEGORY THEN PRODUCE THIS */}
+                 {/* ADD 1 MORE LAYER FOR SORTING (PRICE, NEW) */}
+
             </ContentBox>
             <ContentBox>
                 <ProductListBox >

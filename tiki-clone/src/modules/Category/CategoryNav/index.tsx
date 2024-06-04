@@ -9,7 +9,11 @@ interface navItem{
     name: string,
     // image: string,
   }
-export default function CategoryNav(){
+  interface propsType{
+    setPrices: (input:string)=>void,
+    setRefresh: (input: boolean) => void,
+}
+export default function CategoryNav(props: propsType){
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const navigate = useNavigate();
@@ -91,7 +95,10 @@ export default function CategoryNav(){
                   ))} 
                   
           </div>
-          <NavFilter/>
+          <NavFilter
+            setPrices={props.setPrices}
+            setRefresh={props.setRefresh}
+          />
 
       </NavBox>
     )

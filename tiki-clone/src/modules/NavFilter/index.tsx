@@ -8,8 +8,11 @@ import { PriceRangeOption, PriceRangeType } from "../../types/home.types";
 import { DeliveryOptionsType } from "../../types/user.types";
 import productApi from "../../services/buyer.services";
 
-
-export default function NavFilter(){
+interface propsType{
+    setPrices: (input:string)=>void,
+    setRefresh: (input: boolean) => void
+}
+export default function NavFilter(props: propsType){
     // ALL STATES
     //Shipping States
     const [deliveryOptions, setDeliveryOptions] = useState<DeliveryOptionsType[]>([])
@@ -20,13 +23,7 @@ export default function NavFilter(){
     // Price Options States
     const [priceOptions, setPriceOptions] = useState<PriceRangeOption>({from: -1, to: -1});
 
-    useEffect(()=>{
-        // console.log(priceOptions)
-        // console.log(selectedDeliveryOption)
-        // console.log(priceRange)
-
-        // TO-DO
-    },[priceRange, selectedDeliveryOption, priceOptions])
+  
     useEffect(()=>{
         productApi.getDeliveries()
         .then(res =>{
@@ -37,6 +34,19 @@ export default function NavFilter(){
             console.log(err.message)
         })
     },[])
+    
+    const handleChangePriceRange = (input : PriceRangeType) =>{
+        const first = input.first_quatile.toString();
+        const second = input.third_quatile.toString();
+        props.setPrices(first+'-'+second)
+
+    }
+    const handleChangePriceOptions = (input : PriceRangeOption) =>{
+        const first = input.from.toString();
+        const second = input.to.toString();
+        props.setPrices(first+'-'+second)
+    }
+
     return(
         <div className="flex flex-col px-3 gap-3">
             <h1 className="font-semibold border-b border-slate-300 py-2">Lọc</h1>
@@ -50,10 +60,12 @@ export default function NavFilter(){
                 setPriceRange={setPriceRange}
                 priceOptions={priceOptions}
                 setPriceOptions={setPriceOptions}
+                handleChangePriceOptions={handleChangePriceOptions}
+                handleChangePriceRange={handleChangePriceRange}
             />
             <PrimaryButton
                 name="Lọc"
-                fnc={()=>{console.log("xin chao ")}}
+                fnc={()=>{props.setRefresh(true)}}
                 class="my-2"
             />
         </div>

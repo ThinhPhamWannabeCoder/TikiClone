@@ -14,53 +14,73 @@ interface PropTypes {
     setPriceRange: (input: PriceRangeType)=>void,
     priceOptions: PriceRangeOption,
     setPriceOptions: (input: PriceRangeOption) => void,
+    handleChangePriceRange: (input: PriceRangeType)=>void,
+    handleChangePriceOptions: (input: PriceRangeOption) => void,
 
 }
 export default function PriceRange(props: PropTypes){
     
     const handleFirstQuatile = () => {
-        
+        let option:PriceRangeType;
         if(props.priceRange?.first_quatile && props.priceRange?.third_quatile){
-            props.setPriceRange({
+            option = {
                 first_quatile: mockData.first_quatile,
                 third_quatile:  0
-            })
+            }
+            
         }
         else{
-            props.setPriceRange({
+            option ={
                 first_quatile: props.priceRange?.first_quatile ? 0 : mockData.first_quatile,
                 third_quatile: 0
-            })
+            }
         }
+        props.setPriceRange(option)
+        props.setPriceOptions({from: -1, to: -1})
+        props.handleChangePriceRange(option);
     }
     const handleThirdQuatile = () => {
-        
+        let option:PriceRangeType;
         if(props.priceRange?.first_quatile && props.priceRange?.third_quatile){
-            props.setPriceRange({
+            option ={
                 first_quatile: 0 ,
                 third_quatile:  mockData.third_quatile,
-            })
+            }
         }
         else{
-            props.setPriceRange({
+            option = {
                 first_quatile: 0,
                 third_quatile: props.priceRange?.third_quatile ? 0 : mockData.third_quatile,
-            })
+            }
         }
+        props.setPriceRange(option)
+        props.setPriceOptions({from: -1, to: -1})
+        props.handleChangePriceRange(option);
+
+        // props.handleChangePriceOptions
+
     }
     const handleMiddle = () => {
+        let option:PriceRangeType;
+
         if(props.priceRange?.first_quatile && props.priceRange?.third_quatile){
-            props.setPriceRange({
+            option ={
                 first_quatile: 0 ,
                 third_quatile:  0 ,
-            })
+            }
         }
         else{
-            props.setPriceRange({
+            option ={
                 first_quatile: mockData.first_quatile,
                 third_quatile:  mockData.third_quatile,
-            })
+            }
         }
+        props.setPriceRange(option)
+
+        props.setPriceOptions({from: -1, to: -1})
+        props.handleChangePriceRange(option);
+
+
         
     }
     const handleFromInput = (e)=>{
@@ -85,6 +105,7 @@ export default function PriceRange(props: PropTypes){
                 });
             }
         }
+        props.setPriceRange({first_quatile: 0, third_quatile: 0})
     }
     const handleToInput = (e)=>{
          // console.log(e.target.value)
@@ -110,6 +131,8 @@ export default function PriceRange(props: PropTypes){
                  });
              }
          }
+        props.setPriceRange({first_quatile: 0, third_quatile: 0})
+
     }
     const handleDeleteInputs = () =>{
         // console.log("Delete")
