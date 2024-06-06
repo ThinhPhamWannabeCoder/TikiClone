@@ -78,7 +78,7 @@ export default factories.createCoreService('api::category.category',({strapi})=>
                 },
             },
             orderBy: {id: "ASC"},
-            limit: 4,
+            limit: 6,
         })
         return res;
     },

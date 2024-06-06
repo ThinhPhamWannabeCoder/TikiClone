@@ -67,8 +67,10 @@ export default function SubCategoryAllBest(data:props){
     const [productData, setProducData] = useState<product[]|undefined>(undefined)
     console.log(data.category_id)
     useEffect(()=>{
-        productApi.getSubCategoryBestFilter(data.category_id)
+        productApi.getSubCategory(data.category_id)
             .then(res => {
+                console.log(res.data);
+
                 if(res.data.length>0){
                     setFilterData(res.data);
                     setLoading(false);

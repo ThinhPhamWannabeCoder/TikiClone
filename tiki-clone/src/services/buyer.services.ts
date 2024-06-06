@@ -37,7 +37,7 @@ const productApi ={
 
     // TO-DELETE
     // =============== SUB-CATEGORY =============== //
-    getSubCategory: async (subcategory_id: number,) => await axiosAdmin.get(`/product-sub-categories/${subcategory_id}`),
+    getSubCategory: async (subcategory_id: number,) => await axiosAdmin.get(`/categories/sub-nav/${subcategory_id}`),
     //getSubCategoryNav : async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/nav`),
     getSubCategoryBestFilter: async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/best`),
     getSubCategoryTopFilter: async (category_id : number) => await axiosAdmin.get(`/product-sub-categories/${category_id}/top`),

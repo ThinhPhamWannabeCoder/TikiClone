@@ -3,7 +3,7 @@ import RootLayout from "../components/Layout/RootLayout";
 import LoginPage  from "../pages/Auth/Login";
 import RegisterPage from "../pages/Auth/Register";
 import NotFound from "../components/Common/NotFound";
-import UserError from "../components/Error/UserError";
+import UserError from "../pages/Error/UserError";
 import Layout from "../components/Layout/Layout";
 import PreviewAvatar from "../pages/Test/PreviewAvatar";
 import GraphQl from "../pages/Test/GraphQl";
