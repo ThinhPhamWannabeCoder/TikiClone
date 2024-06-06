@@ -29,7 +29,7 @@ export default factories.createCoreController('api::product.product',({strapi})=
         if (limit) queryParams.limit = parseInt(limit as string);
         if (current_page) queryParams.current_page = parseInt(current_page as string);
         if(category_id){
-            if(best_seller){
+            // if(best_seller){
                 ctx.body = await strapi.service('api::product.product').getAllCategory({
                     category_id: queryParams.category_id,
                     best_seller: queryParams.best_seller,
@@ -40,14 +40,14 @@ export default factories.createCoreController('api::product.product',({strapi})=
                     sort: queryParams.sort,
 
                 }); 
-            }
-            else{
-                ctx.body = await strapi.service('api::product.product').getBestByCategory({
-                    category_id: queryParams.category_id,
-                    limit: queryParams.limit,
-                    current_page: queryParams.current_page,
-                })
-            }
+            // }
+            // else{
+            //     ctx.body = await strapi.service('api::product.product').getBestByCategory({
+            //         category_id: queryParams.category_id,
+            //         limit: queryParams.limit,
+            //         current_page: queryParams.current_page,
+            //     })
+            // }
         }
         else if(subcategory_id){
             if(best_seller){

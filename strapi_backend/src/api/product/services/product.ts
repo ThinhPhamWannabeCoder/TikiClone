@@ -104,6 +104,9 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             //         id: options.category_id
             //     }
             // }
+            categories:{
+                id: options.category_id
+            }
         };
         if(options.price_range){
             const priceArray = options.price_range.split('-');
