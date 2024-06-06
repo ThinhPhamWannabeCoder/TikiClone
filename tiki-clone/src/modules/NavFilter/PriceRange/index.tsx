@@ -9,80 +9,18 @@ const mockData:PriceRangeType = {
     third_quatile:  1100000,
 
 }
+const trueMoc:number[] = [300000, 1100000];
 interface PropTypes {
-    priceRange: PriceRangeType,
-    setPriceRange: (input: PriceRangeType)=>void,
+    priceRange: number[],
+    setPriceRange: (input: number[])=>void,
     priceOptions: PriceRangeOption,
     setPriceOptions: (input: PriceRangeOption) => void,
-    handleChangePriceRange: (input: PriceRangeType)=>void,
-    handleChangePriceOptions: (input: PriceRangeOption) => void,
+ 
+    handleDeleteInputs: () => void
 
 }
 export default function PriceRange(props: PropTypes){
     
-    const handleFirstQuatile = () => {
-        let option:PriceRangeType;
-        if(props.priceRange?.first_quatile && props.priceRange?.third_quatile){
-            option = {
-                first_quatile: mockData.first_quatile,
-                third_quatile:  0
-            }
-            
-        }
-        else{
-            option ={
-                first_quatile: props.priceRange?.first_quatile ? 0 : mockData.first_quatile,
-                third_quatile: 0
-            }
-        }
-        props.setPriceRange(option)
-        props.setPriceOptions({from: -1, to: -1})
-        props.handleChangePriceRange(option);
-    }
-    const handleThirdQuatile = () => {
-        let option:PriceRangeType;
-        if(props.priceRange?.first_quatile && props.priceRange?.third_quatile){
-            option ={
-                first_quatile: 0 ,
-                third_quatile:  mockData.third_quatile,
-            }
-        }
-        else{
-            option = {
-                first_quatile: 0,
-                third_quatile: props.priceRange?.third_quatile ? 0 : mockData.third_quatile,
-            }
-        }
-        props.setPriceRange(option)
-        props.setPriceOptions({from: -1, to: -1})
-        props.handleChangePriceRange(option);
-
-        // props.handleChangePriceOptions
-
-    }
-    const handleMiddle = () => {
-        let option:PriceRangeType;
-
-        if(props.priceRange?.first_quatile && props.priceRange?.third_quatile){
-            option ={
-                first_quatile: 0 ,
-                third_quatile:  0 ,
-            }
-        }
-        else{
-            option ={
-                first_quatile: mockData.first_quatile,
-                third_quatile:  mockData.third_quatile,
-            }
-        }
-        props.setPriceRange(option)
-
-        props.setPriceOptions({from: -1, to: -1})
-        props.handleChangePriceRange(option);
-
-
-        
-    }
     const handleFromInput = (e)=>{
         // console.log(e.target.value)
         const value = parseCurrency(e.target.value);
@@ -93,6 +31,13 @@ export default function PriceRange(props: PropTypes){
 
             // Kiểm tra nếu giá trị là một số hợp lệ và lớn hơn 0
             if (!isNaN(parsedValue) && parsedValue > 0) {
+                //CÂP NHẬT GIÁ TRỊ
+                if(props.priceRange[0] == mockData[0] || props.priceRange[1] == mockData[1] ){
+                    props.setPriceRange([parsedValue, 0])
+                }
+                else{
+                    props.setPriceRange([parsedValue,props.priceRange[1]])
+                }
                 props.setPriceOptions({
                 ...props.priceOptions, // Giữ lại các giá trị hiện tại trong priceOptions
                 from: parsedValue, // Cập nhật giá trị from
@@ -105,7 +50,7 @@ export default function PriceRange(props: PropTypes){
                 });
             }
         }
-        props.setPriceRange({first_quatile: 0, third_quatile: 0})
+        // props.setPriceRange(...props.priceRange)
     }
     const handleToInput = (e)=>{
          // console.log(e.target.value)
@@ -119,6 +64,12 @@ export default function PriceRange(props: PropTypes){
  
              // Kiểm tra nếu giá trị là một số hợp lệ và lớn hơn 0
              if (!isNaN(parsedValue) && parsedValue > 0) {
+                if(props.priceRange[0] == mockData[0] || props.priceRange[1] == mockData[1] ){
+                    props.setPriceRange([0, parsedValue])
+                }
+                else{
+                    props.setPriceRange([props.priceRange[0], parsedValue])
+                }
                  props.setPriceOptions({
                  ...props.priceOptions, // Giữ lại các giá trị hiện tại trong priceOptions
                  to: parsedValue, // Cập nhật giá trị from
@@ -131,15 +82,18 @@ export default function PriceRange(props: PropTypes){
                  });
              }
          }
-        props.setPriceRange({first_quatile: 0, third_quatile: 0})
+        // props.setPriceRange({first_quatile: 0, third_quatile: 0})
 
     }
-    const handleDeleteInputs = () =>{
-        // console.log("Delete")
+  
+    const handleOptionChange = (input: number[])=>{
+        props.setPriceRange([input[0], input[1]])
+        // props.setPriceRange([0, trueMoc[0]])
+
         props.setPriceOptions({
             from: -1,
             to: -1,
-        })
+            });
     }
     return(
         <>
@@ -149,36 +103,36 @@ export default function PriceRange(props: PropTypes){
                 <div >
                     <span 
                         className={"border-2 rounded-full px-4 py-1 cursor-pointer  " 
-                                + (props.priceRange?.first_quatile >0 && props.priceRange?.third_quatile == 0
+                                + (props.priceRange[0] == 0 && props.priceRange[1] == trueMoc[0]
                                     ? 'bg-slate-200'
                                     : 'hover:bg-slate-100')}
-                        onClick={()=>{handleFirstQuatile()}}
+                        onClick={()=>{handleOptionChange([0, trueMoc[0]])}}
                     >
-                        {'Dưới ' + formatCurrency(mockData.first_quatile)}
+                        {'Dưới ' + formatCurrency(trueMoc[0])}
 
                     </span>
                 </div>
                 <div>
                     <span 
                         className={"border-2 rounded-full px-4 py-1 cursor-pointer " 
-                        + (props.priceRange?.first_quatile >0 && props.priceRange?.third_quatile > 0
+                        + (props.priceRange[0] == trueMoc[0] && props.priceRange[1] == trueMoc[1]
                             ? 'bg-slate-200'
                             : 'hover:bg-slate-100')}
-                        onClick={()=>handleMiddle()}
+                        onClick={()=>{handleOptionChange([trueMoc[0], trueMoc[1]])}}
                     >
-                        {formatCurrency(mockData.first_quatile) + ' - ' + formatCurrency(mockData.third_quatile)}
+                        {formatCurrency(trueMoc[0]) + ' - ' + formatCurrency(trueMoc[1])}
                     </span>
 
                 </div>
                 <div>
                     <span 
                         className={"border-2 rounded-full px-4 py-1 cursor-pointer " 
-                        + (props.priceRange?.first_quatile == 0 && props.priceRange?.third_quatile > 0
+                        + (props.priceRange[0] == trueMoc[1] && props.priceRange[1] == 0
                             ? 'bg-slate-200'
                             : 'hover:bg-slate-100')}
-                        onClick={()=>{handleThirdQuatile()}}
+                        onClick={()=>{handleOptionChange([trueMoc[1], 0])}}
                     >
-                       {'Trên ' + formatCurrency(mockData.third_quatile)}
+                       {'Trên ' + formatCurrency(trueMoc[1])}
                     </span>
 
                 </div>
@@ -219,10 +173,10 @@ export default function PriceRange(props: PropTypes){
                 
                 <div className="flex justify-between">
                     <span className="text-sm text-slate-600">Giá trị đầu phải nhỏ hơn hoặc bằng giá trị sau</span>
-                    <span onClick={()=>handleDeleteInputs()} className="cursor-pointer text-blue-400 hover:text-blue-600 ">Xoá</span>
+                    <span onClick={()=>props.handleDeleteInputs()} className="cursor-pointer text-blue-400 hover:text-blue-600 ">Xoá</span>
                 </div>
                 
-</div>
+            </div>
 
 
         </>

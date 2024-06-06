@@ -12,8 +12,6 @@ interface PropsType{
 }
 export default function Shipping(props: PropsType){
     const handleShipping = (input: number) =>{
-        
-      
         props.setSelectedDeliveryOption((prevOptions:number[])=>{
             if(prevOptions.includes(input)){
                 return prevOptions.filter(option => option != input);
@@ -23,6 +21,7 @@ export default function Shipping(props: PropsType){
             }
         })
     }
+    console.log(props.selectedDeliveryOption)
     return (
         <>
             <h1 className="font-semibold">Giao hàng</h1>
@@ -30,21 +29,23 @@ export default function Shipping(props: PropsType){
                 {
                     props.data?.map(item=>{
                         return(
-                            <div className=" flex gap-2" key={item.id}
-                                onClick={()=>{handleShipping(item.id)}}
-                            >
-                                <input type="checkbox" id={"shipping_"+item.id.toString()}  />
-                                <label htmlFor={"shipping_"+item.id.toString()}  className="flex gap-2" >
-                                    {item.name}
-                                    {
-                                        item.icon ? 
-                                            (<img src={`${ASSET_API}${item.icon.url}`} alt="" className="object-cover mr-3 w-12" />
-                                        ) : null
-                                    }
-
-                                </label>
-                                
+                            <div className="flex gap-2" key={item.id} onClick={() => { handleShipping(item.id) }}>
+                            <input 
+                                type="checkbox" 
+                                id={"shipping_" + item.id.toString()}  
+                                checked={props.selectedDeliveryOption.includes(item.id)} 
+                                readOnly // Thêm readOnly để tránh cảnh báo về điều khiển không hoàn toàn
+                            />
+                            <div className="flex gap-2">
+                                {item.name}
+                                {
+                                    item.icon ? 
+                                        (<img src={`${ASSET_API}${item.icon.url}`} alt="" className="object-cover mr-3 w-12" />)
+                                    : null
+                                }
                             </div>
+                        </div>
+
                         )
                     })
                 }

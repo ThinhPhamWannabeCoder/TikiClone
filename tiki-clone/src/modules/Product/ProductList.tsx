@@ -16,7 +16,7 @@ interface product{
     Inventory: number,
     name: string,
     product_sub_category: {
-        id: number,
+        id: number,f
         name: number,
         product_category:{
             id: number,

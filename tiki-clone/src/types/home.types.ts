@@ -6,3 +6,6 @@ export interface PriceRangeOption {
     from: number,
     to: number
 }
+export interface PriceRangeIn {
+    
+}

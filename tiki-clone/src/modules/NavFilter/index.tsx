@@ -19,7 +19,7 @@ export default function NavFilter(props: propsType){
 
     const [ selectedDeliveryOption,setSelectedDeliveryOption ] = useState<number[]>([]);
     // Price Range States
-    const [priceRange, setPriceRange] = useState<PriceRangeType>({first_quatile: 0, third_quatile: 0});
+    const [priceRange, setPriceRange] = useState<number[]>([0,0]);
     // Price Options States
     const [priceOptions, setPriceOptions] = useState<PriceRangeOption>({from: -1, to: -1});
 
@@ -35,18 +35,21 @@ export default function NavFilter(props: propsType){
         })
     },[])
     
-    const handleChangePriceRange = (input : PriceRangeType) =>{
-        const first = input.first_quatile.toString();
-        const second = input.third_quatile.toString();
-        props.setPrices(first+'-'+second)
-
+    const handleDeleteInputs = () =>{
+        setPriceRange([0,0]);
+        setPriceOptions({from: -1, to: -1});
+        setSelectedDeliveryOption([]);
+        console.log(selectedDeliveryOption);
     }
-    const handleChangePriceOptions = (input : PriceRangeOption) =>{
-        const first = input.from.toString();
-        const second = input.to.toString();
-        props.setPrices(first+'-'+second)
+    const handlePriceOption = () => {
+        if(priceRange[0] <= priceRange[1]){
+            props.setRefresh(true)
+            return;
+        }
+        alert("Giá từ phải nhỏ hơn giá tới")
+        setPriceOptions({from: -1, to: -1})
+        setPriceRange([0,0])
     }
-
     return(
         <div className="flex flex-col px-3 gap-3">
             <h1 className="font-semibold border-b border-slate-300 py-2">Lọc</h1>
@@ -60,12 +63,11 @@ export default function NavFilter(props: propsType){
                 setPriceRange={setPriceRange}
                 priceOptions={priceOptions}
                 setPriceOptions={setPriceOptions}
-                handleChangePriceOptions={handleChangePriceOptions}
-                handleChangePriceRange={handleChangePriceRange}
+                handleDeleteInputs={handleDeleteInputs}
             />
             <PrimaryButton
                 name="Lọc"
-                fnc={()=>{props.setRefresh(true)}}
+                fnc={handlePriceOption}
                 class="my-2"
             />
         </div>
