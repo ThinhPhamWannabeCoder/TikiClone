@@ -1,12 +1,12 @@
-import ProductListBox from "../../../../components/Common/ProductListBox";
-import { thinh_avatar } from "../../../../assets/images/image";
-import SmallFilterNav from "../../SmallFilterNav";
+import ProductListBox from "../../../components/Common/ProductListBox";
+import SmallFilterNav from "../../Product/SmallFilterNav";
 import { useEffect, useState } from "react";
-import ContentBox from "../../../../components/Common/ContentBox";
-import ProductBagde from "../../../../components/Badge/ProductBadge";
-import FilterBadge from "../../../../components/Badge/FilterBadge";
-import productApi from "../../../../services/buyer.services";
-import SecondaryTitle from "../../../../components/Title/SecondaryTitle";
+import productApi from "../../../services/buyer.services";
+import FilterBadge from "../../../components/Badge/FilterBadge";
+import ProductBagde from "../../../components/Badge/ProductBadge";
+import ContentBox from "../../../components/Common/ContentBox";
+import SecondaryTitle from "../../../components/Title/SecondaryTitle";
+
 
 interface filterItem{
     id: number,
@@ -31,19 +31,18 @@ interface product{
         url: string,
     }
 }
-
-export default function YouMayLike(){
+export default function AllBest(){
     // const [option, setOption] = useState(1);
     const [filterData, setFilterData] = useState<filterItem[]|undefined>(undefined)
     const [isLoading, setLoading] = useState<boolean>(true)
     const [curCategoryId, setCurCategoryId] = useState<number|undefined>(undefined)
-    const [prouductData, setProducData] = useState<product[]|undefined>(undefined)
+    const [productData, setProducData] = useState<product[]|undefined>(undefined)
     // const [count, setCount] = useState(1);
     useEffect(()=>{
-        productApi.getCategoryTopFilter()
+        productApi.getCategoryBestFilter()
             .then(res => {
-                // console.log(res.data.data)
                 if(res.data.data.length>0){
+                    
                     setFilterData(res.data.data);
                     setLoading(false);
                     setCurCategoryId(res.data.data[0].id)
@@ -60,9 +59,8 @@ export default function YouMayLike(){
                 current_page: 1
             }).then(res => 
                 {
-                    // console.log(res.data)
                     if(res.data.length>0){
-                        
+          
                         setProducData(res.data)
                     }
                     else{
@@ -77,13 +75,13 @@ export default function YouMayLike(){
         return (
             <ContentBox class="w-full">
             
-                You may like
+                All best Product List
             </ContentBox>
         )
     }
     return(
         <ContentBox class="flex flex-col gap-3">
-            <SecondaryTitle name="Bạn có thể thích"/>
+            <SecondaryTitle name="Tiki Best"/>
             <SmallFilterNav class="col-span-6 flex p-0">
             {
                 filterData?.map(x=>(
@@ -93,10 +91,10 @@ export default function YouMayLike(){
             </SmallFilterNav>
             <ProductListBox >
             {
-                    prouductData?.map(item=>
+                    productData?.map(item=>
                         <ProductBagde 
                             key={item.id}
-                            id= {item.id}
+                            id = {item.id}
                             product_url={item.primary_image.url} 
                             name={item.name}
                             price={item.price}
@@ -105,35 +103,7 @@ export default function YouMayLike(){
                 }
             </ProductListBox>
                 {/* Pagination here */}
-        </ContentBox>
-            
+                
+        </ContentBox>      
     )
 }
-
-const data = [
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-    {
-        url: thinh_avatar,
-        title: 'option'
-    },
-
-]

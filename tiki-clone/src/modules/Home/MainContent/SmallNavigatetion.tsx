@@ -1,5 +1,5 @@
-import ContentBox from "../../../../components/Common/ContentBox";
-import { thinh_avatar } from "../../../../assets/images/image";
+import ContentBox from "../../../components/Common/ContentBox";
+import { thinh_avatar } from "../../../assets/images/image";
 
 const data = [
     {

@@ -30,9 +30,9 @@ interface product{
 interface PropsType {
     categoryId?: number,
     priceRange?: string,
-    refresh: boolean,
-    price: string,
-    setRefresh: (input: boolean) => void
+    refresh?: boolean,
+    price?: string,
+    setRefresh?: (input: boolean) => void
 
 }
 export default function ProductList(props: PropsType){

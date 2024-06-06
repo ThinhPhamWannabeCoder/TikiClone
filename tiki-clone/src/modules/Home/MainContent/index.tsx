@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import MainContent from "../../../../components/Common/MainContent";
-import ProductList from "../../ProductList";
+import MainContent from "../../../components/Common/MainContent";
+import ProductList from "../../Product/ProductList";
 import AllBest from "./AllBest";
 import HeroSection from "./HeroSection";
 import SmallNavigation from "./SmallNavigatetion";

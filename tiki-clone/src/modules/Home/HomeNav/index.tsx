@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { unidecode } from "../../../../utils/common";
-import NavBox from "../../../../components/Common/NavBox";
-import productApi from "../../../../services/buyer.services";
+// import { unidecode } from "../../../../utils/common";
+import { unidecode }  from "../../../utils/common"
+import NavBox from "../../../components/Common/NavBox";
+import productApi from "../../../services/buyer.services";
 
 interface navItem{
   id: number,

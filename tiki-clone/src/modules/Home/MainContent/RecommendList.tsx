@@ -1,4 +1,4 @@
-import ProductListBox from "../../../../components/Common/ProductListBox";
+import ProductListBox from "../../../components/Common/ProductListBox";
 
 export default function RecommendedList(){
     return (

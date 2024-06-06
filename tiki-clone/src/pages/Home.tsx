@@ -1,5 +1,5 @@
 import OuterContainer from "../components/Common/OuterContent";
-import Home from "../modules/Product/Home";
+import Home from "../modules/Home";
 
 export default function HomePage(){
     // Khong fetch tai day

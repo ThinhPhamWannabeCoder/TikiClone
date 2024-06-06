@@ -1,7 +1,6 @@
-import ContentBox from "../../../../components/Common/ContentBox"
-import { thinh_avatar } from "../../../../assets/images/image"
+import ContentBox from "../../../components/Common/ContentBox"
 import { useEffect, useState } from "react"
-import productApi from "../../../../services/buyer.services"
+import productApi from "../../../services/buyer.services"
 interface banner{
     id: number,
     name: string,
