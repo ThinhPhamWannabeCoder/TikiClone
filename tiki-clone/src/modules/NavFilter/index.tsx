@@ -4,7 +4,7 @@ import SecondaryTitle from "../../components/Title/SecondaryTitle";
 import Shipping from "./Shipping";
 import PrimaryButton from "../../components/Button/PrimaryButton";
 import { useEffect, useState } from "react";
-import { PriceRangeOption, PriceRangeType } from "../../types/home.types";
+import { PriceRangeOption } from "../../types/home.types";
 import { DeliveryOptionsType } from "../../types/user.types";
 import productApi from "../../services/buyer.services";
 
@@ -42,8 +42,9 @@ export default function NavFilter(props: propsType){
         console.log(selectedDeliveryOption);
     }
     const handlePriceOption = () => {
-        if(priceRange[0] <= priceRange[1]){
+        if(priceOptions.from <= priceOptions.to){
             props.setRefresh(true)
+            props.setPrices(priceRange[0] + '-' + priceRange[1])
             return;
         }
         alert("Giá từ phải nhỏ hơn giá tới")

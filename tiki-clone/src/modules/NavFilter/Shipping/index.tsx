@@ -21,7 +21,6 @@ export default function Shipping(props: PropsType){
             }
         })
     }
-    console.log(props.selectedDeliveryOption)
     return (
         <>
             <h1 className="font-semibold">Giao hàng</h1>

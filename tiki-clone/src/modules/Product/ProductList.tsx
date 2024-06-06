@@ -8,7 +8,6 @@ import SecondaryTitle from "../../components/Title/SecondaryTitle";
 import ProductListPagination from "../../components/Pagination/ProductListPagination";
 import ContentBox from "../../components/Common/ContentBox";
 import HomeProductListFilter from "../../components/Badge/HomeProductListFIlter";
-import { PriceRangeOption, PriceRangeType } from "../../types/home.types";
 
 interface product{
     id: number,
@@ -16,7 +15,7 @@ interface product{
     Inventory: number,
     name: string,
     product_sub_category: {
-        id: number,f
+        id: number,
         name: number,
         product_category:{
             id: number,
@@ -76,26 +75,27 @@ export default function ProductList(props: PropsType){
                 }
             })
         }
-        else{
-            productApi.getHomeProduct({
-                best_seller: bestSeller,
-                limit: 6,
-                current_page: currentPage,
-            })
-                .then(res => {
-                        console.log(res.data)
+        // else{
+        //     console.log("chet con me roi")
+        //     productApi.getHomeProduct({
+        //         best_seller: bestSeller,
+        //         limit: 6,
+        //         current_page: currentPage,
+        //     })
+        //         .then(res => {
+        //                 console.log(res.data)
     
-                        if(currentPage>1){
-                            // Append 
-                            setProductData((prevData) => [...prevData, ...res.data]);
-                        }
-                        else{
-                            setProductData(res.data)
-                            setLoading(false);
-                        }
-                    })
-                .catch(err => console.log(err.message))
-        }
+        //                 if(currentPage>1){
+        //                     // Append 
+        //                     setProductData((prevData) => [...prevData, ...res.data]);
+        //                 }
+        //                 else{
+        //                     setProductData(res.data)
+        //                     setLoading(false);
+        //                 }
+        //             })
+        //         .catch(err => console.log(err.message))
+        // }
         props.setRefresh(false)
 
     }
@@ -108,7 +108,7 @@ export default function ProductList(props: PropsType){
                 limit: 6,
                 current_page: currentPage,
                 new_product: "true",
-                price_range: "0-3",
+                price_range: props.price,
                 sort: "asc"
             })
             .then(res=>{   

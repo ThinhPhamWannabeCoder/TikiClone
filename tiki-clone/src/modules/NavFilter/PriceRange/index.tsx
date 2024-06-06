@@ -1,14 +1,10 @@
 import PrimaryTitle from "../../../components/Title/PrimaryTitle";
 import SecondaryTitle from "../../../components/Title/SecondaryTitle";
-import { PriceRangeOption, PriceRangeType } from "../../../types/home.types";
+import { PriceRangeOption} from "../../../types/home.types";
 import { formatCurrency, parseCurrency } from "../../../utils/common";
 import PriceOption from "./PriceOption";
 
-const mockData:PriceRangeType = {
-    first_quatile:  300000,
-    third_quatile:  1100000,
 
-}
 const trueMoc:number[] = [300000, 1100000];
 interface PropTypes {
     priceRange: number[],
@@ -32,7 +28,7 @@ export default function PriceRange(props: PropTypes){
             // Kiểm tra nếu giá trị là một số hợp lệ và lớn hơn 0
             if (!isNaN(parsedValue) && parsedValue > 0) {
                 //CÂP NHẬT GIÁ TRỊ
-                if(props.priceRange[0] == mockData[0] || props.priceRange[1] == mockData[1] ){
+                if(props.priceRange[0] == trueMoc[0] || props.priceRange[1] == trueMoc[1] ){
                     props.setPriceRange([parsedValue, 0])
                 }
                 else{
@@ -64,7 +60,7 @@ export default function PriceRange(props: PropTypes){
  
              // Kiểm tra nếu giá trị là một số hợp lệ và lớn hơn 0
              if (!isNaN(parsedValue) && parsedValue > 0) {
-                if(props.priceRange[0] == mockData[0] || props.priceRange[1] == mockData[1] ){
+                if(props.priceRange[0] == trueMoc[0] || props.priceRange[1] == trueMoc[1] ){
                     props.setPriceRange([0, parsedValue])
                 }
                 else{
