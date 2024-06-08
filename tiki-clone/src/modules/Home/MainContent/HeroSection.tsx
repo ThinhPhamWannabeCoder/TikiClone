@@ -32,7 +32,7 @@ export default function HeroSection(){
         )
     }
     return(
-        
+        // DO  SLIDING HERE
         <ContentBox class="w-full ">
             <div className="w-full flex gap-4">
 

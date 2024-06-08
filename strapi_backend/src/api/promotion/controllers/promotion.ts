@@ -9,8 +9,14 @@ export default factories.createCoreController('api::promotion.promotion',({strap
         const data = await strapi.entityService.findMany('api::promotion.promotion',{
             populate:{
                 banner:{}
+            },
+            filters:{
+                publishedAt:{
+                    $notNull: true,
+                }
             }
         })
+        // console.log(data)
         const payload = data.map(item=>{
             return{
                 id: item.id,
