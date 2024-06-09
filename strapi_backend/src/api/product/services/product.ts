@@ -73,7 +73,11 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
                 },
                 Inventory: {
                     $gt: 0
+                },
+                publishedAt:{
+                    $notNull: true,
                 }
+
             }
         };
         if (options.best_seller) {
@@ -104,8 +108,13 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             //         id: options.category_id
             //     }
             // }
-            categories:{
-                id: options.category_id
+            $or: [
+                {categories:{id: options.category_id}},
+                {categories:{parent: options.category_id}}
+            ],
+            
+            publishedAt:{
+                $notNull: true,
             }
         };
         if(options.price_range){

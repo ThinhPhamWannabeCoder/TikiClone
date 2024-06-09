@@ -61,7 +61,7 @@ export default function ProductList(props: PropsType){
                 current_page: currentPage,
                 new_product: "true",
                 price_range: props.price as string,
-                sort: "asc"
+                sort: "desc"
             })
             .then(res=>{   
                 console.log(res.data)
@@ -109,7 +109,7 @@ export default function ProductList(props: PropsType){
                 current_page: currentPage,
                 new_product: "true",
                 price_range: props.price,
-                sort: "asc"
+                sort: "desc"
             })
             .then(res=>{   
                 console.log(res.data)
