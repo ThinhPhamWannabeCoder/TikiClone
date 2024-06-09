@@ -157,6 +157,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         if (options.sort) {
             const option = options.sort.split(':')
             queryOptions.sort = [{ price: option[1] }, { Inventory: 'desc' }];
+            console.log(option)
         }
         if (options.best_seller) {
             queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' }];
