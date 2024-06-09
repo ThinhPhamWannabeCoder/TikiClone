@@ -110,9 +110,20 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         };
         if(options.price_range){
             const priceArray = options.price_range.split('-');
-            filters.price = {
-                $between: [parseFloat(priceArray[0]), parseFloat(priceArray[1])]
-            };
+            console.log(options.price_range);
+            const priceFrom = parseFloat(priceArray[0]);
+            const priceTo = parseFloat(priceArray[1]);
+            if(priceTo == 0){
+                filters.price = {
+                    $gte: priceFrom
+                };
+            }
+            else{
+                filters.price = {
+                    $between: [priceFrom, priceTo]
+                };
+            }
+            
         }
 
         const queryOptions: any = {

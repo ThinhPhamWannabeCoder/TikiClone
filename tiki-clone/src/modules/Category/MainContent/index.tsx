@@ -31,7 +31,7 @@ export default function CategoryContent(props : propsType){
             .then(res => {
                 // console.log
                 setTitle(res.data.data.attributes.name); 
-                console.log(res.data.data.attributes.name)})
+                })
             .catch(e => console.log(e.message));
 
     },[])
@@ -40,9 +40,9 @@ export default function CategoryContent(props : propsType){
         <MainContent>
 
             <Title name={title}/>
-            <SubCategoryNav/>
+            <SubCategoryNav categoryId={parseInt(category_id as string)}/>
 
-            <SubCategoryAllBest category_id={parseInt(category_id as string)}/>
+            {/* <SubCategoryAllBest category_id={parseInt(category_id as string)}/> */}
             {/* USE useMemo for better performance when filtering productList
                 not the filter nav
                 */}

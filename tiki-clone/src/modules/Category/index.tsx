@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { DeliveryOptionsType } from "../../types/user.types";
+import {  useState } from "react";
 import CategoryNav from "./CategoryNav";
 import CategoryContent from "./MainContent";
 
 export default function Category(){
 
-    const [prices, setPrices] = useState<string>('0-3');
+    const [prices, setPrices] = useState<string>('0-0');
     const [refresh, setRefresh] = useState<boolean>(false);
 
 

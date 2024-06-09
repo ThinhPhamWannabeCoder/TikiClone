@@ -60,7 +60,7 @@ export default function ProductList(props: PropsType){
                 limit: 6,
                 current_page: currentPage,
                 new_product: "true",
-                price_range: props.price,
+                price_range: props.price as string,
                 sort: "asc"
             })
             .then(res=>{   

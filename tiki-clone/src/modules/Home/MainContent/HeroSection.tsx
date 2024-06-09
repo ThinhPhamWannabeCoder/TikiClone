@@ -38,13 +38,13 @@ export default function HeroSection(){
 
                 {banner?.map(item=>{
                     return(
-                        <img key={item.id} src={`http://localhost:1337${item.image}`} alt="" className="flex-1 object-cover h-80 rounded-xl"/>
+                        <img key={item.id} src={`http://localhost:1337${item.image}`} alt="" className="flex-1 object-cover h-80 rounded-xl cursor-pointer"/>
                     )
                 })}
             </div>
-           <div className="flex justify-center">
+           {/* <div className="flex justify-center">
              this is pagination 
-           </div>
+           </div> */}
         </ContentBox>
             
         // image swipping
