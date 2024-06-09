@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ContentBox from "../../../components/Common/ContentBox";
 import { PlusIcon, MinusIcon} from "@heroicons/react/24/solid";
+import { formatCurrency } from "../../../utils/common";
 // interface OrderOptionProps{
 //     option: string,
 //     optionUrl: string,
@@ -73,7 +74,7 @@ export default function OrderOption(prop: propType){
             </div>
             <div>
                 <h3 className="font-semibold text-lg">Tạm tính</h3>
-                <p className="text-xl font-bold py-4">{prop.price * prop.quantity}</p>
+                <p className="text-xl font-bold py-4">{formatCurrency(prop.price * prop.quantity)} đ</p>
             </div>
 
         </>

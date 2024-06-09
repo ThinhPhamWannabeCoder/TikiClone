@@ -10,6 +10,7 @@ import { update, selectCart, deleteCart } from "../../../../redux/cart/cartSlice
 const ASSET_API = import.meta.env.VITE_ASSETS_URL
 
 import { RootState } from "../../../../redux/store";
+import { formatCurrency } from "../../../../utils/common";
 interface productCart{
     id: number,
     name: string,
@@ -66,7 +67,7 @@ export default function CartCard(prop: productCart){
                 <p>{prop.name}</p>
             </OrderProductFirstSection>
             <OrderProductPrice>
-                <p>{prop.price}</p>
+                <p>{formatCurrency(prop.price)} đ</p>
             </OrderProductPrice>
 
             <OrderProductQuantity>
@@ -99,7 +100,7 @@ export default function CartCard(prop: productCart){
                 </div>
             </OrderProductQuantity>
             <OrderProductFinalSection class="flex justify-between items-center">
-                <p>{finalPrice}</p>
+                <p> {formatCurrency(finalPrice)} đ</p>
                 <TrashIcon className="w-6 h-6 cursor-pointer" onClick={()=>{handleDeleteCart(prop.id)}}/>
 
             </OrderProductFinalSection>

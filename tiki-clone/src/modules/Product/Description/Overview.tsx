@@ -1,4 +1,5 @@
 import ContentBox from "../../../components/Common/ContentBox"
+import { formatCurrency } from "../../../utils/common"
 
 interface Overview{
     name: string,
@@ -10,7 +11,7 @@ export default function Overview(prop: Overview){
             <h1 className=" text-xl">
                 {prop.name}
             </h1>
-            <p className="text-xl font-bold mt-4">{prop.price.toFixed(3)}</p>
+            <p className="text-xl font-bold mt-4">{formatCurrency(prop.price)} đ</p>
         </ContentBox>
     )
 }

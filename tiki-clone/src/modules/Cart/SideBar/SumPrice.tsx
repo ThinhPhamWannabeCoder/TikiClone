@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ContentBox from "../../../components/Common/ContentBox";
+import { formatCurrency } from "../../../utils/common";
 
 interface propsType{
     sumProductPrice: number,
@@ -25,12 +26,12 @@ export default function SumPrice(prop: propsType) {
             
             <div className="flex justify-between">
                 <span >Giá sản phẩm</span>
-                <span className="text-red-600 text-xl">{prop.sumProductPrice.toLocaleString('de-DE')}</span>
+                <span className="text-red-600 text-xl">{formatCurrency(prop.sumProductPrice)} đ</span>
                 
             </div>
             <div className="flex justify-between border-t-2 border-dashed pt-2 mt-2 border-slate-500">
                 <h3>Tổng Tiền</h3>
-                <span className="text-red-600 text-xl">{totalPrice.toLocaleString('de-DE')}</span>
+                <span className="text-red-600 text-xl">{formatCurrency(totalPrice)} đ</span>
             </div>
         </>)
     }

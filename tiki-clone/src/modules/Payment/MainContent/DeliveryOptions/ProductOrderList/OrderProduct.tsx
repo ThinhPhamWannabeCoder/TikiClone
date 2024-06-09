@@ -1,3 +1,5 @@
+import { formatCurrency } from "../../../../../utils/common"
+
 const ASSET_API = import.meta.env.VITE_ASSETS_URL
 
 interface propType{
@@ -21,7 +23,7 @@ export default function OrderProduct(props: propType){
                         <span>SL: {props.quantity}</span>
                     </div>
                     <div>
-                        <span className="font-bold">{props.product.price} ₫</span>    
+                        <span className="font-bold">{formatCurrency(props.product.price)} ₫</span>    
                     </div>      
                 </div>
             </div>
