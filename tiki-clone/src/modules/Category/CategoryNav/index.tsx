@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBox from "../../../components/Common/NavBox";
 import productApi from "../../../services/buyer.services";
-import { unidecode } from "../../../utils/common";
+import { convertToSlug, unidecode } from "../../../utils/common";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import NavFilter from "../../NavFilter";
 interface navItem{
@@ -24,15 +24,7 @@ export default function CategoryNav(props: propsType){
     
     const [curCategory, setCurCategory] = useState<number>(parseInt(searchParams.get('category_id') as string))
 
-    const convertToSlug = (text:string) => {
-        const x =  unidecode(text)
-            .toLowerCase() // Convert text to lowercase
-            .replace(/ - /g,"-")
-            .replace(/[^\w\s-]/g, "") // Remove non-word characters
-            .replace(/\s+/g, "-") // Replace spaces with hyphens
-            .trim(); // Trim leading and trailing spaces
-        return x
-      };    
+    
     // console.log(convertToSlug(item.name))
     if(!searchParams.get('category_id')){
 
@@ -40,7 +32,6 @@ export default function CategoryNav(props: propsType){
     }
 
     useEffect(()=>{
-      console.log("check")
         
         productApi.getCategory(parseInt(searchParams.get('category_id') as string))
             .then(res => {
@@ -83,14 +74,10 @@ export default function CategoryNav(props: propsType){
                       <div
                         key={item.id}
                         onClick={()=>{handleNavigation(item)}}
-                        // to={`/${convertToSlug(item.name)}?category_id=${item.id}`} // Convert title to slug
                         className="py-2 hover:bg-gray-200 rounded-xl px-3 transition duration-200 flex gap-2"
                         >
-                        {/* <div className="flex"> */}
-                          {/* <img src={`http://localhost:1337${item.image}`} alt="categry iamge"  className="w-10 h-10"/> */}
                           <p>{item.name}</p>
 
-                        {/* </div> */}
                       </div>
                   ))} 
                   
