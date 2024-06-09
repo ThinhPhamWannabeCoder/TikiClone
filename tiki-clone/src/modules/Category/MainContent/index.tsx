@@ -20,33 +20,26 @@ interface propsType{
 export default function CategoryContent(props : propsType){
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const [title, setTitle]  = useState<string|undefined>(undefined)
+    const [title, setTitle]  = useState<string>()
     const navigate = useNavigate();
     const category_id = searchParams.get('category_id')
     if(!category_id){
         navigate("/")
     }
-    // useEffect(()=>{
-    //     productApi.getCategory(parseInt(category_id as string))
-    //         .then(x => {setTitle(x.data.data.attributes.name); console.log(x.data.data.attributes.name)})
-    //         .catch(e => console.log(e.message));
+    useEffect(()=>{
+        productApi.getCategoryById(parseInt(category_id as string))
+            .then(res => {
+                // console.log
+                setTitle(res.data.data.attributes.name); 
+                console.log(res.data.data.attributes.name)})
+            .catch(e => console.log(e.message));
 
-    // },[])
+    },[])
 
-
-    // FILTER STATES
-
-    // useEffect
-
-
-
-    // if(title === undefined){
-    //     return <div>Please contect Admin for information Alo bro</div>
-    // }
     return(
         <MainContent>
 
-            <Title name={"NAME TO CHANGE"}/>
+            <Title name={title}/>
             <SubCategoryNav/>
 
             <SubCategoryAllBest category_id={parseInt(category_id as string)}/>

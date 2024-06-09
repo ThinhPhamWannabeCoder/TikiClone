@@ -29,6 +29,9 @@ const data = [
 ]
 
 export default function SubCategoryNav(){
+    
+    //CATEGORY
+
     return(
         <ProductListBox>
             <h1 className="col-span-6 text-xl font-semibold pb-3">Danh mục nổi bật</h1>

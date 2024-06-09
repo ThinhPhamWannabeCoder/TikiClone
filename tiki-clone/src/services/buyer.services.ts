@@ -23,10 +23,12 @@ const productApi ={
 
     // =============== CATEGORY =============== //
     getCategory: async (parent?: number,) => await axiosAdmin.get(`/categories${parent ? `?parent=${parent}`:''}`),
-
-    //getCategoryNav : async () => await axiosAdmin.get("/product-categories/nav"),
+    getCategoryById: async (id: number,) => await axiosAdmin.get(`/categories/${id}`),
+    //getCategoryNav : async () => await axiosAdmin.get("/product-categories/nav"),git
     getCategoryBestFilter: async () => await axiosAdmin.get("/categories/best"),
     getCategoryTopFilter: async () => await axiosAdmin.get("/categories/top"),
+
+    //HERE
     getSubCategoryNav: async (parent: number) => await axiosAdmin.get(`categories/sub-nav/${parent}`),
 
 
