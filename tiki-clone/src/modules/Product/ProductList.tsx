@@ -75,27 +75,7 @@ export default function ProductList(props: PropsType){
                 }
             })
         }
-        // else{
-        //     console.log("chet con me roi")
-        //     productApi.getHomeProduct({
-        //         best_seller: bestSeller,
-        //         limit: 6,
-        //         current_page: currentPage,
-        //     })
-        //         .then(res => {
-        //                 console.log(res.data)
-    
-        //                 if(currentPage>1){
-        //                     // Append 
-        //                     setProductData((prevData) => [...prevData, ...res.data]);
-        //                 }
-        //                 else{
-        //                     setProductData(res.data)
-        //                     setLoading(false);
-        //                 }
-        //             })
-        //         .catch(err => console.log(err.message))
-        // }
+      
         props.setRefresh(false)
 
     }
@@ -112,7 +92,7 @@ export default function ProductList(props: PropsType){
                 sort: "desc"
             })
             .then(res=>{   
-                console.log(res.data)
+
                 if(currentPage>1){
                     // Append 
                     setProductData((prevData) => [...prevData, ...res.data]);
@@ -130,7 +110,6 @@ export default function ProductList(props: PropsType){
                 current_page: currentPage,
             })
                 .then(res => {
-                        console.log(res.data)
     
                         if(currentPage>1){
                             // Append 
@@ -144,7 +123,44 @@ export default function ProductList(props: PropsType){
                 .catch(err => console.log(err.message))
         }
         
-    },[currentPage,bestSeller])
+    },[currentPage])
+    useEffect(()=>{
+        // console.log(bestSeller)
+        if(props.categoryId){
+            productApi.getCategoryProduct({
+                category_id: props.categoryId,
+                best_seller: bestSeller,
+                limit: 6,
+                current_page: currentPage,
+                new_product: "true",
+                price_range: props.price,
+                sort: "desc"
+            })
+            .then(res=>{   
+
+                    setProductData(res.data)
+                    setLoading(false);
+
+            })
+        }
+        else{
+            productApi.getHomeProduct({
+                best_seller: bestSeller,
+                limit: 6,
+                current_page: currentPage,
+            })
+                .then(res => {
+                        
+
+                            setProductData(res.data)
+                            setLoading(false);
+                            setCurentPage(1)
+
+                    })
+                .catch(err => console.log(err.message))
+        }
+        
+    },[bestSeller])
 
     // Place holder for doing lazy loading
     if(isLoading){
