@@ -86,7 +86,7 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
                 id: para.status
             }
         }
-        const data = strapi.entityService.findMany('api::order.order',{
+        const data = await strapi.entityService.findMany('api::order.order',{
             // popu
             // fields
             
@@ -116,7 +116,7 @@ export default factories.createCoreService('api::order.order',({strapi})=>({
             filters: filters
 
         })
-
+        console.log(data)
         return data
 
         
