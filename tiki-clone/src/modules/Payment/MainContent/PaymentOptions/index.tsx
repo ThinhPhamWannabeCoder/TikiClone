@@ -11,7 +11,7 @@ export default function PaymentOptions() {
     // REDUX
     const dispatch = useDispatch();
     const [selectedOption, setSelectedOption] = useState<number>();
-    const [paymentOptions, setPaymentOptions] = useState<PaymentOptionsType[]>()
+    const [paymentOptions, setPaymentOptions] = useState<PaymentOptionsType[]>([])
     const handleRadioChange = (e) => {
         setSelectedOption(Number(e.target.value)); // Convert value to a number if needed
     };

@@ -14,8 +14,8 @@ export default function RootLayout(){
                 <main className="flex w-11/12 flex-col items-center">
                     <BreadCrumbs/>
                     <Outlet/>
+                    <Footer/>
                 </main>
-                <Footer/>
             </div>
             
         </>
