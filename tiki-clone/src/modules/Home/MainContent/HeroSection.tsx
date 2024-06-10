@@ -32,16 +32,20 @@ export default function HeroSection(){
         )
     }
     return(
-        // DO  SLIDING HERE
         <ContentBox class="w-full ">
-            <div className="w-full flex gap-4">
+          <div className="w-full grid grid-cols-3 gap-4">
+            {banner?.map(item => {
+                return (
+                    <img
+                        key={item.id}
+                        src={`http://localhost:1337${item.image}`}
+                        alt=""
+                        className="object-cover h-100 rounded-xl cursor-pointer"
+                    />
+                );
+            })}
+        </div>
 
-                {banner?.map(item=>{
-                    return(
-                        <img key={item.id} src={`http://localhost:1337${item.image}`} alt="" className="flex-1 object-cover h-80 rounded-xl cursor-pointer"/>
-                    )
-                })}
-            </div>
            {/* <div className="flex justify-center">
              this is pagination 
            </div> */}

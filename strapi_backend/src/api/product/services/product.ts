@@ -52,14 +52,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                // product_sub_category: {
-                //     fields: ['id', 'name'],
-                //     populate: {
-                //         product_category: {
-                //             fields: ['id', 'name']
-                //         }
-                //     }
-                // },
+             
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -69,7 +62,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             filters: {
                 price: {
                     $gte: 0
-                    // $between: [parseFloat("0.01"), parseFloat("0.03")]
                 },
                 Inventory: {
                     $gt: 0
@@ -81,10 +73,8 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             }
         };
         if (options.best_seller) {
-            // If best_seller is true, include sorting
             queryOptions.sort = [{ price: 'desc' }, { Inventory: 'desc' },{createdAt: "desc"}];
         }
-        // console.log(queryOptions)
         return await strapi.entityService.findMany('api::product.product', queryOptions);
     },
     getAllCategory: async (options: 
@@ -103,11 +93,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             Inventory: {
                 $gt: 0
             },
-            // product_sub_category: {
-            //     product_category:{
-            //         id: options.category_id
-            //     }
-            // }
+           
             $or: [
                 {categories:{id: options.category_id}},
                 {categories:{parent: options.category_id}}
@@ -138,14 +124,6 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
         const queryOptions: any = {
             fields: ['id', 'name', 'price', 'Inventory'],
             populate: {
-                // product_sub_category: {
-                //     fields: ['id', 'name'],
-                //     populate: {
-                //         product_category: {
-                //             fields: ['id', 'name']
-                //         }
-                //     }
-                // },
                 primary_image: {
                     fields: ['id', 'url']
                 }
@@ -211,7 +189,7 @@ export default factories.createCoreService('api::product.product',({strapi})=>({
             },
             start: (options.current_page- 1) * options.limit,
             limit: options.limit ,
-            sort: [{price: 'desc'},{Inventory: 'desc'}],
+            sort: [{price: 'desc'},{Inventory: 'asc'}],
             filters: filters,
         };
         return await strapi.entityService.findMany('api::product.product', queryOptions);

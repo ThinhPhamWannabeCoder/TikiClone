@@ -140,6 +140,8 @@ export default function ProductList(props: PropsType){
 
                     setProductData(res.data)
                     setLoading(false);
+                    setCurentPage(1)
+
 
             })
         }
